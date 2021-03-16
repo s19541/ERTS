@@ -13,7 +13,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasComment("Lol game stats");
 
             builder.HasKey(x => x.Id);
-            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedNever();
+            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
 
             builder.Property(b => b.StartTime).HasComment("Start time");
             builder.Property(b => b.EndTime).HasComment("End time");

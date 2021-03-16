@@ -1,4 +1,5 @@
 using ErtsModel;
+using ErtsModel.FakeSeeds;
 using ErtsWebApp.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -83,6 +84,9 @@ namespace ErtsWebApp
                 using (var context = new ErtsContext(connectionString))
                 {
                     context.Database.Migrate();
+
+                    new ErtsFakeSeeder().SeedFakeData(context);
+                    context.SaveChanges();
                 }
             }
             catch (Exception ex)

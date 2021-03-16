@@ -13,7 +13,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasComment("Team");
 
             builder.HasKey(x => x.Id);
-            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedNever();
+            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
             builder.Property(b => b.Name).HasComment("Name").IsRequired();
 
             builder.Property(b => b.GameType).HasComment("Game type").HasConversion(EnumValueConverterFactory.Create<GameType>());

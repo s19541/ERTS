@@ -14,7 +14,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasComment("Players");
 
             builder.HasKey(x => x.Id);
-            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedNever();
+            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
 
             builder.Property(b => b.Name).HasComment("Name");
             builder.Property(b => b.Surname).HasComment("Surname");

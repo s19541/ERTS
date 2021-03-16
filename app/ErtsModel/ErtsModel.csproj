@@ -15,10 +15,15 @@
   <ItemGroup>
     <Compile Include="Migrations\20210316215643_Init.cs" />
     <Compile Include="Migrations\20210316215643_Init.Designer.cs" />
+    <Compile Include="Migrations\20210316223207_Change_LolTeams_To_Teams.cs" />
+    <Compile Include="Migrations\20210316223207_Change_LolTeams_To_Teams.Designer.cs" />
+    <Compile Include="Migrations\20210316224100_Ids_ValueGeneratedOnAdd.cs" />
+    <Compile Include="Migrations\20210316224100_Ids_ValueGeneratedOnAdd.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Faker.Net" Version="1.4.108" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
   </ItemGroup>

@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20210316223207_Change_LolTeams_To_Teams")]
+    partial class Change_LolTeams_To_Teams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,10 +24,8 @@ namespace ErtsModel.Migrations
             modelBuilder.Entity("ErtsModel.Entities.Lol.LolGameStats", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasComment("Id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasComment("Id");
 
                     b.Property<long?>("BlueTeamId")
                         .HasColumnType("bigint");
@@ -56,10 +56,8 @@ namespace ErtsModel.Migrations
             modelBuilder.Entity("ErtsModel.Entities.Player", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasComment("Id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasComment("Id");
 
                     b.Property<string>("Name")
                         .HasColumnType("text")
@@ -91,10 +89,8 @@ namespace ErtsModel.Migrations
             modelBuilder.Entity("ErtsModel.Entities.Team", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasComment("Id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasComment("Id");
 
                     b.Property<string>("GameType")
                         .IsRequired()

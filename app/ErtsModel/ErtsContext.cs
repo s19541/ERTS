@@ -21,7 +21,7 @@ namespace ErtsModel
 
         public DbSet<Player> Players { get; set; }
         public DbSet<LolGameStats> LolGamesStats { get; set; }
-        public DbSet<Team> LolTeams { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
