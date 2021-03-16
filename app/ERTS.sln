@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErtsWebApp", "ErtsWebApp\ErtsWebApp.csproj", "{1202727D-62AD-4213-B477-24B43D95045E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsWebApp", "ErtsWebApp\ErtsWebApp.csproj", "{1202727D-62AD-4213-B477-24B43D95045E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErtsApplication", "ErtsApplication\ErtsApplication.csproj", "{8A56682F-7996-4DF5-B141-BEDDCE298354}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsModel", "ErtsModel\ErtsModel.csproj", "{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1202727D-62AD-4213-B477-24B43D95045E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1202727D-62AD-4213-B477-24B43D95045E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1202727D-62AD-4213-B477-24B43D95045E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A56682F-7996-4DF5-B141-BEDDCE298354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A56682F-7996-4DF5-B141-BEDDCE298354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A56682F-7996-4DF5-B141-BEDDCE298354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A56682F-7996-4DF5-B141-BEDDCE298354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
