@@ -1,9 +1,0 @@
-C:\Projekty\ERTS\app\ErtsApplication\bin\Debug\netcoreapp3.1\ErtsApplication.deps.json
-C:\Projekty\ERTS\app\ErtsApplication\bin\Debug\netcoreapp3.1\ErtsApplication.dll
-C:\Projekty\ERTS\app\ErtsApplication\bin\Debug\netcoreapp3.1\ErtsApplication.pdb
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.csprojAssemblyReference.cache
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.AssemblyInfoInputs.cache
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.AssemblyInfo.cs
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.csproj.CoreCompileInputs.cache
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.dll
-C:\Projekty\ERTS\app\ErtsApplication\obj\Debug\netcoreapp3.1\ErtsApplication.pdb
