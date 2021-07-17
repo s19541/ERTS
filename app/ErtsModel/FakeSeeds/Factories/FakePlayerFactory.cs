@@ -8,7 +8,8 @@ namespace ErtsModel.FakeSeeds.Factories
         {
             Name = Faker.Name.First(),
             Surname = Faker.Name.Last(),
-            Nick = Faker.Name.Middle()
+            Nick = Faker.Name.Middle(),
+            Nationality = Faker.Country.Name()
         };
     }
 }

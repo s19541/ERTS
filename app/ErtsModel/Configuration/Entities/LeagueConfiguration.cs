@@ -6,23 +6,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ErtsModel.Configuration.Entities
 {
-    class TeamConfiguration : IEntityTypeConfiguration<Team>
+    class LeagueConfiguration : IEntityTypeConfiguration<League>
     {
-        public void Configure(EntityTypeBuilder<Team> builder)
+        public void Configure(EntityTypeBuilder<League> builder)
         {
-            builder.HasComment("Team");
+            builder.HasComment("League");
 
             builder.HasKey(x => x.Id);
             builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
             builder.Property(b => b.Name).HasComment("Name").IsRequired();
-            builder.Property(b => b.Acronym).HasComment("Acronym");
-            builder.Property(b => b.ImageUrl).HasComment("Image url");
-
             builder.Property(b => b.GameType).HasComment("Game type").HasConversion(EnumValueConverterFactory.Create<GameType>());
+            builder.Property(b => b.ImageUrl).HasComment("Image url");
+            builder.Property(b => b.Url).HasComment("Url");
 
-            builder.HasMany(a => a.Players)
-                .WithOne()
-                .HasForeignKey(PlayerConfiguration.TeamId);
+
         }
     }
 }

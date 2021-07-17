@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20210409125129_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,6 +191,9 @@ namespace ErtsModel.Migrations
                         .HasColumnType("integer")
                         .HasComment("Level");
 
+                    b.Property<long?>("LolGameId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("MagicDamageDealt")
                         .HasColumnType("integer")
                         .HasComment("Magic damage dealt");
@@ -260,7 +265,7 @@ namespace ErtsModel.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("LolGameId");
 
                     b.HasIndex("Spell1Id");
 
@@ -687,13 +692,13 @@ namespace ErtsModel.Migrations
                         .WithMany()
                         .HasForeignKey("ChampionId");
 
-                    b.HasOne("ErtsModel.Entities.Game", "Game")
+                    b.HasOne("ErtsModel.Entities.Player", "Player")
                         .WithMany()
                         .HasForeignKey("GameId");
 
-                    b.HasOne("ErtsModel.Entities.Player", "Player")
+                    b.HasOne("ErtsModel.Entities.Game", "LolGame")
                         .WithMany()
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("LolGameId");
 
                     b.HasOne("ErtsModel.Entities.Lol.LolSpell", "Spell1")
                         .WithMany()
@@ -705,7 +710,7 @@ namespace ErtsModel.Migrations
 
                     b.Navigation("Champion");
 
-                    b.Navigation("Game");
+                    b.Navigation("LolGame");
 
                     b.Navigation("Player");
 

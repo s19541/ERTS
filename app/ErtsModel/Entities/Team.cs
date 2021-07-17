@@ -8,5 +8,7 @@ namespace ErtsModel.Entities
         public string Name { get; set; }
         public GameType GameType { get; set; }
         public virtual ICollection<Player> Players { get; set; }
+        public string ImageUrl { get; set; }
+        public string Acronym { get; set; }
     }
 }

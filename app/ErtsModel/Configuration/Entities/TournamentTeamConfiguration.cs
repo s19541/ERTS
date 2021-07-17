@@ -1,0 +1,32 @@
+﻿using ErtsModel.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ErtsModel.Configuration.Entities
+{
+    class TournamentTeamConfiguration : IEntityTypeConfiguration<TournamentTeam>
+    {
+        private const string _tournamentId = "TournamentId";
+        private const string _teamId = "TeamId";
+        public void Configure(EntityTypeBuilder<TournamentTeam> builder)
+        {
+            builder.HasComment("Tournament to team");
+            builder.HasKey(x => x.Id);
+            builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
+
+            builder.HasOne(a => a.Tournament)
+               .WithMany()
+               .HasForeignKey(_tournamentId);
+            builder.HasOne(a => a.Team)
+               .WithMany()
+               .HasForeignKey(_teamId);
+
+            builder.Property(b => b.GamesPlayed).HasComment("GamesPlayed");
+            builder.Property(b => b.GamesWon).HasComment("GamesWon");
+            builder.Property(b => b.GamesLost).HasComment("GamesLost");
+            builder.Property(b => b.SeriesPlayed).HasComment("SeriesPlayed");
+            builder.Property(b => b.SeriesWon).HasComment("SeriesWon");
+            builder.Property(b => b.SeriesLost).HasComment("SeriessLost");
+        }
+    }
+}

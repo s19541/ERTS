@@ -1,14 +1,15 @@
-﻿using ErtsModel.Entities.Lol;
+﻿using ErtsModel.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ErtsModel.Configuration.Entities
 {
-    class LolGameStatsConfiguration : IEntityTypeConfiguration<LolGameStats>
+    class SeriesConfiguration : IEntityTypeConfiguration<Series>
     {
         private const string _blueTeamId = "BlueTeamId";
         private const string _redTeamId = "RedTeamId";
-        public void Configure(EntityTypeBuilder<LolGameStats> builder)
+        private const string _tournamentId = "tournamentId";
+        public void Configure(EntityTypeBuilder<Series> builder)
         {
             builder.HasComment("Lol game stats");
 
@@ -18,6 +19,8 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.StartTime).HasComment("Start time");
             builder.Property(b => b.EndTime).HasComment("End time");
 
+            builder.Property(b => b.StreamUrl).HasComment("Stream url");
+
             builder.HasOne(a => a.BlueTeam)
                 .WithMany()
                 .HasForeignKey(_blueTeamId);
@@ -25,6 +28,12 @@ namespace ErtsModel.Configuration.Entities
             builder.HasOne(a => a.RedTeam)
                 .WithMany()
                 .HasForeignKey(_redTeamId);
+            builder.HasOne(a => a.Tournament)
+                .WithMany()
+                .HasForeignKey(_tournamentId);
+            builder.HasMany(a => a.Games)
+                .WithOne()
+                .HasForeignKey(GameConfiguration.SeriesId);
         }
     }
 }

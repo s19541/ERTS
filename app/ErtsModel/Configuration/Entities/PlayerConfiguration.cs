@@ -22,6 +22,7 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.Nick).HasComment("Nickname").IsRequired();
 
             builder.Property<long>(TeamId).HasComment("Team ID");
+            builder.Property(b => b.Nationality).HasComment("Nationality");
             //builder.Property<long>(CsgoTeamId).HasComment("CS GO team ID");
         }
     }

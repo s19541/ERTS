@@ -1,6 +1,7 @@
 ﻿using ErtsModel.Entities;
 using ErtsModel.FakeSeeds.Factories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ErtsModel.FakeSeeds
 {
@@ -8,11 +9,13 @@ namespace ErtsModel.FakeSeeds
     {
         public TeamFakeSeeder(DbSet<Team> dbSet) : base(dbSet) { }
 
-        protected override void Seed()
+        protected override IEnumerable<Team> Seed()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
-                dbSet.Add(FakeTeamFactory.Create());
+                var team = FakeTeamFactory.Create();
+                dbSet.Add(team);
+                yield return team;
             }
         }
     }

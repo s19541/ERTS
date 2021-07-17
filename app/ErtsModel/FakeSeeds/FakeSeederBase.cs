@@ -1,5 +1,6 @@
 ﻿using ErtsModel.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ErtsModel.FakeSeeds
@@ -13,14 +14,15 @@ namespace ErtsModel.FakeSeeds
 
         protected readonly DbSet<TModel> dbSet;
 
-        public void SeedIfNotSeeded()
+        public List<TModel> SeedIfNotSeeded()
         {
             if (!dbSet.Any())
             {
-                Seed();
+                return Seed().ToList();
             }
+            return null;
         }
 
-        protected abstract void Seed();
+        protected abstract IEnumerable<TModel> Seed();
     }
 }
