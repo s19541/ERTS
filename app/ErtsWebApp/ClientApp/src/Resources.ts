@@ -4,6 +4,7 @@ export default class Resources {
 		csgo: "/csgo",
 		lol: "/lol",
 		r6: "/r6",
+		lolTournaments: "/lol/:leagueId",
 	};
 	public static buttons = {
 		accept: "Akceptuję",

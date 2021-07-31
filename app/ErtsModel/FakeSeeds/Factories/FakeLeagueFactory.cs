@@ -9,7 +9,7 @@ namespace ErtsModel.FakeSeeds.Factories
             return new League
             {
                 Name = Faker.Company.Name(),
-                ImageUrl = "https://cdn.dev.pandascore.co/images/lol/champion/image/5b5006046d300b532887aa8c26e1df0c.png",
+                ImageUrl = "https://cdn.dev.pandascore.co/images/league/image/4004/220px-LCL2020_logo.png",
                 GameType = Enums.GameType.Lol,
                 Url = "https://iberiancup.lvp.global/"
             };

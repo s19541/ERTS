@@ -1,3 +1,4 @@
+using ErtsApplication.DAL.Lol;
 using ErtsModel;
 using ErtsModel.FakeSeeds;
 using ErtsWebApp.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 
 namespace ErtsWebApp
@@ -23,7 +25,13 @@ namespace ErtsWebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+            });
 
             var appConfig = new AppConfig(Configuration);
             services.AddSingleton(appConfig);
@@ -33,12 +41,16 @@ namespace ErtsWebApp
                 .UseLazyLoadingProxies()
                 .UseNpgsql(appConfig.ErtsDbConnectionString));
 
+            BindServices(services);
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
 
             InitializeDb(appConfig.ErtsDbConnectionString);
+
+            services.AddSwaggerDocument();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,6 +58,8 @@ namespace ErtsWebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseOpenApi();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
             else
             {
@@ -59,11 +73,12 @@ namespace ErtsWebApp
 
             app.UseRouting();
 
+            app.UseAuthorization();
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>
@@ -94,6 +109,12 @@ namespace ErtsWebApp
                 Console.WriteLine($"Wyst¹pi³ b³¹d podczas aktualizacji bazy danych: {ex.Message}");
                 throw;
             }
+        }
+
+        private void BindServices(IServiceCollection services)
+        {
+            services.AddScoped<ILeagueDbService, LeagueDbService>();
+            services.AddScoped<ITournamentDbService, TournamentDbService>();
         }
     }
 }
