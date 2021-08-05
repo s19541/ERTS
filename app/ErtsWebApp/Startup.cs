@@ -1,4 +1,4 @@
-using ErtsApplication.DAL.Lol;
+using ErtsApplication.DAL;
 using ErtsModel;
 using ErtsModel.FakeSeeds;
 using ErtsWebApp.Configuration;
@@ -115,6 +115,7 @@ namespace ErtsWebApp
         {
             services.AddScoped<ILeagueDbService, LeagueDbService>();
             services.AddScoped<ITournamentDbService, TournamentDbService>();
+            services.AddScoped<ISeriesDbService, SeriesDbService>();
         }
     }
 }

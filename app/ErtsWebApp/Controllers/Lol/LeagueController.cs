@@ -1,4 +1,4 @@
-﻿using ErtsApplication.DAL.Lol;
+﻿using ErtsApplication.DAL;
 using ErtsApplication.DTO;
 using ErtsModel.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +16,11 @@ namespace ErtsApplication.Controllers.Lol
             _dbService = dbService;
         }
 
-        [Route("[action]")]
+        [Route("[action]/{leagueId}")]
         [HttpGet]
-        public ActionResult<IEnumerable<LeagueDto>> Get()
+        public ActionResult<LeagueDto> Get(int leagueId)
         {
-            return _dbService.GetLeagues(GameType.Lol);
+            return _dbService.GetLeague(leagueId);
         }
 
         [Route("[action]")]

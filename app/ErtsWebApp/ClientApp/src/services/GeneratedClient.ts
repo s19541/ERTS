@@ -21,8 +21,11 @@ export class LeagueClient extends ClientBase {
         this.baseUrl = this.getBaseUrl("", baseUrl);
     }
 
-    get(signal?: AbortSignal | undefined): Promise<LeagueDto[] | null> {
-        let url_ = this.baseUrl + "/api/League/Get";
+    get(leagueId: number, signal?: AbortSignal | undefined): Promise<LeagueDto | null> {
+        let url_ = this.baseUrl + "/api/League/Get/{leagueId}";
+        if (leagueId === undefined || leagueId === null)
+            throw new Error("The parameter 'leagueId' must be defined.");
+        url_ = url_.replace("{leagueId}", encodeURIComponent("" + leagueId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -40,18 +43,14 @@ export class LeagueClient extends ClientBase {
         });
     }
 
-    protected processGet(response: Response): Promise<LeagueDto[] | null> {
+    protected processGet(response: Response): Promise<LeagueDto | null> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(LeagueDto.fromJS(item));
-            }
+            result200 = resultData200 ? LeagueDto.fromJS(resultData200) : <any>null;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -59,7 +58,7 @@ export class LeagueClient extends ClientBase {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<LeagueDto[] | null>(<any>null);
+        return Promise.resolve<LeagueDto | null>(<any>null);
     }
 
     getLeagueImages(signal?: AbortSignal | undefined): Promise<LeagueImageDto[] | null> {
@@ -101,6 +100,62 @@ export class LeagueClient extends ClientBase {
             });
         }
         return Promise.resolve<LeagueImageDto[] | null>(<any>null);
+    }
+}
+
+export class SeriesClient extends ClientBase {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
+        this.http = http ? http : <any>window;
+        this.baseUrl = this.getBaseUrl("", baseUrl);
+    }
+
+    getSeriesShort(tournamentId: number, signal?: AbortSignal | undefined): Promise<SeriesShortDto[] | null> {
+        let url_ = this.baseUrl + "/api/Series/GetSeriesShort/{tournamentId}";
+        if (tournamentId === undefined || tournamentId === null)
+            throw new Error("The parameter 'tournamentId' must be defined.");
+        url_ = url_.replace("{tournamentId}", encodeURIComponent("" + tournamentId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetSeriesShort(_response));
+        });
+    }
+
+    protected processGetSeriesShort(response: Response): Promise<SeriesShortDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SeriesShortDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<SeriesShortDto[] | null>(<any>null);
     }
 }
 
@@ -157,6 +212,50 @@ export class TournamentClient extends ClientBase {
             });
         }
         return Promise.resolve<TournamentShortDto[] | null>(<any>null);
+    }
+
+    getTournamentTeamsShort(tournamentId: number, signal?: AbortSignal | undefined): Promise<TournamentTeamShortDto[] | null> {
+        let url_ = this.baseUrl + "/api/Tournament/GetTournamentTeamsShort/{tournamentId}";
+        if (tournamentId === undefined || tournamentId === null)
+            throw new Error("The parameter 'tournamentId' must be defined.");
+        url_ = url_.replace("{tournamentId}", encodeURIComponent("" + tournamentId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetTournamentTeamsShort(_response));
+        });
+    }
+
+    protected processGetTournamentTeamsShort(response: Response): Promise<TournamentTeamShortDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TournamentTeamShortDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<TournamentTeamShortDto[] | null>(<any>null);
     }
 }
 
@@ -244,6 +343,74 @@ export interface ILeagueImageDto {
     imageUrl: string | undefined;
 }
 
+export class SeriesShortDto implements ISeriesShortDto {
+    id!: number;
+    blueTeamImageUrl!: string | undefined;
+    redTeamImageUrl!: string | undefined;
+    blueTeamAcronym!: string | undefined;
+    redTeamAcronym!: string | undefined;
+    startTime!: moment.Moment;
+    endTime!: moment.Moment;
+    blueTeamGamesWon!: number;
+    redTeamGamesWon!: number;
+
+    constructor(data?: ISeriesShortDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.blueTeamImageUrl = _data["blueTeamImageUrl"];
+            this.redTeamImageUrl = _data["redTeamImageUrl"];
+            this.blueTeamAcronym = _data["blueTeamAcronym"];
+            this.redTeamAcronym = _data["redTeamAcronym"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            this.blueTeamGamesWon = _data["blueTeamGamesWon"];
+            this.redTeamGamesWon = _data["redTeamGamesWon"];
+        }
+    }
+
+    static fromJS(data: any): SeriesShortDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SeriesShortDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["blueTeamImageUrl"] = this.blueTeamImageUrl;
+        data["redTeamImageUrl"] = this.redTeamImageUrl;
+        data["blueTeamAcronym"] = this.blueTeamAcronym;
+        data["redTeamAcronym"] = this.redTeamAcronym;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        data["blueTeamGamesWon"] = this.blueTeamGamesWon;
+        data["redTeamGamesWon"] = this.redTeamGamesWon;
+        return data; 
+    }
+}
+
+export interface ISeriesShortDto {
+    id: number;
+    blueTeamImageUrl: string | undefined;
+    redTeamImageUrl: string | undefined;
+    blueTeamAcronym: string | undefined;
+    redTeamAcronym: string | undefined;
+    startTime: moment.Moment;
+    endTime: moment.Moment;
+    blueTeamGamesWon: number;
+    redTeamGamesWon: number;
+}
+
 export class TournamentShortDto implements ITournamentShortDto {
     id!: number;
     name!: string | undefined;
@@ -290,6 +457,62 @@ export interface ITournamentShortDto {
     name: string | undefined;
     startTime: moment.Moment;
     endTime: moment.Moment;
+}
+
+export class TournamentTeamShortDto implements ITournamentTeamShortDto {
+    seriesWon!: number;
+    seriesLost!: number;
+    gamesWon!: number;
+    gamesLost!: number;
+    teamName!: string | undefined;
+    teamImageUrl!: string | undefined;
+
+    constructor(data?: ITournamentTeamShortDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.seriesWon = _data["seriesWon"];
+            this.seriesLost = _data["seriesLost"];
+            this.gamesWon = _data["gamesWon"];
+            this.gamesLost = _data["gamesLost"];
+            this.teamName = _data["teamName"];
+            this.teamImageUrl = _data["teamImageUrl"];
+        }
+    }
+
+    static fromJS(data: any): TournamentTeamShortDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TournamentTeamShortDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["seriesWon"] = this.seriesWon;
+        data["seriesLost"] = this.seriesLost;
+        data["gamesWon"] = this.gamesWon;
+        data["gamesLost"] = this.gamesLost;
+        data["teamName"] = this.teamName;
+        data["teamImageUrl"] = this.teamImageUrl;
+        return data; 
+    }
+}
+
+export interface ITournamentTeamShortDto {
+    seriesWon: number;
+    seriesLost: number;
+    gamesWon: number;
+    gamesLost: number;
+    teamName: string | undefined;
+    teamImageUrl: string | undefined;
 }
 
 export class SwaggerException extends Error {

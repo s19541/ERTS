@@ -3,11 +3,11 @@ using ErtsModel.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace ErtsApplication.DAL.Lol
+namespace ErtsApplication.DAL
 {
     public interface ILeagueDbService
     {
-        ActionResult<IEnumerable<LeagueDto>> GetLeagues(GameType gameType);
+        ActionResult<LeagueDto> GetLeague(int leagueId);
 
         ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType);
     }

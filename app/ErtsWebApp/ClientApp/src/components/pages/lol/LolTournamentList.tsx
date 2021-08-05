@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Row, Col, Image, Table } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import {
+	LeagueClient,
+	LeagueDto,
 	TournamentClient,
 	TournamentShortDto,
 } from "../../../services/GeneratedClient";
@@ -20,6 +22,7 @@ interface IPassedProps {
 interface IState {
 	leagueId: number;
 	tournaments: TournamentShortDto[] | null;
+	league: LeagueDto | null;
 }
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
@@ -31,6 +34,7 @@ class LolTournamentList extends React.Component<IJoinedProps, IState> {
 		this.state = {
 			leagueId: Number(props.match.params.leagueId),
 			tournaments: null,
+			league: null,
 		};
 	}
 
@@ -46,12 +50,39 @@ class LolTournamentList extends React.Component<IJoinedProps, IState> {
 		};
 
 		SendActionWithResponse(actionParameters);
+
+		let actionParameters2: IActionParameters<LeagueDto | null> = {
+			action: () => new LeagueClient().get(this.state.leagueId),
+			onSuccess: (response) => {
+				this.setState({
+					league: response,
+				});
+			},
+		};
+
+		SendActionWithResponse(actionParameters2);
 	}
 
 	render() {
 		return (
 			<Container style={{ paddingBottom: "10vh", paddingTop: "5vh" }}>
-				<LolTournamentListTable tournamentList={this.state.tournaments} />
+				<Row className="align-items-center">
+					<Col md="auto">
+						<Image src={this.state.league?.imageUrl} rounded />
+					</Col>
+					<Col md="auto">
+						<p className="h1 text-white">{this.state.league?.name}</p>
+						<p>
+							<a href={this.state.league?.url} className="h3 text-white">
+								{this.state.league?.url}
+							</a>
+						</p>
+					</Col>
+				</Row>
+				<LolTournamentListTable
+					tournamentList={this.state.tournaments}
+					leagueId={this.state.leagueId}
+				/>
 			</Container>
 		);
 	}

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ErtsApplication.DAL.Lol
+namespace ErtsApplication.DAL
 {
     public class LeagueDbService : ILeagueDbService
     {
@@ -15,22 +15,16 @@ namespace ErtsApplication.DAL.Lol
             Context = dbContext;
         }
 
-        public ActionResult<IEnumerable<LeagueDto>> GetLeagues(GameType gameType)
+        public ActionResult<LeagueDto> GetLeague(int leagueId)
         {
-            List<LeagueDto> leagueDtos = new List<LeagueDto>();
-            var leagueIds = Context.Leagues.Where(o => o.GameType == gameType).Select(o => o.Id).ToList();
 
-            foreach (int leagueId in leagueIds)
+            var leagueDto = new LeagueDto()
             {
-                var leagueDto = new LeagueDto()
-                {
-                    Name = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Name).FirstOrDefault(),
-                    ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault(),
-                    Url = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Url).FirstOrDefault()
-                };
-                leagueDtos.Add(leagueDto);
-            }
-            return leagueDtos;
+                Name = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Name).FirstOrDefault(),
+                ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault(),
+                Url = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Url).FirstOrDefault()
+            };
+            return leagueDto;
         }
 
         public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType)

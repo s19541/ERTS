@@ -6,23 +6,36 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/League/Get": {
+    "/api/League/Get/{leagueId}": {
       "get": {
         "tags": [
           "League"
         ],
         "operationId": "League_Get",
+        "parameters": [
+          {
+            "name": "leagueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
                   "nullable": true,
-                  "items": {
-                    "$ref": "#/components/schemas/LeagueDto"
-                  }
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/LeagueDto"
+                    }
+                  ]
                 }
               }
             }
@@ -46,6 +59,42 @@
                   "nullable": true,
                   "items": {
                     "$ref": "#/components/schemas/LeagueImageDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Series/GetSeriesShort/{tournamentId}": {
+      "get": {
+        "tags": [
+          "Series"
+        ],
+        "operationId": "Series_GetSeriesShort",
+        "parameters": [
+          {
+            "name": "tournamentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/SeriesShortDto"
                   }
                 }
               }
@@ -89,6 +138,42 @@
           }
         }
       }
+    },
+    "/api/Tournament/GetTournamentTeamsShort/{tournamentId}": {
+      "get": {
+        "tags": [
+          "Tournament"
+        ],
+        "operationId": "Tournament_GetTournamentTeamsShort",
+        "parameters": [
+          {
+            "name": "tournamentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/TournamentTeamShortDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -125,6 +210,48 @@
           }
         }
       },
+      "SeriesShortDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "blueTeamImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "redTeamImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "blueTeamAcronym": {
+            "type": "string",
+            "nullable": true
+          },
+          "redTeamAcronym": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "blueTeamGamesWon": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "redTeamGamesWon": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "TournamentShortDto": {
         "type": "object",
         "additionalProperties": false,
@@ -144,6 +271,36 @@
           "endTime": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "TournamentTeamShortDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "seriesWon": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seriesLost": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gamesWon": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gamesLost": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "teamName": {
+            "type": "string",
+            "nullable": true
+          },
+          "teamImageUrl": {
+            "type": "string",
+            "nullable": true
           }
         }
       }

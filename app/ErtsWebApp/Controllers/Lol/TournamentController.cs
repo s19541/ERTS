@@ -1,4 +1,4 @@
-﻿using ErtsApplication.DAL.Lol;
+﻿using ErtsApplication.DAL;
 using ErtsApplication.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -19,6 +19,12 @@ namespace ErtsWebApp.Controllers.Lol
         public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId)
         {
             return _dbService.GetTournamentsShort(leagueId);
+        }
+        [Route("[action]/{tournamentId}")]
+        [HttpGet]
+        public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId)
+        {
+            return _dbService.GetTournamentTeamsShort(tournamentId);
         }
     }
 }
