@@ -6,7 +6,9 @@ export default class Resources {
 		r6: "/r6",
 		lolTournaments: "/lol/:leagueId",
 		lolTournamentScoreBoard: "/lol/:leagueId/:tournamentId/scoreBoard",
-		lolTournamentSeries: "/lol/:leagueId/:tournamentId/series",
+		lolTournamentMatchList: "/lol/:leagueId/:tournamentId/matches",
+		lolTournamentPlayerStatsList: "/lol/:leagueId/:tournamentId/playerStats",
+		lolMatch: "/lol/match/:matchId",
 	};
 	public static buttons = {
 		accept: "Akceptuję",

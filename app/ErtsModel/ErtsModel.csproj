@@ -23,6 +23,10 @@
     <Compile Include="Migrations\20210702143627_addGameTeamFakers.Designer.cs" />
     <Compile Include="Migrations\20210702144931_addGamePlayerItemFaker.cs" />
     <Compile Include="Migrations\20210702144931_addGamePlayerItemFaker.Designer.cs" />
+    <Compile Include="Migrations\20210808151213_RenamedSeriesIntoMatch.cs" />
+    <Compile Include="Migrations\20210808151213_RenamedSeriesIntoMatch.Designer.cs" />
+    <Compile Include="Migrations\20210810193734_InhibitorDestroyedAdded.cs" />
+    <Compile Include="Migrations\20210810193734_InhibitorDestroyedAdded.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

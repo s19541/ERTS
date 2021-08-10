@@ -21,12 +21,10 @@ namespace ErtsModel.Configuration.Entities
                .WithMany()
                .HasForeignKey(_teamId);
 
-            builder.Property(b => b.GamesPlayed).HasComment("GamesPlayed");
             builder.Property(b => b.GamesWon).HasComment("GamesWon");
             builder.Property(b => b.GamesLost).HasComment("GamesLost");
-            builder.Property(b => b.SeriesPlayed).HasComment("SeriesPlayed");
-            builder.Property(b => b.SeriesWon).HasComment("SeriesWon");
-            builder.Property(b => b.SeriesLost).HasComment("SeriessLost");
+            builder.Property(b => b.MatchesWon).HasComment("MatchesWon");
+            builder.Property(b => b.MatchesLost).HasComment("MatchesLost");
         }
     }
 }

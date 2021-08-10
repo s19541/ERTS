@@ -7,10 +7,10 @@ namespace ErtsModel.FakeSeeds.Factories
         public static TournamentTeam Create(Team team, Tournament tournament)
         {
 
-            var seriesPlayed = Faker.RandomNumber.Next(0, 18);
-            var seriesWon = Faker.RandomNumber.Next(0, seriesPlayed);
-            var seriesLost = seriesPlayed - seriesWon;
-            var gamesPlayed = Faker.RandomNumber.Next(seriesPlayed, 54);
+            var matchesPlayed = Faker.RandomNumber.Next(0, 18);
+            var matchesWon = Faker.RandomNumber.Next(0, matchesPlayed);
+            var matchesLost = matchesPlayed - matchesWon;
+            var gamesPlayed = Faker.RandomNumber.Next(matchesPlayed, 54);
             var gamesWon = Faker.RandomNumber.Next(0, gamesPlayed);
             var gamesLost = gamesPlayed - gamesWon;
 
@@ -21,10 +21,8 @@ namespace ErtsModel.FakeSeeds.Factories
             {
                 Team = team,
                 Tournament = tournament,
-                SeriesPlayed = seriesPlayed,
-                SeriesWon = seriesWon,
-                SeriesLost = seriesLost,
-                GamesPlayed = gamesPlayed,
+                MatchesWon = matchesWon,
+                MatchesLost = matchesLost,
                 GamesWon = gamesWon,
                 GamesLost = gamesLost
             };

@@ -37,6 +37,7 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.GoldEarned).HasComment("Gold earned");
             builder.Property(b => b.Kills).HasComment("Kills");
             builder.Property(b => b.TurretDestroyed).HasComment("Turret destroyed");
+            builder.Property(b => b.TurretDestroyed).HasComment("Inhibitor destroyed");
             builder.Property(b => b.Color).HasComment("Color");
 
             builder.Property(b => b.FirstBaron).HasComment("First baron");

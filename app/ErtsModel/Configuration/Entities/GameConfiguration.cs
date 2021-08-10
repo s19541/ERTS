@@ -7,7 +7,7 @@ namespace ErtsModel.Configuration.Entities
     class GameConfiguration : IEntityTypeConfiguration<Game>
     {
         private const string _winnerTeamId = "WinnerTeamId";
-        internal const string SeriesId = "SeriesId";
+        internal const string MatchId = "MatchId";
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder.HasComment("Game");

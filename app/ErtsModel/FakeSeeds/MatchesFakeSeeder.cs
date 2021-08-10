@@ -6,18 +6,18 @@ using System.Collections.Generic;
 
 namespace ErtsModel.FakeSeeds
 {
-    class SeriesFakeSeeder : FakeSeederBase<Series>
+    class MatchesFakeSeeder : FakeSeederBase<Match>
     {
         private readonly List<Team> teams;
         private readonly List<Tournament> tournaments;
         private readonly Random random;
-        public SeriesFakeSeeder(List<Team> teams, List<Tournament> tournaments, DbSet<Series> dbSet) : base(dbSet)
+        public MatchesFakeSeeder(List<Team> teams, List<Tournament> tournaments, DbSet<Match> dbSet) : base(dbSet)
         {
             this.teams = teams;
             this.tournaments = tournaments;
             random = new Random();
         }
-        protected override IEnumerable<Series> Seed()
+        protected override IEnumerable<Match> Seed()
         {
             for (int i = 0; i < 500; i++)
             {
@@ -27,9 +27,9 @@ namespace ErtsModel.FakeSeeds
                 while (team1 == team2);
 
                 var tournament = tournaments[random.Next(1, tournaments.Count)];
-                var series = FakeSeriesFactory.Create(team1, team2, tournament);
-                dbSet.Add(series);
-                yield return series;
+                var matches = FakeMatchesFactory.Create(team1, team2, tournament);
+                dbSet.Add(matches);
+                yield return matches;
             }
         }
     }

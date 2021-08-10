@@ -8,7 +8,9 @@ import R6Home from "./components/pages/r6/R6Home";
 import LolLeagueList from "./components/pages/lol/LolLeagueList";
 import LolTournamentList from "./components/pages/lol/LolTournamentList";
 import LolTournamentScoreBoard from "./components/pages/lol/Tournament/LolTournamentScoreBoard";
-import LolTournamentSeries from "./components/pages/lol/Tournament/LolTournamentSeriesList";
+import LolTournamentMatchList from "./components/pages/lol/Tournament/LolTournamentMatchList";
+import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolTournamentPlayerStatsList";
+import MatchStats from "./components/pages/lol/Match/MatchStats";
 
 const App: React.FunctionComponent = () => {
 	document.body.style.backgroundColor = "#778899";
@@ -36,8 +38,18 @@ const App: React.FunctionComponent = () => {
 				/>
 				<Route
 					exact
-					path={Resources.pageAdresses.lolTournamentSeries}
-					component={LolTournamentSeries}
+					path={Resources.pageAdresses.lolTournamentMatchList}
+					component={LolTournamentMatchList}
+				/>
+				<Route
+					exact
+					path={Resources.pageAdresses.lolTournamentPlayerStatsList}
+					component={LolTournamentPlayerStatsList}
+				/>
+				<Route
+					exact
+					path={Resources.pageAdresses.lolMatch}
+					component={MatchStats}
 				/>
 			</Switch>
 			<Footer />

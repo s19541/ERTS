@@ -26,6 +26,7 @@ namespace ErtsModel.FakeSeeds.Factories
                 GoldEarned = Faker.RandomNumber.Next(0, 100000),
                 Kills = Faker.RandomNumber.Next(0, 100),
                 TurretDestroyed = Faker.RandomNumber.Next(0, 11),
+                InhibitorDestroyed = Faker.RandomNumber.Next(0, 10),
                 Color = color,
                 Ban1 = champions[random.Next(1, champions.Count)],
                 Ban2 = champions[random.Next(1, champions.Count)],

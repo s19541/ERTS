@@ -38,7 +38,7 @@ function LolTournamentTeamTableRow(props: {
 					verticalAlign: "middle",
 				}}
 			>
-				{tournamentTeam.seriesWon}-{tournamentTeam.seriesLost}
+				{tournamentTeam.matchesWon}-{tournamentTeam.matchesLost}
 			</td>
 			<td
 				style={{

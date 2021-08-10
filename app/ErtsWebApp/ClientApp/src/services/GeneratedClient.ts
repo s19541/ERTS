@@ -103,7 +103,7 @@ export class LeagueClient extends ClientBase {
     }
 }
 
-export class SeriesClient extends ClientBase {
+export class GameClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -114,8 +114,64 @@ export class SeriesClient extends ClientBase {
         this.baseUrl = this.getBaseUrl("", baseUrl);
     }
 
-    getSeriesShort(tournamentId: number, signal?: AbortSignal | undefined): Promise<SeriesShortDto[] | null> {
-        let url_ = this.baseUrl + "/api/Series/GetSeriesShort/{tournamentId}";
+    getLolMatchGamesStatsLol(matchId: number, signal?: AbortSignal | undefined): Promise<LolGameStatsDto[] | null> {
+        let url_ = this.baseUrl + "/api/Game/GetLolMatchGamesStatsLol/{matchId}";
+        if (matchId === undefined || matchId === null)
+            throw new Error("The parameter 'matchId' must be defined.");
+        url_ = url_.replace("{matchId}", encodeURIComponent("" + matchId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetLolMatchGamesStatsLol(_response));
+        });
+    }
+
+    protected processGetLolMatchGamesStatsLol(response: Response): Promise<LolGameStatsDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(LolGameStatsDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<LolGameStatsDto[] | null>(<any>null);
+    }
+}
+
+export class MatchClient extends ClientBase {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
+        this.http = http ? http : <any>window;
+        this.baseUrl = this.getBaseUrl("", baseUrl);
+    }
+
+    getMatches(tournamentId: number, signal?: AbortSignal | undefined): Promise<MatchDto[] | null> {
+        let url_ = this.baseUrl + "/api/Match/GetMatches/{tournamentId}";
         if (tournamentId === undefined || tournamentId === null)
             throw new Error("The parameter 'tournamentId' must be defined.");
         url_ = url_.replace("{tournamentId}", encodeURIComponent("" + tournamentId));
@@ -132,11 +188,11 @@ export class SeriesClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.transformResult(url_, _response, (_response: Response) => this.processGetSeriesShort(_response));
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetMatches(_response));
         });
     }
 
-    protected processGetSeriesShort(response: Response): Promise<SeriesShortDto[] | null> {
+    protected processGetMatches(response: Response): Promise<MatchDto[] | null> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -146,7 +202,7 @@ export class SeriesClient extends ClientBase {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(SeriesShortDto.fromJS(item));
+                    result200!.push(MatchDto.fromJS(item));
             }
             return result200;
             });
@@ -155,7 +211,47 @@ export class SeriesClient extends ClientBase {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<SeriesShortDto[] | null>(<any>null);
+        return Promise.resolve<MatchDto[] | null>(<any>null);
+    }
+
+    getMatch(matchId: number, signal?: AbortSignal | undefined): Promise<MatchDto | null> {
+        let url_ = this.baseUrl + "/api/Match/GetMatch/{matchId}";
+        if (matchId === undefined || matchId === null)
+            throw new Error("The parameter 'matchId' must be defined.");
+        url_ = url_.replace("{matchId}", encodeURIComponent("" + matchId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetMatch(_response));
+        });
+    }
+
+    protected processGetMatch(response: Response): Promise<MatchDto | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? MatchDto.fromJS(resultData200) : <any>null;
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<MatchDto | null>(<any>null);
     }
 }
 
@@ -257,6 +353,50 @@ export class TournamentClient extends ClientBase {
         }
         return Promise.resolve<TournamentTeamShortDto[] | null>(<any>null);
     }
+
+    getLolTournamentPlayerStats(tournamentId: number, signal?: AbortSignal | undefined): Promise<LolTournamentPlayerStatsDto[] | null> {
+        let url_ = this.baseUrl + "/api/Tournament/GetLolTournamentPlayerStats/{tournamentId}";
+        if (tournamentId === undefined || tournamentId === null)
+            throw new Error("The parameter 'tournamentId' must be defined.");
+        url_ = url_.replace("{tournamentId}", encodeURIComponent("" + tournamentId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetLolTournamentPlayerStats(_response));
+        });
+    }
+
+    protected processGetLolTournamentPlayerStats(response: Response): Promise<LolTournamentPlayerStatsDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(LolTournamentPlayerStatsDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<LolTournamentPlayerStatsDto[] | null>(<any>null);
+    }
 }
 
 export class LeagueDto implements ILeagueDto {
@@ -343,18 +483,304 @@ export interface ILeagueImageDto {
     imageUrl: string | undefined;
 }
 
-export class SeriesShortDto implements ISeriesShortDto {
+export class LolGameStatsDto implements ILolGameStatsDto {
+    blueTeamStats!: LolGameTeamStatsDto | undefined;
+    redTeamStats!: LolGameTeamStatsDto | undefined;
+    startTime!: moment.Moment;
+    gameLength!: number;
+    winnerTeamId!: number;
+    playersStats!: LolGamePlayerShortStatsDto[] | undefined;
+
+    constructor(data?: ILolGameStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.blueTeamStats = _data["blueTeamStats"] ? LolGameTeamStatsDto.fromJS(_data["blueTeamStats"]) : <any>undefined;
+            this.redTeamStats = _data["redTeamStats"] ? LolGameTeamStatsDto.fromJS(_data["redTeamStats"]) : <any>undefined;
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.gameLength = _data["gameLength"];
+            this.winnerTeamId = _data["winnerTeamId"];
+            if (Array.isArray(_data["playersStats"])) {
+                this.playersStats = [] as any;
+                for (let item of _data["playersStats"])
+                    this.playersStats!.push(LolGamePlayerShortStatsDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): LolGameStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolGameStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["blueTeamStats"] = this.blueTeamStats ? this.blueTeamStats.toJSON() : <any>undefined;
+        data["redTeamStats"] = this.redTeamStats ? this.redTeamStats.toJSON() : <any>undefined;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["gameLength"] = this.gameLength;
+        data["winnerTeamId"] = this.winnerTeamId;
+        if (Array.isArray(this.playersStats)) {
+            data["playersStats"] = [];
+            for (let item of this.playersStats)
+                data["playersStats"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ILolGameStatsDto {
+    blueTeamStats: LolGameTeamStatsDto | undefined;
+    redTeamStats: LolGameTeamStatsDto | undefined;
+    startTime: moment.Moment;
+    gameLength: number;
+    winnerTeamId: number;
+    playersStats: LolGamePlayerShortStatsDto[] | undefined;
+}
+
+export class LolGameTeamStatsDto implements ILolGameTeamStatsDto {
+    teamId!: number;
+    baronKilled!: number;
+    mountainDrakeKilled!: number;
+    infernalDrakeKilled!: number;
+    oceanDrakeKilled!: number;
+    cloudDrakeKilled!: number;
+    elderDrakeKilled!: number;
+    heraldKilled!: number;
+    goldEarned!: number;
+    kills!: number;
+    turretDestroyed!: number;
+    inhibitorDestroyed!: number;
+    ban1ImageUrl!: string | undefined;
+    ban2ImageUrl!: string | undefined;
+    ban3ImageUrl!: string | undefined;
+    ban4ImageUrl!: string | undefined;
+    ban5ImageUrl!: string | undefined;
+    firstBaron!: boolean;
+    firstDragon!: boolean;
+    firstBlood!: boolean;
+    firstInhibitor!: boolean;
+    firstTurret!: boolean;
+
+    constructor(data?: ILolGameTeamStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.teamId = _data["teamId"];
+            this.baronKilled = _data["baronKilled"];
+            this.mountainDrakeKilled = _data["mountainDrakeKilled"];
+            this.infernalDrakeKilled = _data["infernalDrakeKilled"];
+            this.oceanDrakeKilled = _data["oceanDrakeKilled"];
+            this.cloudDrakeKilled = _data["cloudDrakeKilled"];
+            this.elderDrakeKilled = _data["elderDrakeKilled"];
+            this.heraldKilled = _data["heraldKilled"];
+            this.goldEarned = _data["goldEarned"];
+            this.kills = _data["kills"];
+            this.turretDestroyed = _data["turretDestroyed"];
+            this.inhibitorDestroyed = _data["inhibitorDestroyed"];
+            this.ban1ImageUrl = _data["ban1ImageUrl"];
+            this.ban2ImageUrl = _data["ban2ImageUrl"];
+            this.ban3ImageUrl = _data["ban3ImageUrl"];
+            this.ban4ImageUrl = _data["ban4ImageUrl"];
+            this.ban5ImageUrl = _data["ban5ImageUrl"];
+            this.firstBaron = _data["firstBaron"];
+            this.firstDragon = _data["firstDragon"];
+            this.firstBlood = _data["firstBlood"];
+            this.firstInhibitor = _data["firstInhibitor"];
+            this.firstTurret = _data["firstTurret"];
+        }
+    }
+
+    static fromJS(data: any): LolGameTeamStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolGameTeamStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["teamId"] = this.teamId;
+        data["baronKilled"] = this.baronKilled;
+        data["mountainDrakeKilled"] = this.mountainDrakeKilled;
+        data["infernalDrakeKilled"] = this.infernalDrakeKilled;
+        data["oceanDrakeKilled"] = this.oceanDrakeKilled;
+        data["cloudDrakeKilled"] = this.cloudDrakeKilled;
+        data["elderDrakeKilled"] = this.elderDrakeKilled;
+        data["heraldKilled"] = this.heraldKilled;
+        data["goldEarned"] = this.goldEarned;
+        data["kills"] = this.kills;
+        data["turretDestroyed"] = this.turretDestroyed;
+        data["inhibitorDestroyed"] = this.inhibitorDestroyed;
+        data["ban1ImageUrl"] = this.ban1ImageUrl;
+        data["ban2ImageUrl"] = this.ban2ImageUrl;
+        data["ban3ImageUrl"] = this.ban3ImageUrl;
+        data["ban4ImageUrl"] = this.ban4ImageUrl;
+        data["ban5ImageUrl"] = this.ban5ImageUrl;
+        data["firstBaron"] = this.firstBaron;
+        data["firstDragon"] = this.firstDragon;
+        data["firstBlood"] = this.firstBlood;
+        data["firstInhibitor"] = this.firstInhibitor;
+        data["firstTurret"] = this.firstTurret;
+        return data; 
+    }
+}
+
+export interface ILolGameTeamStatsDto {
+    teamId: number;
+    baronKilled: number;
+    mountainDrakeKilled: number;
+    infernalDrakeKilled: number;
+    oceanDrakeKilled: number;
+    cloudDrakeKilled: number;
+    elderDrakeKilled: number;
+    heraldKilled: number;
+    goldEarned: number;
+    kills: number;
+    turretDestroyed: number;
+    inhibitorDestroyed: number;
+    ban1ImageUrl: string | undefined;
+    ban2ImageUrl: string | undefined;
+    ban3ImageUrl: string | undefined;
+    ban4ImageUrl: string | undefined;
+    ban5ImageUrl: string | undefined;
+    firstBaron: boolean;
+    firstDragon: boolean;
+    firstBlood: boolean;
+    firstInhibitor: boolean;
+    firstTurret: boolean;
+}
+
+export class LolGamePlayerShortStatsDto implements ILolGamePlayerShortStatsDto {
+    teamId!: number;
+    playerNick!: string | undefined;
+    role!: LolRole;
+    championImageUrl!: string | undefined;
+    kills!: number;
+    deaths!: number;
+    assists!: number;
+    goldEarned!: number;
+    cs!: number;
+    spell1ImageUrl!: string | undefined;
+    spell2ImageUrl!: string | undefined;
+    itemImages!: string[] | undefined;
+
+    constructor(data?: ILolGamePlayerShortStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.teamId = _data["teamId"];
+            this.playerNick = _data["playerNick"];
+            this.role = _data["role"];
+            this.championImageUrl = _data["championImageUrl"];
+            this.kills = _data["kills"];
+            this.deaths = _data["deaths"];
+            this.assists = _data["assists"];
+            this.goldEarned = _data["goldEarned"];
+            this.cs = _data["cs"];
+            this.spell1ImageUrl = _data["spell1ImageUrl"];
+            this.spell2ImageUrl = _data["spell2ImageUrl"];
+            if (Array.isArray(_data["itemImages"])) {
+                this.itemImages = [] as any;
+                for (let item of _data["itemImages"])
+                    this.itemImages!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): LolGamePlayerShortStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolGamePlayerShortStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["teamId"] = this.teamId;
+        data["playerNick"] = this.playerNick;
+        data["role"] = this.role;
+        data["championImageUrl"] = this.championImageUrl;
+        data["kills"] = this.kills;
+        data["deaths"] = this.deaths;
+        data["assists"] = this.assists;
+        data["goldEarned"] = this.goldEarned;
+        data["cs"] = this.cs;
+        data["spell1ImageUrl"] = this.spell1ImageUrl;
+        data["spell2ImageUrl"] = this.spell2ImageUrl;
+        if (Array.isArray(this.itemImages)) {
+            data["itemImages"] = [];
+            for (let item of this.itemImages)
+                data["itemImages"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface ILolGamePlayerShortStatsDto {
+    teamId: number;
+    playerNick: string | undefined;
+    role: LolRole;
+    championImageUrl: string | undefined;
+    kills: number;
+    deaths: number;
+    assists: number;
+    goldEarned: number;
+    cs: number;
+    spell1ImageUrl: string | undefined;
+    spell2ImageUrl: string | undefined;
+    itemImages: string[] | undefined;
+}
+
+export enum LolRole {
+    Top = "top",
+    Jun = "jun",
+    Mid = "mid",
+    Adc = "adc",
+    Sup = "sup",
+}
+
+export class MatchDto implements IMatchDto {
     id!: number;
-    blueTeamImageUrl!: string | undefined;
-    redTeamImageUrl!: string | undefined;
-    blueTeamAcronym!: string | undefined;
-    redTeamAcronym!: string | undefined;
+    team1Id!: number;
+    team2Id!: number;
+    team1ImageUrl!: string | undefined;
+    team2ImageUrl!: string | undefined;
+    team1Acronym!: string | undefined;
+    team2Acronym!: string | undefined;
+    team1Name!: string | undefined;
+    team2Name!: string | undefined;
     startTime!: moment.Moment;
     endTime!: moment.Moment;
-    blueTeamGamesWon!: number;
-    redTeamGamesWon!: number;
+    team1GamesWon!: number;
+    team2GamesWon!: number;
+    streamUrl!: string | undefined;
+    games!: LolGameShortStatsDto[] | undefined;
 
-    constructor(data?: ISeriesShortDto) {
+    constructor(data?: IMatchDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -366,20 +792,30 @@ export class SeriesShortDto implements ISeriesShortDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.blueTeamImageUrl = _data["blueTeamImageUrl"];
-            this.redTeamImageUrl = _data["redTeamImageUrl"];
-            this.blueTeamAcronym = _data["blueTeamAcronym"];
-            this.redTeamAcronym = _data["redTeamAcronym"];
+            this.team1Id = _data["team1Id"];
+            this.team2Id = _data["team2Id"];
+            this.team1ImageUrl = _data["team1ImageUrl"];
+            this.team2ImageUrl = _data["team2ImageUrl"];
+            this.team1Acronym = _data["team1Acronym"];
+            this.team2Acronym = _data["team2Acronym"];
+            this.team1Name = _data["team1Name"];
+            this.team2Name = _data["team2Name"];
             this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
             this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.blueTeamGamesWon = _data["blueTeamGamesWon"];
-            this.redTeamGamesWon = _data["redTeamGamesWon"];
+            this.team1GamesWon = _data["team1GamesWon"];
+            this.team2GamesWon = _data["team2GamesWon"];
+            this.streamUrl = _data["streamUrl"];
+            if (Array.isArray(_data["games"])) {
+                this.games = [] as any;
+                for (let item of _data["games"])
+                    this.games!.push(LolGameShortStatsDto.fromJS(item));
+            }
         }
     }
 
-    static fromJS(data: any): SeriesShortDto {
+    static fromJS(data: any): MatchDto {
         data = typeof data === 'object' ? data : {};
-        let result = new SeriesShortDto();
+        let result = new MatchDto();
         result.init(data);
         return result;
     }
@@ -387,28 +823,124 @@ export class SeriesShortDto implements ISeriesShortDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["blueTeamImageUrl"] = this.blueTeamImageUrl;
-        data["redTeamImageUrl"] = this.redTeamImageUrl;
-        data["blueTeamAcronym"] = this.blueTeamAcronym;
-        data["redTeamAcronym"] = this.redTeamAcronym;
+        data["team1Id"] = this.team1Id;
+        data["team2Id"] = this.team2Id;
+        data["team1ImageUrl"] = this.team1ImageUrl;
+        data["team2ImageUrl"] = this.team2ImageUrl;
+        data["team1Acronym"] = this.team1Acronym;
+        data["team2Acronym"] = this.team2Acronym;
+        data["team1Name"] = this.team1Name;
+        data["team2Name"] = this.team2Name;
         data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
         data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["blueTeamGamesWon"] = this.blueTeamGamesWon;
-        data["redTeamGamesWon"] = this.redTeamGamesWon;
+        data["team1GamesWon"] = this.team1GamesWon;
+        data["team2GamesWon"] = this.team2GamesWon;
+        data["streamUrl"] = this.streamUrl;
+        if (Array.isArray(this.games)) {
+            data["games"] = [];
+            for (let item of this.games)
+                data["games"].push(item.toJSON());
+        }
         return data; 
     }
 }
 
-export interface ISeriesShortDto {
+export interface IMatchDto {
     id: number;
-    blueTeamImageUrl: string | undefined;
-    redTeamImageUrl: string | undefined;
-    blueTeamAcronym: string | undefined;
-    redTeamAcronym: string | undefined;
+    team1Id: number;
+    team2Id: number;
+    team1ImageUrl: string | undefined;
+    team2ImageUrl: string | undefined;
+    team1Acronym: string | undefined;
+    team2Acronym: string | undefined;
+    team1Name: string | undefined;
+    team2Name: string | undefined;
     startTime: moment.Moment;
     endTime: moment.Moment;
-    blueTeamGamesWon: number;
-    redTeamGamesWon: number;
+    team1GamesWon: number;
+    team2GamesWon: number;
+    streamUrl: string | undefined;
+    games: LolGameShortStatsDto[] | undefined;
+}
+
+export class LolGameShortStatsDto implements ILolGameShortStatsDto {
+    startTime!: moment.Moment;
+    gameLength!: string | undefined;
+    winnerTeamId!: number;
+    blueTeamid!: number;
+    blueTeamStats!: LolGameTeamStatsDto | undefined;
+    redTeamStats!: LolGameTeamStatsDto | undefined;
+    blueTeamPlayersStats!: LolGamePlayerShortStatsDto[] | undefined;
+    redTeamPlayersStats!: LolGamePlayerShortStatsDto[] | undefined;
+
+    constructor(data?: ILolGameShortStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.gameLength = _data["gameLength"];
+            this.winnerTeamId = _data["winnerTeamId"];
+            this.blueTeamid = _data["blueTeamid"];
+            this.blueTeamStats = _data["blueTeamStats"] ? LolGameTeamStatsDto.fromJS(_data["blueTeamStats"]) : <any>undefined;
+            this.redTeamStats = _data["redTeamStats"] ? LolGameTeamStatsDto.fromJS(_data["redTeamStats"]) : <any>undefined;
+            if (Array.isArray(_data["blueTeamPlayersStats"])) {
+                this.blueTeamPlayersStats = [] as any;
+                for (let item of _data["blueTeamPlayersStats"])
+                    this.blueTeamPlayersStats!.push(LolGamePlayerShortStatsDto.fromJS(item));
+            }
+            if (Array.isArray(_data["redTeamPlayersStats"])) {
+                this.redTeamPlayersStats = [] as any;
+                for (let item of _data["redTeamPlayersStats"])
+                    this.redTeamPlayersStats!.push(LolGamePlayerShortStatsDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): LolGameShortStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolGameShortStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["gameLength"] = this.gameLength;
+        data["winnerTeamId"] = this.winnerTeamId;
+        data["blueTeamid"] = this.blueTeamid;
+        data["blueTeamStats"] = this.blueTeamStats ? this.blueTeamStats.toJSON() : <any>undefined;
+        data["redTeamStats"] = this.redTeamStats ? this.redTeamStats.toJSON() : <any>undefined;
+        if (Array.isArray(this.blueTeamPlayersStats)) {
+            data["blueTeamPlayersStats"] = [];
+            for (let item of this.blueTeamPlayersStats)
+                data["blueTeamPlayersStats"].push(item.toJSON());
+        }
+        if (Array.isArray(this.redTeamPlayersStats)) {
+            data["redTeamPlayersStats"] = [];
+            for (let item of this.redTeamPlayersStats)
+                data["redTeamPlayersStats"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface ILolGameShortStatsDto {
+    startTime: moment.Moment;
+    gameLength: string | undefined;
+    winnerTeamId: number;
+    blueTeamid: number;
+    blueTeamStats: LolGameTeamStatsDto | undefined;
+    redTeamStats: LolGameTeamStatsDto | undefined;
+    blueTeamPlayersStats: LolGamePlayerShortStatsDto[] | undefined;
+    redTeamPlayersStats: LolGamePlayerShortStatsDto[] | undefined;
 }
 
 export class TournamentShortDto implements ITournamentShortDto {
@@ -460,8 +992,8 @@ export interface ITournamentShortDto {
 }
 
 export class TournamentTeamShortDto implements ITournamentTeamShortDto {
-    seriesWon!: number;
-    seriesLost!: number;
+    matchesWon!: number;
+    matchesLost!: number;
     gamesWon!: number;
     gamesLost!: number;
     teamName!: string | undefined;
@@ -478,8 +1010,8 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
 
     init(_data?: any) {
         if (_data) {
-            this.seriesWon = _data["seriesWon"];
-            this.seriesLost = _data["seriesLost"];
+            this.matchesWon = _data["matchesWon"];
+            this.matchesLost = _data["matchesLost"];
             this.gamesWon = _data["gamesWon"];
             this.gamesLost = _data["gamesLost"];
             this.teamName = _data["teamName"];
@@ -496,8 +1028,8 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["seriesWon"] = this.seriesWon;
-        data["seriesLost"] = this.seriesLost;
+        data["matchesWon"] = this.matchesWon;
+        data["matchesLost"] = this.matchesLost;
         data["gamesWon"] = this.gamesWon;
         data["gamesLost"] = this.gamesLost;
         data["teamName"] = this.teamName;
@@ -507,12 +1039,104 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
 }
 
 export interface ITournamentTeamShortDto {
-    seriesWon: number;
-    seriesLost: number;
+    matchesWon: number;
+    matchesLost: number;
     gamesWon: number;
     gamesLost: number;
     teamName: string | undefined;
     teamImageUrl: string | undefined;
+}
+
+export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto {
+    playerNick!: string | undefined;
+    teamImageUrl!: string | undefined;
+    kills!: number;
+    deaths!: number;
+    assists!: number;
+    cs!: number;
+    csPerMinute!: number;
+    gold!: number;
+    goldPerMinute!: number;
+    damageShare!: number;
+    killParticipation!: number;
+    championsPlayed!: number;
+    firstRecentChampionImageUrl!: string | undefined;
+    secondRecentChampionImageUrl!: string | undefined;
+    thirdRecentChampionImageUrl!: string | undefined;
+
+    constructor(data?: ILolTournamentPlayerStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.playerNick = _data["playerNick"];
+            this.teamImageUrl = _data["teamImageUrl"];
+            this.kills = _data["kills"];
+            this.deaths = _data["deaths"];
+            this.assists = _data["assists"];
+            this.cs = _data["cs"];
+            this.csPerMinute = _data["csPerMinute"];
+            this.gold = _data["gold"];
+            this.goldPerMinute = _data["goldPerMinute"];
+            this.damageShare = _data["damageShare"];
+            this.killParticipation = _data["killParticipation"];
+            this.championsPlayed = _data["championsPlayed"];
+            this.firstRecentChampionImageUrl = _data["firstRecentChampionImageUrl"];
+            this.secondRecentChampionImageUrl = _data["secondRecentChampionImageUrl"];
+            this.thirdRecentChampionImageUrl = _data["thirdRecentChampionImageUrl"];
+        }
+    }
+
+    static fromJS(data: any): LolTournamentPlayerStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolTournamentPlayerStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["playerNick"] = this.playerNick;
+        data["teamImageUrl"] = this.teamImageUrl;
+        data["kills"] = this.kills;
+        data["deaths"] = this.deaths;
+        data["assists"] = this.assists;
+        data["cs"] = this.cs;
+        data["csPerMinute"] = this.csPerMinute;
+        data["gold"] = this.gold;
+        data["goldPerMinute"] = this.goldPerMinute;
+        data["damageShare"] = this.damageShare;
+        data["killParticipation"] = this.killParticipation;
+        data["championsPlayed"] = this.championsPlayed;
+        data["firstRecentChampionImageUrl"] = this.firstRecentChampionImageUrl;
+        data["secondRecentChampionImageUrl"] = this.secondRecentChampionImageUrl;
+        data["thirdRecentChampionImageUrl"] = this.thirdRecentChampionImageUrl;
+        return data; 
+    }
+}
+
+export interface ILolTournamentPlayerStatsDto {
+    playerNick: string | undefined;
+    teamImageUrl: string | undefined;
+    kills: number;
+    deaths: number;
+    assists: number;
+    cs: number;
+    csPerMinute: number;
+    gold: number;
+    goldPerMinute: number;
+    damageShare: number;
+    killParticipation: number;
+    championsPlayed: number;
+    firstRecentChampionImageUrl: string | undefined;
+    secondRecentChampionImageUrl: string | undefined;
+    thirdRecentChampionImageUrl: string | undefined;
 }
 
 export class SwaggerException extends Error {

@@ -20,7 +20,7 @@ namespace ErtsModel
         public ErtsContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Player> Players { get; set; }
-        public DbSet<Series> Series { get; set; }
+        public DbSet<Match> Matches { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<LolItem> LolItems { get; set; }
         public DbSet<LolChampion> LolChampions { get; set; }
@@ -37,7 +37,7 @@ namespace ErtsModel
         {
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
-            modelBuilder.ApplyConfiguration(new SeriesConfiguration());
+            modelBuilder.ApplyConfiguration(new MatchConfiguration());
             modelBuilder.ApplyConfiguration(new LolItemConfiguration());
             modelBuilder.ApplyConfiguration(new LolChampionConfiguration());
             modelBuilder.ApplyConfiguration(new LolSpellConfiguration());

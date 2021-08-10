@@ -8,5 +8,6 @@ namespace ErtsApplication.DAL
     {
         ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId);
         ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId);
+        ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId);
     }
 }

@@ -2,15 +2,12 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../css/myStyle.css";
-import {
-	SeriesClient,
-	SeriesShortDto,
-} from "../../../../services/GeneratedClient";
+import { MatchClient, MatchDto } from "../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
-import LolSeriesListTable from "../LolSeriesListTable";
+import LolMatchListTable from "../LolMatchListTable";
 import LolTournamentNav from "./LolTournamentNav";
 
 interface IProps {}
@@ -21,29 +18,29 @@ interface IPassedProps {
 
 interface IState {
 	tournamentId: number;
-	seriesList: SeriesShortDto[] | null;
+	matchList: MatchDto[] | null;
 	key: string;
 }
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 
-class LolTournamentSeries extends React.Component<IJoinedProps, IState> {
+class LolTournamentMatchList extends React.Component<IJoinedProps, IState> {
 	constructor(props: IJoinedProps) {
 		super(props);
 
 		this.state = {
 			tournamentId: Number(props.match.params.tournamentId),
-			seriesList: null,
-			key: "series",
+			matchList: null,
+			key: "matches",
 		};
 	}
 
 	componentDidMount() {
-		let actionParameters: IActionParameters<SeriesShortDto[] | null> = {
-			action: () => new SeriesClient().getSeriesShort(this.state.tournamentId),
+		let actionParameters: IActionParameters<MatchDto[] | null> = {
+			action: () => new MatchClient().getMatches(this.state.tournamentId),
 			onSuccess: (response) => {
 				this.setState({
-					seriesList: response,
+					matchList: response,
 				});
 			},
 		};
@@ -60,9 +57,9 @@ class LolTournamentSeries extends React.Component<IJoinedProps, IState> {
 				}}
 			>
 				<LolTournamentNav activeKey={this.state.key} />
-				<LolSeriesListTable seriesList={this.state.seriesList} />
+				<LolMatchListTable matchList={this.state.matchList} />
 			</Container>
 		);
 	}
 }
-export default withRouter(LolTournamentSeries);
+export default withRouter(LolTournamentMatchList);

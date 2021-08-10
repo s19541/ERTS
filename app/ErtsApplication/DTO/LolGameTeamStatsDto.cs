@@ -1,11 +1,8 @@
-﻿using ErtsModel.Enums;
-
-namespace ErtsModel.Entities.Lol
+﻿namespace ErtsApplication.DTO
 {
-    public class LolGameTeam : ModelBase
+    public class LolGameTeamStatsDto
     {
-        public virtual Team Team { get; set; }
-        public virtual Game Game { get; set; }
+        public long TeamId { get; set; }
         public int BaronKilled { get; set; }
         public int MountainDrakeKilled { get; set; }
         public int InfernalDrakeKilled { get; set; }
@@ -17,16 +14,16 @@ namespace ErtsModel.Entities.Lol
         public int Kills { get; set; }
         public int TurretDestroyed { get; set; }
         public int InhibitorDestroyed { get; set; }
-        public LolColor Color { get; set; }
-        public virtual LolChampion Ban1 { get; set; }
-        public virtual LolChampion Ban2 { get; set; }
-        public virtual LolChampion Ban3 { get; set; }
-        public virtual LolChampion Ban4 { get; set; }
-        public virtual LolChampion Ban5 { get; set; }
+        public string Ban1ImageUrl { get; set; }
+        public string Ban2ImageUrl { get; set; }
+        public string Ban3ImageUrl { get; set; }
+        public string Ban4ImageUrl { get; set; }
+        public string Ban5ImageUrl { get; set; }
         public bool FirstBaron { get; set; }
-        public bool FirstBlood { get; set; }
         public bool FirstDragon { get; set; }
-        public bool FirstTurret { get; set; }
+        public bool FirstBlood { get; set; }
         public bool FirstInhibitor { get; set; }
+        public bool FirstTurret { get; set; }
+
     }
 }

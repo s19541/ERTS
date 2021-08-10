@@ -17,12 +17,12 @@ namespace ErtsModel.FakeSeeds
         private readonly List<LolItem> lolItems;
         private readonly Random random;
         private readonly DbSet<TournamentTeam> dbSetTournamentTeam;
-        private readonly DbSet<Series> dbSetSeries;
+        private readonly DbSet<Match> dbSetMatches;
         private readonly DbSet<LolGamePlayer> dbSetLolGamePlayer;
         private readonly DbSet<LolGameTeam> dbSetLolGameTeam;
         private readonly DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem;
 
-        public TournamentFakeSeeder(List<League> leagues, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSet, DbSet<TournamentTeam> dbSetTournamentTeam, DbSet<Series> dbSetSeries, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSet)
+        public TournamentFakeSeeder(List<League> leagues, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSet, DbSet<TournamentTeam> dbSetTournamentTeam, DbSet<Match> dbSetMatches, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSet)
         {
             this.leagues = leagues;
             this.teams = teams;
@@ -30,7 +30,7 @@ namespace ErtsModel.FakeSeeds
             this.lolSpells = lolSpells;
             this.lolItems = lolItems;
             this.dbSetTournamentTeam = dbSetTournamentTeam;
-            this.dbSetSeries = dbSetSeries;
+            this.dbSetMatches = dbSetMatches;
             this.dbSetLolGamePlayer = dbSetLolGamePlayer;
             this.dbSetLolGameTeam = dbSetLolGameTeam;
             this.dbSetLolGamePlayerItem = dbSetLolGamePlayerItem;
@@ -43,42 +43,36 @@ namespace ErtsModel.FakeSeeds
             {
                 var league = leagues[random.Next(1, leagues.Count)];
                 var tournament = FakeTournamentFactory.Create(league);
-                var seriesNumber = random.Next(1, 18);
+                var matchNumber = random.Next(1, 18);
                 var tournamentTeams = new List<TournamentTeam>();
-                var seriesList = new List<Series>();
+                var matchList = new List<Match>();
                 for (int j = 0; j < 10; j++)
                 {
                     tournamentTeams.Add(new TournamentTeam
                     {
                         Team = teams[random.Next(1, teams.Count)],
                         Tournament = tournament,
-                        SeriesPlayed = 0,
-                        SeriesWon = 0,
-                        SeriesLost = 0,
-                        GamesPlayed = 0,
+                        MatchesWon = 0,
+                        MatchesLost = 0,
                         GamesWon = 0,
                         GamesLost = 0
                     });
                 }
                 for (int j = 0; j < tournamentTeams.Count; j++)
                 {
-                    for (int k = tournamentTeams[j].SeriesPlayed; k < seriesNumber; k++)
+                    for (int k = tournamentTeams[j].MatchesWon + tournamentTeams[j].MatchesLost; k < matchNumber; k++)
                     {
                         var rnd = new Random();
                         var opponent = tournamentTeams.Where(c => !c.Equals(tournamentTeams[j]))
                                           .OrderBy(x => rnd.Next())
                                           .First();
-                        var series = FakeSeriesFactory.Create(tournamentTeams[j].Team, opponent.Team, tournament);
-                        seriesList.Add(series);
-                        dbSetSeries.Add(series);
-                        tournamentTeams[j].SeriesPlayed++;
-                        opponent.SeriesPlayed++;
+                        var matches = FakeMatchesFactory.Create(tournamentTeams[j].Team, opponent.Team, tournament);
+                        matchList.Add(matches);
+                        dbSetMatches.Add(matches);
                         var opponentWonGames = 0;
                         var teamWonGames = 0;
-                        foreach (Game game in series.Games)
+                        foreach (Game game in matches.Games)
                         {
-                            tournamentTeams[j].GamesPlayed++;
-                            opponent.GamesPlayed++;
                             if (game.Winner.Equals(opponent.Team))
                             {
                                 opponentWonGames++;
@@ -94,13 +88,13 @@ namespace ErtsModel.FakeSeeds
                         tournamentTeams[j].GamesLost += opponentWonGames;
                         if (opponentWonGames > teamWonGames)
                         {
-                            opponent.SeriesWon++;
-                            tournamentTeams[j].SeriesLost++;
+                            opponent.MatchesWon++;
+                            tournamentTeams[j].MatchesLost++;
                         }
                         else if (teamWonGames > opponentWonGames)
                         {
-                            opponent.SeriesLost++;
-                            tournamentTeams[j].SeriesWon++;
+                            opponent.MatchesLost++;
+                            tournamentTeams[j].MatchesWon++;
                         }
                         for (var l = 0; l < tournamentTeams.Count; l++)
                         {
@@ -113,28 +107,28 @@ namespace ErtsModel.FakeSeeds
                 {
                     dbSetTournamentTeam.Add(tournamentTeams[j]);
                 }
-                foreach(var series in seriesList)
+                foreach (var match in matchList)
                 {
-                    foreach(var game in series.Games)
+                    foreach (var game in match.Games)
                     {
-                        dbSetLolGameTeam.Add(FakeLolGameTeamFactory.Create(series.BlueTeam, game, Enums.LolColor.blue, lolChampions));
-                        dbSetLolGameTeam.Add(FakeLolGameTeamFactory.Create(series.RedTeam, game, Enums.LolColor.red, lolChampions));
+                        dbSetLolGameTeam.Add(FakeLolGameTeamFactory.Create(match.Team1, game, Enums.LolColor.blue, lolChampions));
+                        dbSetLolGameTeam.Add(FakeLolGameTeamFactory.Create(match.Team2, game, Enums.LolColor.red, lolChampions));
                         var roles = new List<Enums.LolRole>();
                         roles.Add(Enums.LolRole.top);
                         roles.Add(Enums.LolRole.jun);
                         roles.Add(Enums.LolRole.mid);
                         roles.Add(Enums.LolRole.adc);
                         roles.Add(Enums.LolRole.sup);
-                        for (var j = 0; j < series.BlueTeam.Players.Count; j++)
+                        for (var j = 0; j < match.Team1.Players.Count; j++)
                         {
-                            var lolGamePlayer = FakeLolGamePlayerFactory.Create(series.BlueTeam.Players.ToArray()[j], game, roles[j % 5], lolChampions, lolSpells);
+                            var lolGamePlayer = FakeLolGamePlayerFactory.Create(match.Team1.Players.ToArray()[j], game, roles[j % 5], lolChampions, lolSpells);
                             dbSetLolGamePlayer.Add(lolGamePlayer);
-                            for(var k = 0; k < random.Next(0,6); k++)
+                            for (var k = 0; k < random.Next(0, 6); k++)
                                 dbSetLolGamePlayerItem.Add(FakeGamePlayerItemFactory.Create(lolGamePlayer, lolItems[random.Next(1, lolItems.Count)]));
                         }
-                        for (var j = 0; j < series.RedTeam.Players.Count; j++)
+                        for (var j = 0; j < match.Team2.Players.Count; j++)
                         {
-                            dbSetLolGamePlayer.Add(FakeLolGamePlayerFactory.Create(series.RedTeam.Players.ToArray()[j], game, roles[j % 5], lolChampions, lolSpells));
+                            dbSetLolGamePlayer.Add(FakeLolGamePlayerFactory.Create(match.Team2.Players.ToArray()[j], game, roles[j % 5], lolChampions, lolSpells));
                         }
                     }
                 }

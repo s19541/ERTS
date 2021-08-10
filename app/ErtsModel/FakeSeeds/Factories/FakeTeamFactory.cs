@@ -13,7 +13,7 @@ namespace ErtsModel.FakeSeeds.Factories
             Name = Faker.Company.Name(),
             Acronym = Faker.Generators.Strings.GenerateAlphaNumericString(2, 4),
             ImageUrl = "https://cdn.dev.pandascore.co/images/team/image/389/download.png",
-            Players = Enumerable.Range(0, Faker.RandomNumber.Next(5, 8)).Select(i => FakePlayerFactory.Create()).ToArray()
+            Players = Enumerable.Range(0, 5).Select(i => FakePlayerFactory.Create()).ToArray()
         };
     }
 }

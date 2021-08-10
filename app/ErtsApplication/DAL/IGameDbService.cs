@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace ErtsApplication.DAL
 {
-    public interface ISeriesDbService
+    public interface IGameDbService
     {
-        ActionResult<IEnumerable<SeriesShortDto>> GetSeriesShort(int tournamentId);
+        ActionResult<IEnumerable<LolGameStatsDto>> GetLolMatchGamesStats(int matchId);
     }
 }

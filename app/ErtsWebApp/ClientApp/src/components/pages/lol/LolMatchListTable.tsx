@@ -1,10 +1,9 @@
-import React from "react";
 import { Table } from "react-bootstrap";
-import { SeriesShortDto } from "../../../services/GeneratedClient";
-import LolSeriesListTableRow from "./LolSeriesListTableRow";
+import { MatchDto } from "../../../services/GeneratedClient";
+import LolMatchListTableRow from "./LolMatchListTableRow";
 
-function LolSeriesTable(props: { seriesList: SeriesShortDto[] | null }) {
-	const seriesList = props.seriesList;
+function LolMatchListTable(props: { matchList: MatchDto[] | null }) {
+	const matchList = props.matchList;
 
 	return (
 		<Table striped bordered hover variant="dark">
@@ -18,12 +17,12 @@ function LolSeriesTable(props: { seriesList: SeriesShortDto[] | null }) {
 				</tr>
 			</thead>
 			<tbody>
-				{seriesList?.map((series, i) => (
-					<LolSeriesListTableRow series={series} />
+				{matchList?.map((match, i) => (
+					<LolMatchListTableRow match={match} />
 				))}
 			</tbody>
 		</Table>
 	);
 }
 
-export default LolSeriesTable;
+export default LolMatchListTable;

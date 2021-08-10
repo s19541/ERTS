@@ -37,6 +37,8 @@ namespace ErtsModel.FakeSeeds.Factories
                 TrueDamageDealt = Faker.RandomNumber.Next(0, 20000),
                 TrueDamageDealtToChamps = Faker.RandomNumber.Next(0, 10000),
                 DamageDealt = Faker.RandomNumber.Next(0, 200000),
+                DamageDealtToChamps = Faker.RandomNumber.Next(0, 200000),
+                DamageTaken = Faker.RandomNumber.Next(0, 200000),
                 TotalHeal = Faker.RandomNumber.Next(0, 50000),
                 TotalTimeCrowdControlDealt = Faker.RandomNumber.Next(0, 500),
                 WardsPlaced = Faker.RandomNumber.Next(0, 100),

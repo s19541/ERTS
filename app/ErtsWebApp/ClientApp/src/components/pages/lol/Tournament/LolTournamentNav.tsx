@@ -11,17 +11,17 @@ function LolTournamentNav(props: { activeKey: string }) {
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="series" href="./series">
-					SERIES
+				<Nav.Link eventKey="matches" href="./matches">
+					MATCHES
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="link-2">PLAYER STATS</Nav.Link>
+				<Nav.Link eventKey="player-stats" href="./playerStats">
+					PLAYER STATS
+				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="disabled" disabled>
-					DISABLED
-				</Nav.Link>
+				<Nav.Link eventKey="team-stats">TEAM STATS</Nav.Link>
 			</Nav.Item>
 		</Nav>
 	);

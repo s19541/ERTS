@@ -115,7 +115,8 @@ namespace ErtsWebApp
         {
             services.AddScoped<ILeagueDbService, LeagueDbService>();
             services.AddScoped<ITournamentDbService, TournamentDbService>();
-            services.AddScoped<ISeriesDbService, SeriesDbService>();
+            services.AddScoped<IMatchDbService, MatchDbService>();
+            services.AddScoped<IGameDbService, GameDbService>();
         }
     }
 }
