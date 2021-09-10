@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsModel", "ErtsModel\Erts
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErtsApiFetcher", "ErtsApiFetcher\ErtsApiFetcher.csproj", "{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PandaScore.NET", "PandaScore.NET\PandaScore.NET\PandaScore.NET.csproj", "{AE63FD76-F916-421B-B753-EDF8EB431D17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE63FD76-F916-421B-B753-EDF8EB431D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE63FD76-F916-421B-B753-EDF8EB431D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE63FD76-F916-421B-B753-EDF8EB431D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE63FD76-F916-421B-B753-EDF8EB431D17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
