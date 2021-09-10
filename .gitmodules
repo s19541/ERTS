@@ -1,0 +1,3 @@
+[submodule "app/PandaScore.NET"]
+	path = app/PandaScore.NET
+	url = https://github.com/s19541/PandaScore.NET
