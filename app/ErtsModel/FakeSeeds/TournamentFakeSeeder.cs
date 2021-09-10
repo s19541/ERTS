@@ -16,20 +16,22 @@ namespace ErtsModel.FakeSeeds
         private readonly List<LolSpell> lolSpells;
         private readonly List<LolItem> lolItems;
         private readonly Random random;
-        private readonly DbSet<TournamentTeam> dbSetTournamentTeam;
+        private readonly DbSet<LolTournamentTeam> dbSetLolTournamentTeam;
+        private readonly DbSet<LolTournamentPlayer> dbSetLolTournamentPlayer;
         private readonly DbSet<Match> dbSetMatches;
         private readonly DbSet<LolGamePlayer> dbSetLolGamePlayer;
         private readonly DbSet<LolGameTeam> dbSetLolGameTeam;
         private readonly DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem;
 
-        public TournamentFakeSeeder(List<League> leagues, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSet, DbSet<TournamentTeam> dbSetTournamentTeam, DbSet<Match> dbSetMatches, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSet)
+        public TournamentFakeSeeder(List<League> leagues, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSetTournament, DbSet<LolTournamentTeam> dbSetLolTournamentTeam, DbSet<LolTournamentPlayer> dbSetLolTournamentPlayer, DbSet<Match> dbSetMatches, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSetTournament)
         {
             this.leagues = leagues;
             this.teams = teams;
             this.lolChampions = lolChampions;
             this.lolSpells = lolSpells;
             this.lolItems = lolItems;
-            this.dbSetTournamentTeam = dbSetTournamentTeam;
+            this.dbSetLolTournamentTeam = dbSetLolTournamentTeam;
+            this.dbSetLolTournamentPlayer = dbSetLolTournamentPlayer;
             this.dbSetMatches = dbSetMatches;
             this.dbSetLolGamePlayer = dbSetLolGamePlayer;
             this.dbSetLolGameTeam = dbSetLolGameTeam;
@@ -44,19 +46,12 @@ namespace ErtsModel.FakeSeeds
                 var league = leagues[random.Next(1, leagues.Count)];
                 var tournament = FakeTournamentFactory.Create(league);
                 var matchNumber = random.Next(1, 18);
-                var tournamentTeams = new List<TournamentTeam>();
+                var tournamentTeams = new List<LolTournamentTeam>();
+                var tournamentPlayers = new List<LolTournamentPlayer>();
                 var matchList = new List<Match>();
                 for (int j = 0; j < 10; j++)
                 {
-                    tournamentTeams.Add(new TournamentTeam
-                    {
-                        Team = teams[random.Next(1, teams.Count)],
-                        Tournament = tournament,
-                        MatchesWon = 0,
-                        MatchesLost = 0,
-                        GamesWon = 0,
-                        GamesLost = 0
-                    });
+                    tournamentTeams.Add(FakeLolTournamentTeamFactory.Create(teams[random.Next(1, teams.Count)], tournament, lolChampions));
                 }
                 for (int j = 0; j < tournamentTeams.Count; j++)
                 {
@@ -105,7 +100,13 @@ namespace ErtsModel.FakeSeeds
                 }
                 for (int j = 0; j < tournamentTeams.Count; j++)
                 {
-                    dbSetTournamentTeam.Add(tournamentTeams[j]);
+                    dbSetLolTournamentTeam.Add(tournamentTeams[j]);
+                    foreach (Player player in tournamentTeams[j].Team.Players)
+                        tournamentPlayers.Add(FakeLolTournamentPlayerFactory.Create(player, tournamentTeams[j].Tournament, lolChampions));
+                }
+                for (int j = 0; j < tournamentPlayers.Count; j++)
+                {
+                    dbSetLolTournamentPlayer.Add(tournamentPlayers[j]);
                 }
                 foreach (var match in matchList)
                 {
@@ -123,7 +124,7 @@ namespace ErtsModel.FakeSeeds
                         {
                             var lolGamePlayer = FakeLolGamePlayerFactory.Create(match.Team1.Players.ToArray()[j], game, roles[j % 5], lolChampions, lolSpells);
                             dbSetLolGamePlayer.Add(lolGamePlayer);
-                            for (var k = 0; k < random.Next(0, 6); k++)
+                            for (var k = 0; k < random.Next(0, 8); k++)
                                 dbSetLolGamePlayerItem.Add(FakeGamePlayerItemFactory.Create(lolGamePlayer, lolItems[random.Next(1, lolItems.Count)]));
                         }
                         for (var j = 0; j < match.Team2.Players.Count; j++)

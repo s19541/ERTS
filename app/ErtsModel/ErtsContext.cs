@@ -27,7 +27,8 @@ namespace ErtsModel
         public DbSet<LolSpell> LolSpells { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
-        public DbSet<TournamentTeam> TournamentTeams { get; set; }
+        public DbSet<LolTournamentTeam> LolTournamentTeams { get; set; }
+        public DbSet<LolTournamentPlayer> LolTournamentPlayers { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<LolGamePlayer> LolGamePlayers { get; set; }
         public DbSet<LolGameTeam> LolGameTeam { get; set; }
@@ -43,7 +44,8 @@ namespace ErtsModel
             modelBuilder.ApplyConfiguration(new LolSpellConfiguration());
             modelBuilder.ApplyConfiguration(new LeagueConfiguration());
             modelBuilder.ApplyConfiguration(new TournamentConfiguration());
-            modelBuilder.ApplyConfiguration(new TournamentTeamConfiguration());
+            modelBuilder.ApplyConfiguration(new LolTournamentTeamConfiguration());
+            modelBuilder.ApplyConfiguration(new LolTournamentPlayerConfiguration());
             modelBuilder.ApplyConfiguration(new GameConfiguration());
             modelBuilder.ApplyConfiguration(new LolGamePlayerConfiguration());
             modelBuilder.ApplyConfiguration(new LolGameTeamConfiguration());

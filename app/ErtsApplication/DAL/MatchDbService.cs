@@ -160,8 +160,8 @@ namespace ErtsApplication.DAL
                     BlueTeamid = blueTeamId,
                     RedTeamStats = redTeamStatsDto,
                     BlueTeamStats = blueTeamStatsDto,
-                    BlueTeamPlayersStats = blueTeamplayersStats,
-                    RedTeamPlayersStats = redTeamplayersStats
+                    BlueTeamPlayersStats = blueTeamplayersStats.OrderBy(o => o.Role).ToList(),
+                    RedTeamPlayersStats = redTeamplayersStats.OrderBy(o => o.Role).ToList()
                 };
                 gameStatsDtos.Add(gameStatsDto);
             }

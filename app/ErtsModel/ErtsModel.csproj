@@ -27,6 +27,8 @@
     <Compile Include="Migrations\20210808151213_RenamedSeriesIntoMatch.Designer.cs" />
     <Compile Include="Migrations\20210810193734_InhibitorDestroyedAdded.cs" />
     <Compile Include="Migrations\20210810193734_InhibitorDestroyedAdded.Designer.cs" />
+    <Compile Include="Migrations\20210813190000_tournamentStats.cs" />
+    <Compile Include="Migrations\20210813190000_tournamentStats.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

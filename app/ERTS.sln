@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsWebApp", "ErtsWebApp\ErtsWebApp.csproj", "{1202727D-62AD-4213-B477-24B43D95045E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErtsApplication", "ErtsApplication\ErtsApplication.csproj", "{8A56682F-7996-4DF5-B141-BEDDCE298354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsApplication", "ErtsApplication\ErtsApplication.csproj", "{8A56682F-7996-4DF5-B141-BEDDCE298354}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErtsModel", "ErtsModel\ErtsModel.csproj", "{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErtsApiFetcher", "ErtsApiFetcher\ErtsApiFetcher.csproj", "{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DF89E4B-2E9C-4E0A-91B5-A2C385BD1D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22DB0EFD-EFC3-405E-B1AA-39AE8BFA5EEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

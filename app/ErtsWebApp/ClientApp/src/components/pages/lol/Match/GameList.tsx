@@ -16,11 +16,20 @@ function LolMatchListTable(props: {
 					<div className="h5 text-white">
 						Start Time: {game.startTime.format("HH:mm DD-MM-YYYY")} Length:{" "}
 						{game.gameLength}
-						<br></br>
-						Blue Team
+						<br></br>Blue Team{" "}
+						{game.blueTeamStats?.teamId == game.winnerTeamId ? (
+							<a style={{ color: "#145DA0" }}>Victory</a>
+						) : (
+							<a style={{ color: "red" }}>Defeat</a>
+						)}
 						<GameTeamStats teamStats={game.blueTeamStats} />
 						<GamePlayerStatsTable playerStatsList={game.blueTeamPlayersStats} />
-						Red Team
+						Red Team{" "}
+						{game.redTeamStats?.teamId == game.winnerTeamId ? (
+							<a style={{ color: "#145DA0" }}>Victory</a>
+						) : (
+							<a style={{ color: "red" }}>Defeat</a>
+						)}
 						<GameTeamStats teamStats={game.redTeamStats} />
 						<GamePlayerStatsTable playerStatsList={game.redTeamPlayersStats} />
 					</div>

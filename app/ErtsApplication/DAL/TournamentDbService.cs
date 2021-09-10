@@ -36,17 +36,17 @@ namespace ErtsApplication.DAL
         public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId)
         {
             List<TournamentTeamShortDto> tournamentTeamShortDtos = new List<TournamentTeamShortDto>();
-            var tournamentTeamIds = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
+            var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
 
             foreach (int tournamentTeamId in tournamentTeamIds)
             {
-                var teamId = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team.Id).FirstOrDefault();
+                var teamId = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team.Id).FirstOrDefault();
                 var tournamentTeamShortDto = new TournamentTeamShortDto()
                 {
-                    MatchesWon = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesWon).FirstOrDefault(),
-                    MatchesLost = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesLost).FirstOrDefault(),
-                    GamesWon = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesWon).FirstOrDefault(),
-                    GamesLost = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesLost).FirstOrDefault(),
+                    MatchesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesWon).FirstOrDefault(),
+                    MatchesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesLost).FirstOrDefault(),
+                    GamesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesWon).FirstOrDefault(),
+                    GamesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesLost).FirstOrDefault(),
                     TeamName = Context.Teams.Where(p => p.Id == teamId).Select(p => p.Name).FirstOrDefault(),
                     TeamImageUrl = Context.Teams.Where(p => p.Id == teamId).Select(p => p.ImageUrl).FirstOrDefault()
                 };
@@ -59,18 +59,18 @@ namespace ErtsApplication.DAL
         public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId)
         {
             List<LolTournamentPlayerStatsDto> lolTournamentPlayerStatsDtos = new List<LolTournamentPlayerStatsDto>();
-            var tournamentTeamIds = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
+            var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
 
             //var res = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(t=>t.Team.Players
             
 
             foreach (int tournamentTeamId in tournamentTeamIds)
             {
-                var players = Context.TournamentTeams.Where(o => o.Id == tournamentTeamId).Select(o => o.Team).Select(o => o.Players).FirstOrDefault();
+                var players = Context.LolTournamentTeams.Where(o => o.Id == tournamentTeamId).Select(o => o.Team).Select(o => o.Players).FirstOrDefault();
 
                 foreach (var player in players)
                 {
-                    var team = Context.TournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team).FirstOrDefault();
+                    var team = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team).FirstOrDefault();
                     var gamesStats = Context.LolGamePlayers.Where(o => o.Player == player).ToList();
 
                     int kills = 0;

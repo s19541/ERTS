@@ -6,8 +6,8 @@ namespace ErtsModel.FakeSeeds.Factories
     {
         public static Player Create() => new Player
         {
-            Name = Faker.Name.First(),
-            Surname = Faker.Name.Last(),
+            FirstName = Faker.Name.First(),
+            LastName = Faker.Name.Last(),
             Nick = Faker.Name.Middle(),
             Nationality = Faker.Country.Name()
         };

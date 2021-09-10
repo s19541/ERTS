@@ -16,14 +16,13 @@ namespace ErtsModel.Configuration.Entities
             builder.HasKey(x => x.Id);
             builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
 
-            builder.Property(b => b.Name).HasComment("Name");
-            builder.Property(b => b.Surname).HasComment("Surname");
+            builder.Property(b => b.FirstName).HasComment("First Name");
+            builder.Property(b => b.LastName).HasComment("Last Name");
 
             builder.Property(b => b.Nick).HasComment("Nickname").IsRequired();
 
             builder.Property<long>(TeamId).HasComment("Team ID");
             builder.Property(b => b.Nationality).HasComment("Nationality");
-            //builder.Property<long>(CsgoTeamId).HasComment("CS GO team ID");
         }
     }
 }

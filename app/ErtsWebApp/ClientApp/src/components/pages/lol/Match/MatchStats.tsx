@@ -2,12 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../css/myStyle.css";
-import {
-	GameClient,
-	LolGameStatsDto,
-	MatchClient,
-	MatchDto,
-} from "../../../../services/GeneratedClient";
+import { MatchClient, MatchDto } from "../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,

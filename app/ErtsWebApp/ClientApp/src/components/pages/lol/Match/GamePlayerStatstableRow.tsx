@@ -11,11 +11,11 @@ function GamePlayerStatsTableRow(props: {
 			<td
 				style={{
 					verticalAlign: "middle",
-					width: "17vh",
+					width: "13vh",
 				}}
 			>
 				<Row>
-					<Col md="auto" sm={8} style={{ textAlign: "right" }}>
+					<Col md="5" style={{ textAlign: "right" }}>
 						<img
 							src={playerStats?.championImageUrl}
 							className=""
@@ -25,7 +25,7 @@ function GamePlayerStatsTableRow(props: {
 					</Col>
 					<Col md="auto" style={{ textAlign: "center" }}>
 						<Row>
-							<Col style={{ textAlign: "center" }}>
+							<Col md="auto" style={{ textAlign: "center" }}>
 								<img
 									src={playerStats?.spell1ImageUrl}
 									className=""
@@ -87,6 +87,7 @@ function GamePlayerStatsTableRow(props: {
 				style={{
 					verticalAlign: "middle",
 					textAlign: "left",
+					width: "31vh",
 				}}
 			>
 				{playerStats.itemImages?.map((itemImage, i) => (
