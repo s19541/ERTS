@@ -10,7 +10,7 @@ namespace ErtsModel.FakeSeeds.Factories
             {
                 Name = Faker.Company.Name(),
                 ImageUrl = "https://cdn.dev.pandascore.co/images/league/image/4004/220px-LCL2020_logo.png",
-                GameType = Enums.GameType.Lol,
+                GameType = Enums.GameType.LoL,
                 Url = "https://iberiancup.lvp.global/"
             };
         }

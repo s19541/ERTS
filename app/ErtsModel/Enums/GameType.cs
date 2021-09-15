@@ -5,7 +5,7 @@ namespace ErtsModel.Enums
     public enum GameType
     {
         [Description("League of Legends")]
-        Lol,
+        LoL,
 
         [Description("Counter-Strike Global Offensive")]
         Csgo,

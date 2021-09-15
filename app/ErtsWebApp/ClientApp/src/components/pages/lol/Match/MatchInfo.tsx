@@ -42,7 +42,7 @@ function MatchInfo(props: { match: MatchDto | null }) {
 			<Row>
 				<Col style={{ textAlign: "center" }}>
 					<div className="h4 text-white">
-						{match?.startTime.format("HH:mm DD-MM-YYYY")}
+						{match?.startTime?.format("HH:mm DD-MM-YYYY")}
 					</div>
 				</Col>
 			</Row>

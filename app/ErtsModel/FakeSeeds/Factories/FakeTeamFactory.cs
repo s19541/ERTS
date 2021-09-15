@@ -9,7 +9,7 @@ namespace ErtsModel.FakeSeeds.Factories
 
         public static Team Create() => new Team
         {
-            GameType = GameType.Lol,
+            GameType = GameType.LoL,
             Name = Faker.Company.Name(),
             Acronym = Faker.Generators.Strings.GenerateAlphaNumericString(2, 4),
             ImageUrl = "https://cdn.dev.pandascore.co/images/team/image/389/download.png",

@@ -10,7 +10,8 @@
             var lolItems = new LolItemFakeSeeder(context.LolItems).SeedIfNotSeeded();
             var lolSpells = new LolSpellFakeSeeder(context.LolSpells).SeedIfNotSeeded();
             var leagues = new LeagueFakeSeeder(context.Leagues).SeedIfNotSeeded();
-            var tournaments = new TournamentFakeSeeder(leagues, teams, lolChampions, lolSpells, lolItems, context.Tournaments, context.LolTournamentTeams, context.LolTournamentPlayers, context.Matches, context.LolGamePlayers, context.LolGameTeam, context.LolGamePlayerItems).SeedIfNotSeeded();
+            var series = new SerieFakeSeeder(context.Series, leagues).SeedIfNotSeeded();
+            var tournaments = new TournamentFakeSeeder(series, teams, lolChampions, lolSpells, lolItems, context.Tournaments, context.LolTournamentTeams, context.LolTournamentPlayers, context.Matches, context.LolGamePlayers, context.LolGameTeam, context.LolGamePlayerItems).SeedIfNotSeeded();
         }
     }
 }

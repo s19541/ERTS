@@ -5,8 +5,8 @@ namespace ErtsModel.Entities
 {
     public class Match : ModelBase
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public virtual Team Team1 { get; set; }
         public virtual Team Team2 { get; set; }
         public virtual Tournament Tournament { get; set; }

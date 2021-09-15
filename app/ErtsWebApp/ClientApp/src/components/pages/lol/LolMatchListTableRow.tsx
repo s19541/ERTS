@@ -2,7 +2,7 @@ import { MatchDto } from "../../../services/GeneratedClient";
 
 function LolMatchListTableRow(props: { match: MatchDto }) {
 	const match = props.match;
-	const startTime = match.startTime.format("HH:mm DD-MM-YYYY");
+	const startTime = match.startTime?.format("HH:mm DD-MM-YYYY");
 	var result = match.team1GamesWon + ":" + match.team2GamesWon;
 	if (match.endTime == null) result = "vs";
 	const winner = match.team1GamesWon > match.team2GamesWon ? "Blue" : "Red";

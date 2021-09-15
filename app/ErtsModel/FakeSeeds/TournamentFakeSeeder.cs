@@ -10,7 +10,7 @@ namespace ErtsModel.FakeSeeds
 {
     class TournamentFakeSeeder : FakeSeederBase<Tournament>
     {
-        private readonly List<League> leagues;
+        private readonly List<Serie> series;
         private readonly List<Team> teams;
         private readonly List<LolChampion> lolChampions;
         private readonly List<LolSpell> lolSpells;
@@ -23,9 +23,9 @@ namespace ErtsModel.FakeSeeds
         private readonly DbSet<LolGameTeam> dbSetLolGameTeam;
         private readonly DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem;
 
-        public TournamentFakeSeeder(List<League> leagues, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSetTournament, DbSet<LolTournamentTeam> dbSetLolTournamentTeam, DbSet<LolTournamentPlayer> dbSetLolTournamentPlayer, DbSet<Match> dbSetMatches, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSetTournament)
+        public TournamentFakeSeeder(List<Serie> series, List<Team> teams, List<LolChampion> lolChampions, List<LolSpell> lolSpells, List<LolItem> lolItems, DbSet<Tournament> dbSetTournament, DbSet<LolTournamentTeam> dbSetLolTournamentTeam, DbSet<LolTournamentPlayer> dbSetLolTournamentPlayer, DbSet<Match> dbSetMatches, DbSet<LolGamePlayer> dbSetLolGamePlayer, DbSet<LolGameTeam> dbSetLolGameTeam, DbSet<LolGamePlayerItem> dbSetLolGamePlayerItem) : base(dbSetTournament)
         {
-            this.leagues = leagues;
+            this.series = series;
             this.teams = teams;
             this.lolChampions = lolChampions;
             this.lolSpells = lolSpells;
@@ -43,8 +43,8 @@ namespace ErtsModel.FakeSeeds
         {
             for (int i = 0; i < 100; i++)
             {
-                var league = leagues[random.Next(1, leagues.Count)];
-                var tournament = FakeTournamentFactory.Create(league);
+                var serie = series[random.Next(1, series.Count)];
+                var tournament = FakeTournamentFactory.Create(serie);
                 var matchNumber = random.Next(1, 18);
                 var tournamentTeams = new List<LolTournamentTeam>();
                 var tournamentPlayers = new List<LolTournamentPlayer>();

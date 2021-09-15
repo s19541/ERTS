@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20210911141857_added series")]
+    partial class addedseries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

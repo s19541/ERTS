@@ -3,21 +3,21 @@ using System;
 
 namespace ErtsModel.FakeSeeds.Factories
 {
-    static class FakeTournamentFactory
+    class FakeSerieFactory
     {
-        public static Tournament Create(Serie serie)
+        public static Serie Create(League league)
         {
             var startTime = DateTime.Now - TimeSpan.FromDays(Faker.RandomNumber.Next(1, 50));
             var endTime = startTime + TimeSpan.FromMinutes(Faker.RandomNumber.Next(15, 80));
 
-            return new Tournament
+            return new Serie
             {
                 Name = Faker.Company.Name(),
                 StartTime = startTime,
                 EndTime = endTime,
-                PrizePool = Faker.RandomNumber.Next(100, 100000),
-                Serie = serie
+                League = league
             };
         }
     }
 }
+

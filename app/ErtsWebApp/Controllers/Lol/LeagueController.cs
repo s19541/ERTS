@@ -27,7 +27,7 @@ namespace ErtsApplication.Controllers.Lol
         [HttpGet]
         public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages()
         {
-            return _dbService.GetLeagueImages(GameType.Lol);
+            return _dbService.GetLeagueImages(GameType.LoL);
         }
     }
 }

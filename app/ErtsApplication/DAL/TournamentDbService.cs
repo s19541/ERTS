@@ -17,7 +17,7 @@ namespace ErtsApplication.DAL
         public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId)
         {
             List<TournamentShortDto> tournamentShortDtos = new List<TournamentShortDto>();
-            var tournamentIds = Context.Tournaments.Where(o => o.League.Id == leagueId).Select(o => o.Id).ToList();
+            var tournamentIds = Context.Tournaments.Where(o => o.Serie.League.Id == leagueId).Select(o => o.Id).ToList();
 
             foreach (int tournamentId in tournamentIds)
             {
@@ -62,7 +62,7 @@ namespace ErtsApplication.DAL
             var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
 
             //var res = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(t=>t.Team.Players
-            
+
 
             foreach (int tournamentTeamId in tournamentTeamIds)
             {

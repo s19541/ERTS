@@ -773,8 +773,8 @@ export class MatchDto implements IMatchDto {
     team2Acronym!: string | undefined;
     team1Name!: string | undefined;
     team2Name!: string | undefined;
-    startTime!: moment.Moment;
-    endTime!: moment.Moment;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
     team1GamesWon!: number;
     team2GamesWon!: number;
     streamUrl!: string | undefined;
@@ -855,8 +855,8 @@ export interface IMatchDto {
     team2Acronym: string | undefined;
     team1Name: string | undefined;
     team2Name: string | undefined;
-    startTime: moment.Moment;
-    endTime: moment.Moment;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
     team1GamesWon: number;
     team2GamesWon: number;
     streamUrl: string | undefined;
