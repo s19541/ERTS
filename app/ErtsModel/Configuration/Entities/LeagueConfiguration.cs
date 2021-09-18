@@ -18,6 +18,7 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.GameType).HasComment("Game type").HasConversion(EnumValueConverterFactory.Create<GameType>());
             builder.Property(b => b.ImageUrl).HasComment("Image url");
             builder.Property(b => b.Url).HasComment("Url");
+            builder.Property(b => b.ApiId).HasComment("ApiId");
 
 
         }

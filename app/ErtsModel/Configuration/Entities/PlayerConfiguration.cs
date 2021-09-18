@@ -23,6 +23,7 @@ namespace ErtsModel.Configuration.Entities
 
             builder.Property<long>(TeamId).HasComment("Team ID");
             builder.Property(b => b.Nationality).HasComment("Nationality");
+            builder.Property(b => b.ApiId).HasComment("ApiId");
         }
     }
 }

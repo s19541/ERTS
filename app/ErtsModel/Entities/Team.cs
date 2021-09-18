@@ -10,5 +10,6 @@ namespace ErtsModel.Entities
         public virtual ICollection<Player> Players { get; set; }
         public string ImageUrl { get; set; }
         public string Acronym { get; set; }
+        public int ApiId { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasMany(a => a.Games)
                 .WithOne()
                 .HasForeignKey(GameConfiguration.MatchId);
+            builder.Property(b => b.ApiId).HasComment("ApiId");
         }
     }
 }

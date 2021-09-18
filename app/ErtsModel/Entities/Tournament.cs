@@ -9,5 +9,6 @@ namespace ErtsModel.Entities
         public DateTime EndTime { get; set; }
         public virtual Serie Serie { get; set; }
         public double PrizePool { get; set; }
+        public int ApiId { get; set; }
     }
 }

@@ -1,0 +1,85 @@
+using ErtsApiFetcher._Infrastructure.Enqueuers;
+using ErtsApiFetcher._Infrastructure.RecurringJobs;
+using ErtsApiFetcher.Configurations;
+using Hangfire;
+using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+
+namespace ErtsApiFetcher
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            AppConfig = new AppConfig(configuration);
+        }
+
+        public AppConfig AppConfig { get; }
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+
+            var hangfireJobStorage = GetJobStorage(AppConfig.ErtsHangfireConnectionString, AppConfig.ErtsHangfireSchemaName, true, 60);
+            var enqueuer = GetInstance(hangfireJobStorage);
+
+            services.AddHangfire(configuration => configuration
+                .UseStorage(hangfireJobStorage)
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings());
+
+            services.AddHangfireServer(hangfireJobStorage);
+
+            services.AddSingleton(enqueuer);
+
+            RecurringJobInitalizer.RegisterRecurringJobs(services);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RecurringJobInitalizer recurringJobInitalizer)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+
+            app.UseHangfireDashboard();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHangfireDashboard();
+            });
+
+            recurringJobInitalizer.ScheduleRecurringJobs();
+        }
+
+        public JobStorage GetJobStorage(string connectionString, string schemaName, bool prepareSchemaIfNecessary, int hangfireTransactionSynchronisationTimeoutInSeconds)
+        {
+            var jobStorage = new PostgreSqlStorage(connectionString,
+                new PostgreSqlStorageOptions()
+                {
+                    SchemaName = schemaName,
+                    PrepareSchemaIfNecessary = prepareSchemaIfNecessary,
+                    EnableTransactionScopeEnlistment = true,
+                    TransactionSynchronisationTimeout =
+                        TimeSpan.FromSeconds(hangfireTransactionSynchronisationTimeoutInSeconds),
+                });
+
+            return jobStorage;
+        }
+
+        public IEnqueuer GetInstance(JobStorage storage)
+        {
+            var backgroundJobClient = new BackgroundJobClient(storage);
+            return new HangfireEnqueuer(backgroundJobClient, storage);
+        }
+    }
+}

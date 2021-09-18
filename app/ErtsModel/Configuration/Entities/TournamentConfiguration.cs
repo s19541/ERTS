@@ -21,6 +21,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasOne(a => a.Serie)
                .WithMany()
                .HasForeignKey(_serieId);
+            builder.Property(b => b.ApiId).HasComment("ApiId");
 
 
         }

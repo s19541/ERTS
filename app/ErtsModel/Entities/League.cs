@@ -8,5 +8,6 @@ namespace ErtsModel.Entities
         public string ImageUrl { get; set; }
         public GameType GameType { get; set; }
         public string Url { get; set; }
+        public int ApiId { get; set; }
     }
 }

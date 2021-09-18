@@ -12,5 +12,6 @@ namespace ErtsModel.Entities
         public virtual Tournament Tournament { get; set; }
         public string StreamUrl { get; set; }
         public virtual ICollection<Game> Games { get; set; }
+        public int ApiId { get; set; }
     }
 }
