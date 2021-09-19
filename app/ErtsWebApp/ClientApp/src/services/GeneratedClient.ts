@@ -946,8 +946,8 @@ export interface ILolGameShortStatsDto {
 export class TournamentShortDto implements ITournamentShortDto {
     id!: number;
     name!: string | undefined;
-    startTime!: moment.Moment;
-    endTime!: moment.Moment;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
 
     constructor(data?: ITournamentShortDto) {
         if (data) {
@@ -987,8 +987,8 @@ export class TournamentShortDto implements ITournamentShortDto {
 export interface ITournamentShortDto {
     id: number;
     name: string | undefined;
-    startTime: moment.Moment;
-    endTime: moment.Moment;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
 }
 
 export class TournamentTeamShortDto implements ITournamentTeamShortDto {

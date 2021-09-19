@@ -2,6 +2,7 @@
 using ErtsApiFetcher.Fetchers;
 using ErtsModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs
@@ -20,17 +21,19 @@ namespace ErtsApiFetcher.RecurringJobs
             Console.WriteLine("SecondRecurringJob XDDDD " + DateTime.Now.ToString());
             var lolDataFetcher = new LolDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM");
 
-            var leagues = lolDataFetcher.FetchLeagues();
-            Console.WriteLine(context.Leagues.First().Name);
+            var apiLeagues = lolDataFetcher.FetchLeagues();
+            var newLeagues = apiLeagues.Where(apiLeague => !context.Leagues.Any(contextLeague => contextLeague.ApiId == apiLeague.ApiId));
 
-            var ApiIds = context.Leagues.Select(o => o.ApiId).ToList();
+            context.Leagues.AddRange(newLeagues);
 
-            foreach (var league in leagues)
+            var newSeries = new List<ErtsModel.Entities.Serie>();
+            foreach (var apiLeague in apiLeagues)
             {
-                if (!ApiIds.Contains(league.ApiId))
-                    context.Leagues.Add(league);
-                Console.WriteLine(league.ApiId);
+                var apiSeries = lolDataFetcher.FetchSeriesFromLeague(apiLeague);
+                newSeries.AddRange(apiSeries.Where(apiSerie => !context.Series.Any(contextSerie => contextSerie.ApiId == apiSerie.ApiId)));
             }
+            context.Series.AddRange(newSeries);
+
             context.SaveChanges();
         }
     }

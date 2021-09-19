@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace ErtsWebApp
 {
@@ -98,10 +99,15 @@ namespace ErtsWebApp
             {
                 using (var context = new ErtsContext(connectionString))
                 {
-                    context.Database.Migrate();
-
-                    new ErtsFakeSeeder().SeedFakeData(context);
-                    context.SaveChanges();
+                    if (context.Database.GetPendingMigrations()?.Any() == true)
+                    {
+                        context.Database.Migrate();
+                    }
+                    else
+                    {
+                        new ErtsFakeSeeder().SeedFakeData(context);
+                        context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)

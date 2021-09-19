@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20210919163001_removed not null from name in serie")]
+    partial class removednotnullfromnameinserie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -737,7 +739,6 @@ namespace ErtsModel.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasComment("Name");
 
@@ -805,7 +806,7 @@ namespace ErtsModel.Migrations
                         .HasColumnType("integer")
                         .HasComment("ApiId");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp without time zone")
                         .HasComment("End time");
 
@@ -814,10 +815,14 @@ namespace ErtsModel.Migrations
                         .HasColumnType("text")
                         .HasComment("Name");
 
+                    b.Property<double>("PrizePool")
+                        .HasColumnType("double precision")
+                        .HasComment("Prize pool");
+
                     b.Property<long?>("SerieId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("StartTime")
+                    b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp without time zone")
                         .HasComment("Start time");
 

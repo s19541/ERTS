@@ -33,6 +33,8 @@
     <Compile Include="Migrations\20210911141857_added series.Designer.cs" />
     <Compile Include="Migrations\20210916184543_added apiIds.cs" />
     <Compile Include="Migrations\20210916184543_added apiIds.Designer.cs" />
+    <Compile Include="Migrations\20210919200018_Edit_Tournament_Remove_PrizePool.cs" />
+    <Compile Include="Migrations\20210919200018_Edit_Tournament_Remove_PrizePool.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

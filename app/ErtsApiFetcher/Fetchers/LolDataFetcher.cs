@@ -111,9 +111,10 @@ namespace ErtsApiFetcher.Fetchers
             return leagues;
         }
 
-        public IEnumerable<ErtsModel.Entities.Serie> FetchSeries()
+        public IEnumerable<ErtsModel.Entities.Serie> FetchSeriesFromLeague(ErtsModel.Entities.League league)
         {
             var query = new SeriesQueryOptions();
+            query.LeagueId.Filter(league.ApiId);
             var results = Provider.GetSeries(query);
 
             var series = new List<ErtsModel.Entities.Serie>();
@@ -122,15 +123,38 @@ namespace ErtsApiFetcher.Fetchers
             {
                 series.Add(new ErtsModel.Entities.Serie()
                 {
-                    Id = result.Id,
-                    Name = result.Name,
+                    ApiId = result.Id,
+                    Name = result.Name != null ? result.Name : "",
                     StartTime = result.BeginAt,
                     EndTime = result.EndAt,
-                    League = new ErtsModel.Entities.League() { }
+                    League = league
                 });
             }
 
             return series;
+        }
+
+        public IEnumerable<ErtsModel.Entities.Tournament> FetchTournamentsFromSeries(ErtsModel.Entities.Serie serie)
+        {
+            var query = new TournamentQueryOptions();
+            query.SeriesId.Filter(serie.ApiId);
+            var results = Provider.GetTournaments(query);
+
+            var tournaments = new List<ErtsModel.Entities.Tournament>();
+
+            foreach (var result in results)
+            {
+                tournaments.Add(new ErtsModel.Entities.Tournament()
+                {
+                    ApiId = result.Id,
+                    Name = result.Name != null ? result.Name : "",
+                    StartTime = result.BeginAt,
+                    EndTime = result.EndAt,
+                    Serie = serie
+                });
+            }
+
+            return tournaments;
         }
 
         public IEnumerable<ErtsModel.Entities.Match> FetchMatches()

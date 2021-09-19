@@ -15,7 +15,6 @@ namespace ErtsModel.FakeSeeds.Factories
                 Name = Faker.Company.Name(),
                 StartTime = startTime,
                 EndTime = endTime,
-                PrizePool = Faker.RandomNumber.Next(100, 100000),
                 Serie = serie
             };
         }

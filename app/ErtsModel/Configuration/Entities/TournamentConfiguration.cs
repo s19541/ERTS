@@ -14,7 +14,6 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
 
             builder.Property(b => b.Name).HasComment("Name").IsRequired();
-            builder.Property(b => b.PrizePool).HasComment("Prize pool");
 
             builder.Property(b => b.StartTime).HasComment("Start time");
             builder.Property(b => b.EndTime).HasComment("End time");
