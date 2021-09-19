@@ -15,7 +15,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
 
         string Schedule(Expression<Func<Task>> func, DateTime executionTime);
 
-        public void AddRecurringJob(IRecurringJob recurringJob);
+        public void AddRecurringJob(RecurringJobInfoAttribute recurringJobInfo);
 
         void DeleteScheduledJob(string jobId);
     }

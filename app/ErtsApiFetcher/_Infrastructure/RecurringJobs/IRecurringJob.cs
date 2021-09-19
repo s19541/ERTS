@@ -2,8 +2,6 @@
 {
     public interface IRecurringJob
     {
-        string JobName { get; }
-        string CronTime { get; }
         void Job();
     }
 }

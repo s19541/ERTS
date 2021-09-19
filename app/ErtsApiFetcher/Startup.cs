@@ -1,10 +1,12 @@
 using ErtsApiFetcher._Infrastructure.Enqueuers;
 using ErtsApiFetcher._Infrastructure.RecurringJobs;
 using ErtsApiFetcher.Configurations;
+using ErtsModel;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,12 @@ namespace ErtsApiFetcher
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ErtsContext>(
+               options => options
+               .UseLazyLoadingProxies()
+               .UseNpgsql(AppConfig.ErtsDbConnectionString));
+
+            InitializeDb(AppConfig.ErtsDbConnectionString);
 
             var hangfireJobStorage = GetJobStorage(AppConfig.ErtsHangfireConnectionString, AppConfig.ErtsHangfireSchemaName, true, 60);
             var enqueuer = GetInstance(hangfireJobStorage);
@@ -37,6 +45,7 @@ namespace ErtsApiFetcher
             services.AddHangfireServer(hangfireJobStorage);
 
             services.AddSingleton(enqueuer);
+            services.AddSingleton<RecurringJobActivator>();
 
             RecurringJobInitalizer.RegisterRecurringJobs(services);
         }
@@ -80,6 +89,23 @@ namespace ErtsApiFetcher
         {
             var backgroundJobClient = new BackgroundJobClient(storage);
             return new HangfireEnqueuer(backgroundJobClient, storage);
+        }
+
+        private void InitializeDb(string connectionString)
+        {
+            try
+            {
+                using (var context = new ErtsContext(connectionString))
+                {
+                    context.Database.Migrate();
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Wyst¹pi³ b³¹d podczas aktualizacji bazy danych: {ex.Message}");
+                throw;
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace ErtsApiFetcher.Configurations
         }
 
         public string ErtsHangfireConnectionString => configuration.GetConnectionString(nameof(ErtsHangfireConnectionString));
+        public string ErtsDbConnectionString => configuration.GetConnectionString(nameof(ErtsDbConnectionString));
 
         public string ErtsHangfireSchemaName => configuration.GetSection("Hangfire")[nameof(ErtsHangfireSchemaName)];
     }

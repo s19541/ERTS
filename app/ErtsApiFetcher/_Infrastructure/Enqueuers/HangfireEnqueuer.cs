@@ -11,13 +11,12 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
 {
     public class HangfireEnqueuer : IEnqueuer
     {
-        private BackgroundJobClient _backgroundJobClient;
-        private JobStorage _jobStorage;
-
+        private readonly BackgroundJobClient backgroundJobClient;
+        private readonly JobStorage jobStorage;
         public HangfireEnqueuer(BackgroundJobClient backgroundJobClient, JobStorage jobStorage)
         {
-            _backgroundJobClient = backgroundJobClient;
-            _jobStorage = jobStorage;
+            this.backgroundJobClient = backgroundJobClient;
+            this.jobStorage = jobStorage;
         }
 
         public string Enqueue(Expression<Func<Task>> func)
@@ -27,7 +26,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
                 throw new ArgumentNullException(nameof(func));
             }
 
-            return _backgroundJobClient.Enqueue(func);
+            return backgroundJobClient.Enqueue(func);
         }
 
         public string Enqueue<T>(Expression<Func<T, Task>> func)
@@ -37,7 +36,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
                 throw new ArgumentNullException(nameof(func));
             }
 
-            return _backgroundJobClient.Enqueue(func);
+            return backgroundJobClient.Enqueue(func);
         }
 
         public string Enqueue<T>(Expression<Action<T>> func)
@@ -47,7 +46,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
                 throw new ArgumentNullException(nameof(func));
             }
 
-            return _backgroundJobClient.Enqueue(func);
+            return backgroundJobClient.Enqueue(func);
         }
 
         public string Schedule(Expression<Func<Task>> func, DateTime executionTime)
@@ -57,7 +56,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
                 throw new ArgumentNullException(nameof(func));
             }
 
-            return _backgroundJobClient.Schedule(func, new DateTimeOffset(executionTime));
+            return backgroundJobClient.Schedule(func, new DateTimeOffset(executionTime));
         }
 
         public void DeleteScheduledJob(string jobId)
@@ -71,23 +70,23 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
-                    _backgroundJobClient.Delete(jobId);
+                    backgroundJobClient.Delete(jobId);
                 }
             }
         }
 
         private bool IsInScheduledState(string jobId)
         {
-            using (var storageConnection = _jobStorage.GetConnection())
+            using (var storageConnection = jobStorage.GetConnection())
             {
                 JobData jobData = storageConnection.GetJobData(jobId);
                 return jobData.State == ScheduledState.StateName;
             }
         }
 
-        public void AddRecurringJob(IRecurringJob recurringJob)
+        public void AddRecurringJob(RecurringJobInfoAttribute recurringJobInfo)
         {
-            RecurringJob.AddOrUpdate(recurringJob.JobName, () => recurringJob.Job(), recurringJob.CronTime);
+            RecurringJob.AddOrUpdate<RecurringJobActivator>(recurringJobInfo.JobName, (jobActivator) => jobActivator.CreateScopeAndActivate(recurringJobInfo.JobType), recurringJobInfo.CronTime);
         }
     }
 }

@@ -100,11 +100,11 @@ namespace ErtsApiFetcher.Fetchers
             {
                 leagues.Add(new ErtsModel.Entities.League()
                 {
-                    Id = result.Id,
                     Name = result.Name,
                     ImageUrl = result.ImageUrl,
                     GameType = (GameType)Enum.Parse(typeof(GameType), result.VideoGame.Name),
-                    Url = result.Url
+                    Url = result.Url,
+                    ApiId = result.Id
                 });
             }
 
