@@ -13,9 +13,10 @@ namespace ErtsApiFetcher.Fetchers
     {
         private readonly PandaScoreLoLProvider Provider;
         private readonly ErtsContext Context;
-        public LolDataFetcher(string token)
+        public LolDataFetcher(string token, ErtsContext context)
         {
             Provider = new PandaScoreLoLProvider(token);
+            Context = context;
         }
 
         public IEnumerable<LolChampion> FetchChampions()
@@ -47,14 +48,8 @@ namespace ErtsApiFetcher.Fetchers
 
             foreach (var result in results)
             {
-                var players = new List<ErtsModel.Entities.Player>();
-                result.Players.ToList().ForEach(o => players.Add(new ErtsModel.Entities.Player()
-                {
-                    FirstName = o.FirstName,
-                    LastName = o.LastName,
-                    Nick = o.Name,
-                    Nationality = o.Nationality
-                }));
+                var players = Context.Players.Where(player => result.Players.Select(o => o.Id).Contains(player.ApiId)).ToList();
+
                 teams.Add(new ErtsModel.Entities.Team()
                 {
                     Name = result.Name,
@@ -82,7 +77,8 @@ namespace ErtsApiFetcher.Fetchers
                     Nick = result.Name,
                     FirstName = result.FirstName,
                     LastName = result.LastName,
-                    Nationality = result.Nationality
+                    Nationality = result.Nationality,
+                    ApiId = result.Id
                 });
             }
 
@@ -111,47 +107,49 @@ namespace ErtsApiFetcher.Fetchers
             return leagues;
         }
 
-        public IEnumerable<ErtsModel.Entities.Serie> FetchSeriesFromLeague(ErtsModel.Entities.League league)
+        public IEnumerable<ErtsModel.Entities.Serie> FetchSeries()
         {
             var query = new SeriesQueryOptions();
-            query.LeagueId.Filter(league.ApiId);
             var results = Provider.GetSeries(query);
 
             var series = new List<ErtsModel.Entities.Serie>();
 
             foreach (var result in results)
             {
-                series.Add(new ErtsModel.Entities.Serie()
-                {
-                    ApiId = result.Id,
-                    Name = result.Name != null ? result.Name : "",
-                    StartTime = result.BeginAt,
-                    EndTime = result.EndAt,
-                    League = league
-                });
+                var league = Context.Leagues.Where(league => league.ApiId == result.LeagueId).FirstOrDefault();
+                if (league != null)
+                    series.Add(new ErtsModel.Entities.Serie()
+                    {
+                        ApiId = result.Id,
+                        Name = result.Name != null ? result.Name : "",
+                        StartTime = result.BeginAt,
+                        EndTime = result.EndAt,
+                        League = league
+                    });
             }
 
             return series;
         }
 
-        public IEnumerable<ErtsModel.Entities.Tournament> FetchTournamentsFromSeries(ErtsModel.Entities.Serie serie)
+        public IEnumerable<ErtsModel.Entities.Tournament> FetchTournaments()
         {
             var query = new TournamentQueryOptions();
-            query.SeriesId.Filter(serie.ApiId);
             var results = Provider.GetTournaments(query);
 
             var tournaments = new List<ErtsModel.Entities.Tournament>();
 
             foreach (var result in results)
             {
-                tournaments.Add(new ErtsModel.Entities.Tournament()
-                {
-                    ApiId = result.Id,
-                    Name = result.Name != null ? result.Name : "",
-                    StartTime = result.BeginAt,
-                    EndTime = result.EndAt,
-                    Serie = serie
-                });
+                var serie = Context.Series.Where(serie => serie.ApiId == result.SeriesId).FirstOrDefault();
+                if (serie != null)
+                    tournaments.Add(new ErtsModel.Entities.Tournament()
+                    {
+                        ApiId = result.Id,
+                        Name = result.Name != null ? result.Name : "",
+                        StartTime = result.BeginAt,
+                        EndTime = result.EndAt,
+                        Serie = serie
+                    });
             }
 
             return tournaments;
