@@ -56,7 +56,8 @@ namespace ErtsApiFetcher.Fetchers
                     GameType = (GameType)Enum.Parse(typeof(GameType), result.CurrentVideoGame.Name),
                     ImageUrl = result.ImageUrl,
                     Acronym = result.Acronym,
-                    Players = players
+                    Players = players,
+                    ApiId = result.Id
                 });
             }
 
@@ -165,19 +166,25 @@ namespace ErtsApiFetcher.Fetchers
             foreach (var result in results)
             {
                 var tournament = Context.Tournaments.Where(contextTournament => contextTournament.ApiId == result.TournamentId).FirstOrDefault();
-                var team1 = Context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[0].Team.Id).FirstOrDefault();
-                var team2 = Context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[1].Team.Id).FirstOrDefault();
-                matches.Add(new ErtsModel.Entities.Match()
+                if (result.Opponents.Length == 2)
                 {
-                    ApiId = result.Id,
-                    StreamUrl = result.LiveUrl,
-                    StartTime = result.BeginAt,
-                    EndTime = result.EndAt,
-                    Tournament = tournament,
-                    Team1 = team1,
-                    Team2 = team2
+                    var team1 = Context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[0].Team.Id).FirstOrDefault();
+                    var team2 = Context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[1].Team.Id).FirstOrDefault();
 
-                });
+                    //TODO naprawic by dobrze dodwalo id teamkow
+                    matches.Add(new ErtsModel.Entities.Match()
+                    {
+                        ApiId = result.Id,
+                        StreamUrl = result.LiveUrl,
+                        StartTime = result.BeginAt,
+                        EndTime = result.EndAt,
+                        Tournament = tournament,
+                        Team1 = team1,
+                        Team2 = team2
+
+                    });
+                }
+
             }
 
             return matches;
