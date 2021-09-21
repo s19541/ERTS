@@ -3,5 +3,7 @@
     public class ErtsCron
     {
         public const string Minutely = "* * * * *";
+
+        public const string Every5Minute = "*/5 * * * *";
     }
 }

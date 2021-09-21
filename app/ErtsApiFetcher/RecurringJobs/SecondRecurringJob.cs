@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs
 {
-    [RecurringJobInfo(typeof(SecondRecurringJob), nameof(SecondRecurringJob), ErtsCron.Minutely)]
+    [RecurringJobInfo(typeof(SecondRecurringJob), nameof(SecondRecurringJob), ErtsCron.Every5Minute)]
     public class SecondRecurringJob : IRecurringJob
     {
         private readonly ErtsContext context;
@@ -44,13 +44,19 @@ namespace ErtsApiFetcher.RecurringJobs
 
             context.SaveChanges();
 
+            var apiTeams = lolDataFetcher.FetchTeams();
+            var newTeams = apiTeams.Where(apiTeam => !context.Players.Any(contextTeam => contextTeam.ApiId == apiTeam.ApiId));
+            context.Teams.AddRange(newTeams);
+
+            context.SaveChanges();
+
             //zrobic dodawanie teamkow
-            /*
+
             var apiMatches = lolDataFetcher.FetchMatches();
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
 
             context.Matches.AddRange(newMatches);
-            */
+
 
             context.SaveChanges();
         }
