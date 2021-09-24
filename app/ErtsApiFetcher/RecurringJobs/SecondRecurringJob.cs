@@ -42,6 +42,7 @@ namespace ErtsApiFetcher.RecurringJobs
             var newPlayers = apiPlayers.Where(apiPlayer => !context.Players.Any(contextPlayer => contextPlayer.ApiId == apiPlayer.ApiId));
             context.Players.AddRange(newPlayers);
 
+            //TODO naprawic id teamu w graczach i meczach chyba
             context.SaveChanges();
 
             var apiTeams = lolDataFetcher.FetchTeams();
@@ -50,10 +51,9 @@ namespace ErtsApiFetcher.RecurringJobs
 
             context.SaveChanges();
 
-            //zrobic dodawanie teamkow
-
             var apiMatches = lolDataFetcher.FetchMatches();
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
+
 
             context.Matches.AddRange(newMatches);
 

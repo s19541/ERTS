@@ -37,6 +37,8 @@
     <Compile Include="Migrations\20210919200018_Edit_Tournament_Remove_PrizePool.Designer.cs" />
     <Compile Include="Migrations\20210921161807_RemovedTeamIdFromPlayerConf.cs" />
     <Compile Include="Migrations\20210921161807_RemovedTeamIdFromPlayerConf.Designer.cs" />
+    <Compile Include="Migrations\20210924181656_AddedApiIdToGame.cs" />
+    <Compile Include="Migrations\20210924181656_AddedApiIdToGame.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

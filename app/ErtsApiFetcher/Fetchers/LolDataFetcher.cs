@@ -48,7 +48,9 @@ namespace ErtsApiFetcher.Fetchers
 
             foreach (var result in results)
             {
-                var players = Context.Players.Where(player => result.Players.Select(o => o.Id).Contains(player.ApiId)).ToList();
+                var teamPlayers = Context.Players.Where(player => result.Players.Select(o => o.Id).Contains(player.ApiId)).ToList();
+
+
 
                 teams.Add(new ErtsModel.Entities.Team()
                 {
@@ -56,7 +58,7 @@ namespace ErtsApiFetcher.Fetchers
                     GameType = (GameType)Enum.Parse(typeof(GameType), result.CurrentVideoGame.Name),
                     ImageUrl = result.ImageUrl,
                     Acronym = result.Acronym,
-                    Players = players,
+                    Players = teamPlayers,
                     ApiId = result.Id
                 });
             }
@@ -73,14 +75,15 @@ namespace ErtsApiFetcher.Fetchers
 
             foreach (var result in results)
             {
-                players.Add(new ErtsModel.Entities.Player()
-                {
-                    Nick = result.Name,
-                    FirstName = result.FirstName,
-                    LastName = result.LastName,
-                    Nationality = result.Nationality,
-                    ApiId = result.Id
-                });
+                if (result.CurrentTeam != null)
+                    players.Add(new ErtsModel.Entities.Player()
+                    {
+                        Nick = result.Name,
+                        FirstName = result.FirstName,
+                        LastName = result.LastName,
+                        Nationality = result.Nationality,
+                        ApiId = result.Id
+                    });
             }
 
             return players;
@@ -172,6 +175,21 @@ namespace ErtsApiFetcher.Fetchers
                     var team2 = Context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[1].Team.Id).FirstOrDefault();
 
                     //TODO naprawic by dobrze dodwalo id teamkow
+
+                    var games = new List<ErtsModel.Entities.Game>();
+
+                    foreach (var newGame in result.Games)
+                    {
+                        if (newGame.BeginAt != null && newGame.EndAt != null)
+                            games.Add(new ErtsModel.Entities.Game()
+                            {
+                                StartTime = (DateTime)newGame.BeginAt,
+                                EndTime = (DateTime)newGame.EndAt,
+                                Winner = Context.Teams.Where(contextTeam => contextTeam.ApiId == newGame.Winner.ID).FirstOrDefault(),
+                                ApiId = newGame.Id,
+                            });
+                        Context.Games.AddRange(games);
+                    }
                     matches.Add(new ErtsModel.Entities.Match()
                     {
                         ApiId = result.Id,
@@ -180,9 +198,11 @@ namespace ErtsApiFetcher.Fetchers
                         EndTime = result.EndAt,
                         Tournament = tournament,
                         Team1 = team1,
-                        Team2 = team2
+                        Team2 = team2,
+                        Games = games
 
                     });
+
                 }
 
             }

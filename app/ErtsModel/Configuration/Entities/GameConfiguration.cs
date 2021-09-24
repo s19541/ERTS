@@ -20,6 +20,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasOne(a => a.Winner)
                .WithMany()
                .HasForeignKey(_winnerTeamId);
+            builder.Property(b => b.ApiId).HasComment("ApiId");
         }
     }
 }

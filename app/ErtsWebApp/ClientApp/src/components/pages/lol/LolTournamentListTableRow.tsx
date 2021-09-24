@@ -10,8 +10,8 @@ function LolTournamentListTableRow(props: {
 	const tournament = props.tournament;
 	const leagueId = props.leagueId;
 
-	const startTime = tournament.startTime.format("HH:mm DD-MM-YYYY");
-	const endTime = tournament.endTime.format("HH:mm DD-MM-YYYY");
+	const startTime = tournament.startTime?.format("HH:mm DD-MM-YYYY");
+	const endTime = tournament.endTime?.format("HH:mm DD-MM-YYYY");
 
 	return (
 		<tr key={tournament.id} data-href="/">
