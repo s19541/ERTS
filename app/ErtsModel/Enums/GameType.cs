@@ -1,16 +1,14 @@
 ﻿using System.ComponentModel;
 
-namespace ErtsModel.Enums
-{
-    public enum GameType
-    {
+namespace ErtsModel.Enums {
+    public enum GameType {
         [Description("League of Legends")]
-        LoL,
+        lol,
 
         [Description("Counter-Strike Global Offensive")]
-        Csgo,
+        csgo,
 
         [Description("Rainbow Six Siege")]
-        R6
+        r6
     }
 }
