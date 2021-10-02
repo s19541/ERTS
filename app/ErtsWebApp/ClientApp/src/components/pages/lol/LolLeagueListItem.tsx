@@ -5,7 +5,9 @@ function LolLeagueListItem(props: { leagueImg: any; leagueId: number }) {
 	var leagueId = props.leagueId;
 	return (
 		<a href={`lol/${leagueId}`}>
-			<Image src={leagueImg} rounded />
+			<Image src={leagueImg} rounded
+				width={150}
+				height={150} />
 		</a>
 	);
 }

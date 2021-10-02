@@ -130,35 +130,35 @@ namespace ErtsApiFetcher.Fetchers {
                 if (result.Opponents.Length == 2) {
                     var team1 = context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[0].Team.Id).FirstOrDefault();
                     var team2 = context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[1].Team.Id).FirstOrDefault();
+                    if (team1 != null && team2 != null) {
 
-                    //TODO naprawic by dobrze dodwalo id teamkow
+                        var games = new List<ErtsModel.Entities.Game>();
 
-                    var games = new List<ErtsModel.Entities.Game>();
+                        foreach (var newGame in result.Games) {
+                            if (newGame.BeginAt != null && newGame.EndAt != null)
+                                games.Add(new ErtsModel.Entities.Game() {
+                                    StartTime = (DateTime)newGame.BeginAt,
+                                    EndTime = (DateTime)newGame.EndAt,
+                                    Winner = context.Teams.Where(contextTeam => contextTeam.ApiId == newGame.Winner.ID).FirstOrDefault(),
+                                    ApiId = newGame.Id,
+                                });
+                            var newGames = games.Where(apiGame => !context.Games.Any(contextGame => contextGame.ApiId == apiGame.ApiId));
+                            context.Games.AddRange(newGames);
+                        }
+                        matches.Add(new ErtsModel.Entities.Match() {
+                            ApiId = result.Id,
+                            StreamUrl = result.LiveUrl,
+                            StartTime = result.BeginAt,
+                            EndTime = result.EndAt,
+                            Tournament = tournament,
+                            Team1 = team1,
+                            Team2 = team2,
+                            Games = games
 
-                    foreach (var newGame in result.Games) {
-                        if (newGame.BeginAt != null && newGame.EndAt != null)
-                            games.Add(new ErtsModel.Entities.Game() {
-                                StartTime = (DateTime)newGame.BeginAt,
-                                EndTime = (DateTime)newGame.EndAt,
-                                Winner = context.Teams.Where(contextTeam => contextTeam.ApiId == newGame.Winner.ID).FirstOrDefault(),
-                                ApiId = newGame.Id,
-                            });
-                        context.Games.AddRange(games);
+                        });
+
                     }
-                    matches.Add(new ErtsModel.Entities.Match() {
-                        ApiId = result.Id,
-                        StreamUrl = result.LiveUrl,
-                        StartTime = result.BeginAt,
-                        EndTime = result.EndAt,
-                        Tournament = tournament,
-                        Team1 = team1,
-                        Team2 = team2,
-                        Games = games
-
-                    });
-
                 }
-
             }
 
             return matches;
