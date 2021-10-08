@@ -58,9 +58,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{Math.round(
-					((playerStats.kills + playerStats.assists) / playerStats.deaths) * 100
-				) / 100}
+				{playerStats.cs}
 			</td>
 			<td
 				style={{
@@ -68,7 +66,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{playerStats.cs}
+				{playerStats.kda}
 			</td>
 			<td
 				style={{
@@ -100,7 +98,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{playerStats.killParticipation * 100 + "%"}
+				{playerStats.killParticipation}
 			</td>
 			<td
 				style={{
@@ -108,7 +106,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{playerStats.damageShare * 100 + "%"}
+				{playerStats.damageShare}
 			</td>
 			<td
 				style={{

@@ -714,39 +714,51 @@
           },
           "kills": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "deaths": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "assists": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
+          },
+          "kda": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           },
           "cs": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "csPerMinute": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "gold": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "goldPerMinute": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "damageShare": {
-            "type": "number",
-            "format": "double"
+            "type": "string",
+            "nullable": true
           },
           "killParticipation": {
-            "type": "number",
-            "format": "double"
+            "type": "string",
+            "nullable": true
           },
           "championsPlayed": {
             "type": "integer",

@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20211004172705_ChangedFieldsInTournamentPlayerIntoNullable")]
+    partial class ChangedFieldsInTournamentPlayerIntoNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -490,9 +492,6 @@ namespace ErtsModel.Migrations
                     b.Property<double?>("AverageDeaths")
                         .HasColumnType("double precision")
                         .HasComment("AverageDeaths");
-
-                    b.Property<double?>("AverageGoldEarned")
-                        .HasColumnType("double precision");
 
                     b.Property<double?>("AverageKills")
                         .HasColumnType("double precision")

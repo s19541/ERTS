@@ -1,6 +1,5 @@
 using ErtsApplication.DAL;
 using ErtsModel;
-using ErtsModel.FakeSeeds;
 using ErtsWebApp.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,26 +10,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Linq;
 
-namespace ErtsWebApp
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace ErtsWebApp {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
             services.AddMvc();
             services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
+            services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
@@ -44,8 +37,7 @@ namespace ErtsWebApp
 
             BindServices(services);
 
-            services.AddSpaStaticFiles(configuration =>
-            {
+            services.AddSpaStaticFiles(configuration => {
                 configuration.RootPath = "ClientApp/build";
             });
 
@@ -54,16 +46,12 @@ namespace ErtsWebApp
             services.AddSwaggerDocument();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseOpenApi();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-            }
-            else
-            {
+            } else {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
@@ -77,48 +65,39 @@ namespace ErtsWebApp
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
 
-            app.UseSpa(spa =>
-            {
+            app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
+                if (env.IsDevelopment()) {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
 
-        private void InitializeDb(string connectionString)
-        {
-            try
-            {
-                using (var context = new ErtsContext(connectionString))
-                {
-                    if (context.Database.GetPendingMigrations()?.Any() == true)
-                    {
-                        context.Database.Migrate();
-                    }
-                    else
-                    {
-                        new ErtsFakeSeeder().SeedFakeData(context);
-                        context.SaveChanges();
-                    }
+        private void InitializeDb(string connectionString) {
+            try {
+                using (var context = new ErtsContext(connectionString)) {
+                    //  if (context.Database.GetPendingMigrations()?.Any() == true)
+                    //   {
+                    context.Database.Migrate();
+                    //   }
+                    //  else
+                    // {
+                    //    new ErtsFakeSeeder().SeedFakeData(context);
+                    context.SaveChanges();
+                    // }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Console.WriteLine($"Wyst¹pi³ b³¹d podczas aktualizacji bazy danych: {ex.Message}");
                 throw;
             }
         }
 
-        private void BindServices(IServiceCollection services)
-        {
+        private void BindServices(IServiceCollection services) {
             services.AddScoped<ILeagueDbService, LeagueDbService>();
             services.AddScoped<ITournamentDbService, TournamentDbService>();
             services.AddScoped<IMatchDbService, MatchDbService>();

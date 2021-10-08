@@ -1,28 +1,21 @@
 ﻿using ErtsApplication.DTO;
 using ErtsModel;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ErtsApplication.DAL
-{
-    public class TournamentDbService : ITournamentDbService
-    {
+namespace ErtsApplication.DAL {
+    public class TournamentDbService : ITournamentDbService {
         public ErtsContext Context { get; set; }
-        public TournamentDbService(ErtsContext dbContext)
-        {
+        public TournamentDbService(ErtsContext dbContext) {
             Context = dbContext;
         }
-        public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId)
-        {
+        public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId) {
             List<TournamentShortDto> tournamentShortDtos = new List<TournamentShortDto>();
             var tournamentIds = Context.Tournaments.Where(o => o.Serie.League.Id == leagueId).Select(o => o.Id).ToList();
 
-            foreach (int tournamentId in tournamentIds)
-            {
-                var tournamentShortDto = new TournamentShortDto()
-                {
+            foreach (int tournamentId in tournamentIds) {
+                var tournamentShortDto = new TournamentShortDto() {
                     Id = tournamentId,
                     Name = Context.Tournaments.Where(p => p.Id == tournamentId).Select(p => p.Name).FirstOrDefault(),
                     StartTime = Context.Tournaments.Where(p => p.Id == tournamentId).Select(p => p.StartTime).FirstOrDefault(),
@@ -33,16 +26,13 @@ namespace ErtsApplication.DAL
             return tournamentShortDtos;
         }
 
-        public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId)
-        {
+        public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId) {
             List<TournamentTeamShortDto> tournamentTeamShortDtos = new List<TournamentTeamShortDto>();
             var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
 
-            foreach (int tournamentTeamId in tournamentTeamIds)
-            {
+            foreach (int tournamentTeamId in tournamentTeamIds) {
                 var teamId = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team.Id).FirstOrDefault();
-                var tournamentTeamShortDto = new TournamentTeamShortDto()
-                {
+                var tournamentTeamShortDto = new TournamentTeamShortDto() {
                     MatchesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesWon).FirstOrDefault(),
                     MatchesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesLost).FirstOrDefault(),
                     GamesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesWon).FirstOrDefault(),
@@ -56,20 +46,19 @@ namespace ErtsApplication.DAL
             return tournamentTeamShortDtos;
         }
 
-        public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId)
-        {
+        public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId) {
             List<LolTournamentPlayerStatsDto> lolTournamentPlayerStatsDtos = new List<LolTournamentPlayerStatsDto>();
-            var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
+            var tournamentPlayers = Context.LolTournamentPlayers.Where(o => o.Tournament.Id == tournamentId).ToList();
 
             //var res = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(t=>t.Team.Players
 
 
-            foreach (int tournamentTeamId in tournamentTeamIds)
-            {
+            foreach (var tournamentPlayer in tournamentPlayers) {
+                /*
                 var players = Context.LolTournamentTeams.Where(o => o.Id == tournamentTeamId).Select(o => o.Team).Select(o => o.Players).FirstOrDefault();
 
-                foreach (var player in players)
-                {
+
+                foreach (var player in players) {
                     var team = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team).FirstOrDefault();
                     var gamesStats = Context.LolGamePlayers.Where(o => o.Player == player).ToList();
 
@@ -81,8 +70,7 @@ namespace ErtsApplication.DAL
                     double gameTimeInMinutes = 0;
                     double damageShare = 0;
                     double killParticipation = 0;
-                    foreach (var gameStats in gamesStats)
-                    {
+                    foreach (var gameStats in gamesStats) {
                         kills += gameStats.Kills;
                         deaths += gameStats.Deaths;
                         assists += gameStats.Assists;
@@ -108,31 +96,30 @@ namespace ErtsApplication.DAL
                     var firstRecentChampion = gamesStats.Select(o => o.Champion).GroupBy(o => o).Select(o => new { Champion = o.Key, Count = o.Count() }).OrderByDescending(o => o.Count).FirstOrDefault().Champion;
                     var secondRecentChampion = gamesStats.Where(o => o.Champion != firstRecentChampion).Select(o => o.Champion).GroupBy(o => o).Select(o => new { Champion = o.Key, Count = o.Count() }).OrderByDescending(o => o.Count).FirstOrDefault().Champion;
                     var thirdRecentChampion = gamesStats.Where(o => o.Champion != firstRecentChampion && o.Champion != secondRecentChampion).Select(o => o.Champion).GroupBy(o => o).Select(o => new { Champion = o.Key, Count = o.Count() }).OrderByDescending(o => o.Count).FirstOrDefault().Champion;
+                */
 
 
 
 
-
-                    var lolTournamentTeamPlayerStatsDto = new LolTournamentPlayerStatsDto()
-                    {
-                        PlayerNick = player.Nick,
-                        TeamImageUrl = team.ImageUrl,
-                        Kills = Math.Round(averageKills, 2),
-                        Deaths = Math.Round(averageDeaths, 2),
-                        Assists = Math.Round(averageAssists, 2),
-                        Cs = Math.Round(averageCs, 2),
-                        CsPerMinute = Math.Round(csPerMinute, 2),
-                        Gold = Math.Round(averageGold, 2),
-                        GoldPerMinute = Math.Round(goldPerMinute, 2),
-                        DamageShare = Math.Round(averageDamageShare, 2),
-                        KillParticipation = Math.Round(averageKillParticipation, 2),
-                        ChampionsPlayed = championsPlayed,
-                        FirstRecentChampionImageUrl = firstRecentChampion.ImageUrl,
-                        SecondRecentChampionImageUrl = secondRecentChampion.ImageUrl,
-                        ThirdRecentChampionImageUrl = thirdRecentChampion.ImageUrl
-                    };
-                    lolTournamentPlayerStatsDtos.Add(lolTournamentTeamPlayerStatsDto);
-                }
+                var lolTournamentTeamPlayerStatsDto = new LolTournamentPlayerStatsDto() {
+                    PlayerNick = tournamentPlayer.Player.Nick,
+                    TeamImageUrl = Context.Teams.Where(contextTeam => contextTeam.Players.Contains(tournamentPlayer.Player)).FirstOrDefault().ImageUrl,
+                    Kills = tournamentPlayer.AverageKills,
+                    Deaths = tournamentPlayer.AverageDeaths,
+                    Assists = tournamentPlayer.AverageAssists,
+                    Kda = (tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) / tournamentPlayer.AverageDeaths,
+                    Cs = tournamentPlayer.AverageMinionsKilled,
+                    CsPerMinute = tournamentPlayer.MinionsPerMinute,
+                    Gold = tournamentPlayer.AverageGoldEarned,
+                    GoldPerMinute = tournamentPlayer.GoldPerMinute,
+                    DamageShare = tournamentPlayer.DamageShare != null ? tournamentPlayer.DamageShare * 100 + "%" : null,
+                    KillParticipation = tournamentPlayer.KillParticipation != null ? tournamentPlayer.KillParticipation * 100 + "%" : null,
+                    ChampionsPlayed = tournamentPlayer.ChampionsPlayed,
+                    FirstRecentChampionImageUrl = tournamentPlayer.FavouriteChampion1.ImageUrl,
+                    SecondRecentChampionImageUrl = tournamentPlayer.FavouriteChampion2.ImageUrl,
+                    ThirdRecentChampionImageUrl = tournamentPlayer.FavouriteChampion3.ImageUrl
+                };
+                lolTournamentPlayerStatsDtos.Add(lolTournamentTeamPlayerStatsDto);
 
             }
 

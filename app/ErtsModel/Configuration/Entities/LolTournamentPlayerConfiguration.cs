@@ -2,17 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class LolTournamentPlayerConfiguration : IEntityTypeConfiguration<LolTournamentPlayer>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class LolTournamentPlayerConfiguration : IEntityTypeConfiguration<LolTournamentPlayer> {
         private const string _tournamentId = "TournamentId";
         private const string _playerId = "PlayerId";
         private const string _championId1 = "ChampionId1";
         private const string _championId2 = "ChampionId2";
         private const string _championId3 = "ChampionId3";
-        public void Configure(EntityTypeBuilder<LolTournamentPlayer> builder)
-        {
+        public void Configure(EntityTypeBuilder<LolTournamentPlayer> builder) {
             builder.HasComment("Tournament to player");
             builder.HasKey(x => x.Id);
             builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();
@@ -29,6 +26,12 @@ namespace ErtsModel.Configuration.Entities
             builder.Property(b => b.AverageDeaths).HasComment("AverageDeaths");
             builder.Property(b => b.AverageAssists).HasComment("AverageAssists");
             builder.Property(b => b.AverageMinionsKilled).HasComment("AverageMinionsKilled");
+            builder.Property(b => b.MinionsPerMinute).HasComment("MinionsPerMinute");
+            builder.Property(b => b.GoldPerMinute).HasComment("GoldPerMinute");
+            builder.Property(b => b.KillParticipation).HasComment("KillParticipation");
+            builder.Property(b => b.DamageShare).HasComment("DamageShare");
+            builder.Property(b => b.KillParticipation).HasComment("KillParticipation");
+            builder.Property(b => b.ChampionsPlayed).HasComment("ChampionPlayed");
 
             builder.HasOne(a => a.FavouriteChampion1)
                .WithMany()

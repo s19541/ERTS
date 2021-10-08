@@ -39,6 +39,14 @@
     <Compile Include="Migrations\20210921161807_RemovedTeamIdFromPlayerConf.Designer.cs" />
     <Compile Include="Migrations\20210924181656_AddedApiIdToGame.cs" />
     <Compile Include="Migrations\20210924181656_AddedApiIdToGame.Designer.cs" />
+    <Compile Include="Migrations\20211004163746_AddedNewFieldsToTournamentPlayer.cs" />
+    <Compile Include="Migrations\20211004163746_AddedNewFieldsToTournamentPlayer.Designer.cs" />
+    <Compile Include="Migrations\20211004171627_ChangedChampionsPlayedToInt.cs" />
+    <Compile Include="Migrations\20211004171627_ChangedChampionsPlayedToInt.Designer.cs" />
+    <Compile Include="Migrations\20211004172705_ChangedFieldsInTournamentPlayerIntoNullable.cs" />
+    <Compile Include="Migrations\20211004172705_ChangedFieldsInTournamentPlayerIntoNullable.Designer.cs" />
+    <Compile Include="Migrations\20211004174020_AddedAverageGoldEarnedToTournamentPlayer.cs" />
+    <Compile Include="Migrations\20211004174020_AddedAverageGoldEarnedToTournamentPlayer.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

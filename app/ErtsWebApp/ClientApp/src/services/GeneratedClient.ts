@@ -1050,15 +1050,16 @@ export interface ITournamentTeamShortDto {
 export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto {
     playerNick!: string | undefined;
     teamImageUrl!: string | undefined;
-    kills!: number;
-    deaths!: number;
-    assists!: number;
-    cs!: number;
-    csPerMinute!: number;
-    gold!: number;
-    goldPerMinute!: number;
-    damageShare!: number;
-    killParticipation!: number;
+    kills!: number | undefined;
+    deaths!: number | undefined;
+    assists!: number | undefined;
+    kda!: number | undefined;
+    cs!: number | undefined;
+    csPerMinute!: number | undefined;
+    gold!: number | undefined;
+    goldPerMinute!: number | undefined;
+    damageShare!: string | undefined;
+    killParticipation!: string | undefined;
     championsPlayed!: number;
     firstRecentChampionImageUrl!: string | undefined;
     secondRecentChampionImageUrl!: string | undefined;
@@ -1080,6 +1081,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
             this.kills = _data["kills"];
             this.deaths = _data["deaths"];
             this.assists = _data["assists"];
+            this.kda = _data["kda"];
             this.cs = _data["cs"];
             this.csPerMinute = _data["csPerMinute"];
             this.gold = _data["gold"];
@@ -1107,6 +1109,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
         data["kills"] = this.kills;
         data["deaths"] = this.deaths;
         data["assists"] = this.assists;
+        data["kda"] = this.kda;
         data["cs"] = this.cs;
         data["csPerMinute"] = this.csPerMinute;
         data["gold"] = this.gold;
@@ -1124,15 +1127,16 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
 export interface ILolTournamentPlayerStatsDto {
     playerNick: string | undefined;
     teamImageUrl: string | undefined;
-    kills: number;
-    deaths: number;
-    assists: number;
-    cs: number;
-    csPerMinute: number;
-    gold: number;
-    goldPerMinute: number;
-    damageShare: number;
-    killParticipation: number;
+    kills: number | undefined;
+    deaths: number | undefined;
+    assists: number | undefined;
+    kda: number | undefined;
+    cs: number | undefined;
+    csPerMinute: number | undefined;
+    gold: number | undefined;
+    goldPerMinute: number | undefined;
+    damageShare: string | undefined;
+    killParticipation: string | undefined;
     championsPlayed: number;
     firstRecentChampionImageUrl: string | undefined;
     secondRecentChampionImageUrl: string | undefined;

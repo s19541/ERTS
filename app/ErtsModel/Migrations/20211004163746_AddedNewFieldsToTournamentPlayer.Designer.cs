@@ -3,15 +3,17 @@ using System;
 using ErtsModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ErtsModel.Migrations
 {
     [DbContext(typeof(ErtsContext))]
-    partial class ErtsContextModelSnapshot : ModelSnapshot
+    [Migration("20211004163746_AddedNewFieldsToTournamentPlayer")]
+    partial class AddedNewFieldsToTournamentPlayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -483,22 +485,19 @@ namespace ErtsModel.Migrations
                         .HasComment("Id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<double?>("AverageAssists")
+                    b.Property<double>("AverageAssists")
                         .HasColumnType("double precision")
                         .HasComment("AverageAssists");
 
-                    b.Property<double?>("AverageDeaths")
+                    b.Property<double>("AverageDeaths")
                         .HasColumnType("double precision")
                         .HasComment("AverageDeaths");
 
-                    b.Property<double?>("AverageGoldEarned")
-                        .HasColumnType("double precision");
-
-                    b.Property<double?>("AverageKills")
+                    b.Property<double>("AverageKills")
                         .HasColumnType("double precision")
                         .HasComment("AverageKills");
 
-                    b.Property<double?>("AverageMinionsKilled")
+                    b.Property<double>("AverageMinionsKilled")
                         .HasColumnType("double precision")
                         .HasComment("AverageMinionsKilled");
 
@@ -511,23 +510,23 @@ namespace ErtsModel.Migrations
                     b.Property<long?>("ChampionId3")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("ChampionsPlayed")
-                        .HasColumnType("integer")
+                    b.Property<double>("ChampionsPlayed")
+                        .HasColumnType("double precision")
                         .HasComment("ChampionPlayed");
 
-                    b.Property<double?>("DamageShare")
+                    b.Property<double>("DamageShare")
                         .HasColumnType("double precision")
                         .HasComment("DamageShare");
 
-                    b.Property<double?>("GoldPerMinute")
+                    b.Property<double>("GoldPerMinute")
                         .HasColumnType("double precision")
                         .HasComment("GoldPerMinute");
 
-                    b.Property<double?>("KillParticipation")
+                    b.Property<double>("KillParticipation")
                         .HasColumnType("double precision")
                         .HasComment("KillParticipation");
 
-                    b.Property<double?>("MinionsPerMinute")
+                    b.Property<double>("MinionsPerMinute")
                         .HasColumnType("double precision")
                         .HasComment("MinionsPerMinute");
 
