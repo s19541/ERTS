@@ -20,7 +20,7 @@ function LolTournamentTeamTable(props: {
 			<tbody>
 				{tournamentTeams?.map((tournamentTeam, i) => (
 					<LolTournamentTeamTableRow
-						position={i}
+						position={i + 1}
 						tournamentTeam={tournamentTeam}
 					/>
 				))}

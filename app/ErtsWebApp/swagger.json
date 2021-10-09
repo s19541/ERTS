@@ -728,8 +728,7 @@
             "nullable": true
           },
           "kda": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           },
           "cs": {

@@ -58,7 +58,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{playerStats.cs}
+				{playerStats.kda}
 			</td>
 			<td
 				style={{
@@ -66,7 +66,7 @@ function LolTournamentPlayerStatsListTableRow(props: {
 					textAlign: "center",
 				}}
 			>
-				{playerStats.kda}
+				{playerStats.cs}
 			</td>
 			<td
 				style={{

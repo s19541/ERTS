@@ -5,7 +5,7 @@
         public double? Kills { get; set; }
         public double? Deaths { get; set; }
         public double? Assists { get; set; }
-        public double? Kda { get; set; }
+        public string? Kda { get; set; }
         public double? Cs { get; set; }
         public double? CsPerMinute { get; set; }
         public double? Gold { get; set; }

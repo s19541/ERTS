@@ -19,6 +19,7 @@ namespace ErtsApiFetcher.RecurringJobs {
 
         [AutomaticRetry(Attempts = 0)]
         public void Job() {
+            /*
             context.Database.BeginTransaction();
             FetchAndSaveChampions();
             FetchAndSaveItems();
@@ -30,7 +31,7 @@ namespace ErtsApiFetcher.RecurringJobs {
             FetchAndSaveTeams();
             FetchAndSaveMatches();
             context.Database.CommitTransaction();
-
+            */
             createTournamentTeamStats();
             createTournamentPlayerStats();
         }
@@ -172,7 +173,7 @@ namespace ErtsApiFetcher.RecurringJobs {
             context.SaveChanges();
             foreach (var tournament in context.Tournaments.ToArray()) {
 
-                var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).Distinct().ToArray();
+                var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
 
                 foreach (var team in teams) {
                     var gamesLost = 0;
@@ -264,7 +265,7 @@ namespace ErtsApiFetcher.RecurringJobs {
             context.SaveChanges();
 
             foreach (var tournament in context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == ErtsModel.Enums.GameType.lol).ToArray()) {
-                var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).Distinct().ToArray();
+                var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
                 foreach (var team in teams) {
                     foreach (var player in team.Players) {
                         var assists = 0;

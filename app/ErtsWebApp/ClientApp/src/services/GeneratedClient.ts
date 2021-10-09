@@ -1053,7 +1053,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
     kills!: number | undefined;
     deaths!: number | undefined;
     assists!: number | undefined;
-    kda!: number | undefined;
+    kda!: string | undefined;
     cs!: number | undefined;
     csPerMinute!: number | undefined;
     gold!: number | undefined;
@@ -1130,7 +1130,7 @@ export interface ILolTournamentPlayerStatsDto {
     kills: number | undefined;
     deaths: number | undefined;
     assists: number | undefined;
-    kda: number | undefined;
+    kda: string | undefined;
     cs: number | undefined;
     csPerMinute: number | undefined;
     gold: number | undefined;

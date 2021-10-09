@@ -107,7 +107,7 @@ namespace ErtsApplication.DAL {
                     Kills = tournamentPlayer.AverageKills,
                     Deaths = tournamentPlayer.AverageDeaths,
                     Assists = tournamentPlayer.AverageAssists,
-                    Kda = (tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) / tournamentPlayer.AverageDeaths,
+                    Kda = tournamentPlayer.AverageDeaths == null ? null : tournamentPlayer.AverageDeaths != 0 ? ((tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) / tournamentPlayer.AverageDeaths).ToString() : (tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) == 0 ? "0" : "Perfect",
                     Cs = tournamentPlayer.AverageMinionsKilled,
                     CsPerMinute = tournamentPlayer.MinionsPerMinute,
                     Gold = tournamentPlayer.AverageGoldEarned,
