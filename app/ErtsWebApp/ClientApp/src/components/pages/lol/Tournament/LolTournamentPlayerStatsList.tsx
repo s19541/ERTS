@@ -10,11 +10,10 @@ import {
 	IActionParameters,
 	SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
-import LolMatchListTable from "../LolMatchListTable";
 import LolTournamentNav from "./LolTournamentNav";
 import LolTournamentPlayerStatsListTable from "./LolTournamentPlayerStatsListTable";
 
-interface IProps {}
+interface IProps { }
 
 interface IPassedProps {
 	tournamentId: string;

@@ -1,12 +1,15 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { TournamentShortDto } from "../../../services/GeneratedClient";
+import { useHistory } from "react-router";
 
 function LolTournamentListTableRow(props: {
 	tournament: TournamentShortDto;
 	leagueId: number;
 }) {
+	let history = useHistory();
+	const redirectToPage = (page: string) => {
+		history.push(page);
+	}
+
 	const tournament = props.tournament;
 	const leagueId = props.leagueId;
 
@@ -14,12 +17,9 @@ function LolTournamentListTableRow(props: {
 	const endTime = tournament.endTime?.format("HH:mm DD-MM-YYYY");
 
 	return (
-		<tr key={tournament.id} data-href="/">
+		<tr key={tournament.id} data-href="/" onClick={() => redirectToPage(`${leagueId}/${tournament.id}/scoreBoard`)}>
 			<td>
-				<a href={`${leagueId}/${tournament.id}/scoreBoard`}>
-					{" "}
-					{tournament.name}
-				</a>
+				{tournament.name}
 			</td>
 			<td>{startTime}</td>
 			<td>{endTime}</td>

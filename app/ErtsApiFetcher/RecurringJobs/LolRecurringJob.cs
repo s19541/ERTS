@@ -19,7 +19,6 @@ namespace ErtsApiFetcher.RecurringJobs {
 
         [AutomaticRetry(Attempts = 0)]
         public void Job() {
-            /*
             context.Database.BeginTransaction();
             FetchAndSaveChampions();
             FetchAndSaveItems();
@@ -31,14 +30,13 @@ namespace ErtsApiFetcher.RecurringJobs {
             FetchAndSaveTeams();
             FetchAndSaveMatches();
             context.Database.CommitTransaction();
-            */
             createTournamentTeamStats();
             createTournamentPlayerStats();
         }
 
         private void FetchAndSaveMatches() {
             var apiMatches = lolDataFetcher.FetchMatches();
-            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatches => contextMatches.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 
             var random = new Random();
