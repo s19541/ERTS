@@ -2,6 +2,7 @@
 using ErtsApplication.DTO;
 using ErtsModel.Enums;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace ErtsApplication.Controllers.Lol {
@@ -19,10 +20,10 @@ namespace ErtsApplication.Controllers.Lol {
             return _dbService.GetLeague(leagueId);
         }
 
-        [Route("[action]")]
+        [Route("[action]/{gameType}")]
         [HttpGet]
-        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages() {
-            return _dbService.GetLeagueImages(GameType.lol);
+        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(string gameType) {
+            return _dbService.GetLeagueImages((GameType)Enum.Parse(typeof(GameType), gameType));
         }
     }
 }

@@ -6,14 +6,14 @@ import {
 	LeagueDto,
 	TournamentClient,
 	TournamentShortDto,
-} from "../../../services/GeneratedClient";
+} from "../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
-} from "../../../_infrastructure/actions/SendAction";
-import LolTournamentListTable from "./LolTournamentListTable";
+} from "../../../../_infrastructure/actions/SendAction";
+import LolTournamentListTable from "./TournamentListTable";
 
-interface IProps {}
+interface IProps { }
 
 interface IPassedProps {
 	leagueId: string;
@@ -27,7 +27,7 @@ interface IState {
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 
-class LolTournamentList extends React.Component<IJoinedProps, IState> {
+class TournamentList extends React.Component<IJoinedProps, IState> {
 	constructor(props: IJoinedProps) {
 		super(props);
 
@@ -87,4 +87,4 @@ class LolTournamentList extends React.Component<IJoinedProps, IState> {
 		);
 	}
 }
-export default withRouter(LolTournamentList);
+export default withRouter(TournamentList);

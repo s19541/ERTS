@@ -1,7 +1,7 @@
-import { TournamentShortDto } from "../../../services/GeneratedClient";
+import { TournamentShortDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function LolTournamentListTableRow(props: {
+function TournamentListTableRow(props: {
 	tournament: TournamentShortDto;
 	leagueId: number;
 }) {
@@ -26,4 +26,4 @@ function LolTournamentListTableRow(props: {
 		</tr>
 	);
 }
-export default LolTournamentListTableRow;
+export default TournamentListTableRow;

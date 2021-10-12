@@ -43,12 +43,24 @@
         }
       }
     },
-    "/api/League/GetLeagueImages": {
+    "/api/League/GetLeagueImages/{gameType}": {
       "get": {
         "tags": [
           "League"
         ],
         "operationId": "League_GetLeagueImages",
+        "parameters": [
+          {
+            "name": "gameType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
         "responses": {
           "200": {
             "description": "",

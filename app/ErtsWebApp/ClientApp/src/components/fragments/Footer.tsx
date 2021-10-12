@@ -5,15 +5,16 @@ import { createAbsoluteUrl } from "../../Helpers/UrlHelper";
 import Resources from "../../Resources";
 
 class Footer extends React.Component<RouteComponentProps> {
+	private redirectToPage(page: string) {
+		this.props.history.push(page);
+	}
 	render() {
 		return (
 			<>
 				<Navbar bg="dark" variant="dark" fixed="bottom">
 					<Navbar.Brand
 						onClick={() =>
-							this.props.history.push(
-								createAbsoluteUrl(Resources.pageAdresses.r6)
-							)
+							this.redirectToPage("r6")
 						}
 					>
 						<img
@@ -24,7 +25,10 @@ class Footer extends React.Component<RouteComponentProps> {
 							className="d-inline-block align-top"
 						/>{" "}
 					</Navbar.Brand>
-					<Navbar.Brand>
+					<Navbar.Brand
+						onClick={() =>
+							this.redirectToPage("csgo")
+						}>
 						<img
 							alt=""
 							src="/images/csgo-logo.png"
@@ -33,7 +37,10 @@ class Footer extends React.Component<RouteComponentProps> {
 							className="d-inline-block align-top"
 						/>{" "}
 					</Navbar.Brand>
-					<Navbar.Brand>
+					<Navbar.Brand
+						onClick={() =>
+							this.redirectToPage("lol")
+						}>
 						<img
 							alt=""
 							src="/images/lol-logo.png"

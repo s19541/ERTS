@@ -1,9 +1,9 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { TournamentShortDto } from "../../../services/GeneratedClient";
-import LolTournamentListTableRow from "./LolTournamentListTableRow";
+import { TournamentShortDto } from "../../../../services/GeneratedClient";
+import LolTournamentListTableRow from "./TournamentListTableRow";
 
-function LolTournamentListTable(props: {
+function TournamentListTable(props: {
 	tournamentList: TournamentShortDto[] | null;
 	leagueId: number;
 }) {
@@ -31,4 +31,4 @@ function LolTournamentListTable(props: {
 	);
 }
 
-export default LolTournamentListTable;
+export default TournamentListTable;

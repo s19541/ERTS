@@ -61,8 +61,11 @@ export class LeagueClient extends ClientBase {
         return Promise.resolve<LeagueDto | null>(<any>null);
     }
 
-    getLeagueImages(signal?: AbortSignal | undefined): Promise<LeagueImageDto[] | null> {
-        let url_ = this.baseUrl + "/api/League/GetLeagueImages";
+    getLeagueImages(gameType: string | null, signal?: AbortSignal | undefined): Promise<LeagueImageDto[] | null> {
+        let url_ = this.baseUrl + "/api/League/GetLeagueImages/{gameType}";
+        if (gameType === undefined || gameType === null)
+            throw new Error("The parameter 'gameType' must be defined.");
+        url_ = url_.replace("{gameType}", encodeURIComponent("" + gameType));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
