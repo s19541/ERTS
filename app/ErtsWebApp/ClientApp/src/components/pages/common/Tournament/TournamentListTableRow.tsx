@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 
 function TournamentListTableRow(props: {
 	tournament: TournamentShortDto;
-	leagueId: number;
+	serieId: number;
 }) {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
@@ -11,13 +11,13 @@ function TournamentListTableRow(props: {
 	}
 
 	const tournament = props.tournament;
-	const leagueId = props.leagueId;
+	const serieId = props.serieId;
 
 	const startTime = tournament.startTime?.format("HH:mm DD-MM-YYYY");
 	const endTime = tournament.endTime?.format("HH:mm DD-MM-YYYY");
 
 	return (
-		<tr key={tournament.id} data-href="/" onClick={() => redirectToPage(`${leagueId}/${tournament.id}/scoreBoard`)}>
+		<tr key={tournament.id} data-href="/" onClick={() => redirectToPage(`${serieId}/${tournament.id}/scoreBoard`)}>
 			<td>
 				{tournament.name}
 			</td>

@@ -10,9 +10,9 @@ namespace ErtsApplication.DAL {
         public TournamentDbService(ErtsContext dbContext) {
             Context = dbContext;
         }
-        public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int leagueId) {
+        public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int serieId) {
             List<TournamentShortDto> tournamentShortDtos = new List<TournamentShortDto>();
-            var tournamentIds = Context.Tournaments.Where(o => o.Serie.League.Id == leagueId).Select(o => o.Id).ToList();
+            var tournamentIds = Context.Tournaments.Where(o => o.Serie.League.Id == serieId).Select(o => o.Id).ToList();
 
             foreach (int tournamentId in tournamentIds) {
                 var tournamentShortDto = new TournamentShortDto() {

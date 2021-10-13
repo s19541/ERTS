@@ -258,6 +258,62 @@ export class MatchClient extends ClientBase {
     }
 }
 
+export class SerieClient extends ClientBase {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
+        this.http = http ? http : <any>window;
+        this.baseUrl = this.getBaseUrl("", baseUrl);
+    }
+
+    getSeriesShort(leagueId: number, signal?: AbortSignal | undefined): Promise<SerieShortDto[] | null> {
+        let url_ = this.baseUrl + "/api/Serie/GetSeriesShort/{leagueId}";
+        if (leagueId === undefined || leagueId === null)
+            throw new Error("The parameter 'leagueId' must be defined.");
+        url_ = url_.replace("{leagueId}", encodeURIComponent("" + leagueId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetSeriesShort(_response));
+        });
+    }
+
+    protected processGetSeriesShort(response: Response): Promise<SerieShortDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SerieShortDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<SerieShortDto[] | null>(<any>null);
+    }
+}
+
 export class TournamentClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -269,11 +325,11 @@ export class TournamentClient extends ClientBase {
         this.baseUrl = this.getBaseUrl("", baseUrl);
     }
 
-    getTournamentsShort(leagueId: number, signal?: AbortSignal | undefined): Promise<TournamentShortDto[] | null> {
-        let url_ = this.baseUrl + "/api/Tournament/GetTournamentsShort/{leagueId}";
-        if (leagueId === undefined || leagueId === null)
-            throw new Error("The parameter 'leagueId' must be defined.");
-        url_ = url_.replace("{leagueId}", encodeURIComponent("" + leagueId));
+    getTournamentsShort(serieId: number, signal?: AbortSignal | undefined): Promise<TournamentShortDto[] | null> {
+        let url_ = this.baseUrl + "/api/Tournament/GetTournamentsShort/{serieId}";
+        if (serieId === undefined || serieId === null)
+            throw new Error("The parameter 'serieId' must be defined.");
+        url_ = url_.replace("{serieId}", encodeURIComponent("" + serieId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -944,6 +1000,54 @@ export interface ILolGameShortStatsDto {
     redTeamStats: LolGameTeamStatsDto | undefined;
     blueTeamPlayersStats: LolGamePlayerShortStatsDto[] | undefined;
     redTeamPlayersStats: LolGamePlayerShortStatsDto[] | undefined;
+}
+
+export class SerieShortDto implements ISerieShortDto {
+    id!: number;
+    name!: string | undefined;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
+
+    constructor(data?: ISerieShortDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SerieShortDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SerieShortDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISerieShortDto {
+    id: number;
+    name: string | undefined;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
 }
 
 export class TournamentShortDto implements ITournamentShortDto {

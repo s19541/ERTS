@@ -1,11 +1,12 @@
 export default class Resources {
 	public static pageAdresses = {
 		home: "/",
-		lol: "/:gameType",
-		lolTournaments: "/:gameType/:leagueId",
-		lolTournamentScoreBoard: "/:gameType/:leagueId/:tournamentId/scoreBoard",
-		lolTournamentMatchList: "/:gameType/:leagueId/:tournamentId/matches",
-		lolTournamentPlayerStatsList: "/:gameType/:leagueId/:tournamentId/playerStats",
+		game: "/:gameType",
+		series: "/:gameType/:leagueId",
+		tournaments: "/:gameType/:leagueId/:serieId",
+		lolTournamentScoreBoard: "/:gameType/:leagueId/:serieId/:tournamentId/scoreBoard",
+		lolTournamentMatchList: "/:gameType/:leagueId/:serieId/:tournamentId/matches",
+		lolTournamentPlayerStatsList: "/:gameType/:leagueId/:serieId/:tournamentId/playerStats",
 		lolMatch: "/:gameType/match/:matchId",
 	};
 	public static buttons = {

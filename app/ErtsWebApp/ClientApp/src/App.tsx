@@ -4,8 +4,9 @@ import Home from "./components/pages/Home";
 import Footer from "./components/fragments/Footer";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Resources from "./Resources";
-import LolLeagueList from "./components/pages/common/League/LeagueList";
+import LeagueList from "./components/pages/common/League/LeagueList";
 import TournamentList from "./components/pages/common/Tournament/TournamentList";
+import SerieList from "./components/pages/common/Serie/SerieList";
 import LolTournamentScoreBoard from "./components/pages/lol/Tournament/LolTournamentScoreBoard";
 import LolTournamentMatchList from "./components/pages/lol/Tournament/LolTournamentMatchList";
 import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolTournamentPlayerStatsList";
@@ -20,12 +21,17 @@ const App: React.FunctionComponent = () => {
 				<Route path={Resources.pageAdresses.home} exact component={Home} />
 				<Route
 					exact
-					path={Resources.pageAdresses.lol}
-					component={LolLeagueList}
+					path={Resources.pageAdresses.game}
+					component={LeagueList}
 				/>
 				<Route
 					exact
-					path={Resources.pageAdresses.lolTournaments}
+					path={Resources.pageAdresses.series}
+					component={SerieList}
+				/>
+				<Route
+					exact
+					path={Resources.pageAdresses.tournaments}
 					component={TournamentList}
 				/>
 				<Route

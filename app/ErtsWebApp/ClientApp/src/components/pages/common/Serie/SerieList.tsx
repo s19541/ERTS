@@ -1,53 +1,50 @@
 import React from "react";
-import { Container, Row, Col, Image, Table } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import {
 	LeagueClient,
 	LeagueDto,
-	TournamentClient,
-	TournamentShortDto,
+	SerieClient,
+	SerieShortDto,
 } from "../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
-import TournamentListTable from "./TournamentListTable";
+import SerieListTable from "./SerieListTable";
 
 interface IProps { }
 
 interface IPassedProps {
 	leagueId: string;
-	serieId: string;
 }
 
 interface IState {
 	leagueId: number;
-	serieId: number;
-	tournaments: TournamentShortDto[] | null;
+	series: SerieShortDto[] | null;
 	league: LeagueDto | null;
 }
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 
-class TournamentList extends React.Component<IJoinedProps, IState> {
+class SerieList extends React.Component<IJoinedProps, IState> {
 	constructor(props: IJoinedProps) {
 		super(props);
 
 		this.state = {
 			leagueId: Number(props.match.params.leagueId),
-			serieId: Number(props.match.params.serieId),
-			tournaments: null,
+			series: null,
 			league: null,
 		};
 	}
 
 	componentDidMount() {
-		let actionParameters: IActionParameters<TournamentShortDto[] | null> = {
+		let actionParameters: IActionParameters<SerieShortDto[] | null> = {
 			action: () =>
-				new TournamentClient().getTournamentsShort(this.state.leagueId),
+				new SerieClient().getSeriesShort(this.state.leagueId),
 			onSuccess: (response) => {
 				this.setState({
-					tournaments: response,
+					series: response,
 				});
 			},
 		};
@@ -82,12 +79,12 @@ class TournamentList extends React.Component<IJoinedProps, IState> {
 						</p>
 					</Col>
 				</Row>
-				<TournamentListTable
-					tournamentList={this.state.tournaments}
-					serieId={this.state.serieId}
+				<SerieListTable
+					serieList={this.state.series}
+					leagueId={this.state.leagueId}
 				/>
 			</Container>
 		);
 	}
 }
-export default withRouter(TournamentList);
+export default withRouter(SerieList);

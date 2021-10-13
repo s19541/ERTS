@@ -1,14 +1,14 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import { TournamentShortDto } from "../../../../services/GeneratedClient";
-import LolTournamentListTableRow from "./TournamentListTableRow";
+import TournamentListTableRow from "./TournamentListTableRow";
 
 function TournamentListTable(props: {
 	tournamentList: TournamentShortDto[] | null;
-	leagueId: number;
+	serieId: number;
 }) {
 	const tournaments = props.tournamentList;
-	const leagueId = props.leagueId;
+	const serieId = props.serieId;
 
 	return (
 		<Table striped bordered hover variant="dark">
@@ -21,9 +21,9 @@ function TournamentListTable(props: {
 			</thead>
 			<tbody>
 				{tournaments?.map((tournament, i) => (
-					<LolTournamentListTableRow
+					<TournamentListTableRow
 						tournament={tournament}
-						leagueId={leagueId}
+						serieId={serieId}
 					/>
 				))}
 			</tbody>

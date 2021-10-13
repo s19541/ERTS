@@ -100,6 +100,7 @@ namespace ErtsWebApp {
         private void BindServices(IServiceCollection services) {
             services.AddScoped<ILeagueDbService, LeagueDbService>();
             services.AddScoped<ITournamentDbService, TournamentDbService>();
+            services.AddScoped<ISerieDbService, SerieDbService>();
             services.AddScoped<IMatchDbService, MatchDbService>();
             services.AddScoped<IGameDbService, GameDbService>();
         }
