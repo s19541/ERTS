@@ -44,7 +44,7 @@ class TournamentList extends React.Component<IJoinedProps, IState> {
 	componentDidMount() {
 		let actionParameters: IActionParameters<TournamentShortDto[] | null> = {
 			action: () =>
-				new TournamentClient().getTournamentsShort(this.state.leagueId),
+				new TournamentClient().getTournamentsShort(this.state.serieId),
 			onSuccess: (response) => {
 				this.setState({
 					tournaments: response,

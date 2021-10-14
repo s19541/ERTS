@@ -10,6 +10,7 @@ import SerieList from "./components/pages/common/Serie/SerieList";
 import LolTournamentScoreBoard from "./components/pages/lol/Tournament/LolTournamentScoreBoard";
 import LolTournamentMatchList from "./components/pages/lol/Tournament/LolTournamentMatchList";
 import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolTournamentPlayerStatsList";
+import LolTournamentTeamStatsList from "./components/pages/lol/Tournament/LolTournamentTeamStatsList";
 import MatchStats from "./components/pages/lol/Match/MatchStats";
 
 const App: React.FunctionComponent = () => {
@@ -19,6 +20,11 @@ const App: React.FunctionComponent = () => {
 			<Navigation />
 			<Switch>
 				<Route path={Resources.pageAdresses.home} exact component={Home} />
+				<Route
+					exact
+					path={Resources.pageAdresses.lolMatch}
+					component={MatchStats}
+				/>
 				<Route
 					exact
 					path={Resources.pageAdresses.game}
@@ -51,8 +57,8 @@ const App: React.FunctionComponent = () => {
 				/>
 				<Route
 					exact
-					path={Resources.pageAdresses.lolMatch}
-					component={MatchStats}
+					path={Resources.pageAdresses.lolTournamentTeamStatsList}
+					component={LolTournamentTeamStatsList}
 				/>
 			</Switch>
 			<Footer />

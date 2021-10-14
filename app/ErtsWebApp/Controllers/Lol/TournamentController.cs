@@ -26,5 +26,10 @@ namespace ErtsWebApp.Controllers.Lol {
         public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId) {
             return _dbService.GetLolTournamentPlayerStats(tournamentId);
         }
+        [Route("[action]/{tournamentId}")]
+        [HttpGet]
+        public ActionResult<IEnumerable<LolTournamentTeamStatsDto>> GetLolTournamentTeamStats(int tournamentId) {
+            return _dbService.GetLolTournamentTeamStats(tournamentId);
+        }
     }
 }

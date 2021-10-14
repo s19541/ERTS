@@ -456,6 +456,50 @@ export class TournamentClient extends ClientBase {
         }
         return Promise.resolve<LolTournamentPlayerStatsDto[] | null>(<any>null);
     }
+
+    getLolTournamentTeamStats(tournamentId: number, signal?: AbortSignal | undefined): Promise<LolTournamentTeamStatsDto[] | null> {
+        let url_ = this.baseUrl + "/api/Tournament/GetLolTournamentTeamStats/{tournamentId}";
+        if (tournamentId === undefined || tournamentId === null)
+            throw new Error("The parameter 'tournamentId' must be defined.");
+        url_ = url_.replace("{tournamentId}", encodeURIComponent("" + tournamentId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetLolTournamentTeamStats(_response));
+        });
+    }
+
+    protected processGetLolTournamentTeamStats(response: Response): Promise<LolTournamentTeamStatsDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(LolTournamentTeamStatsDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<LolTournamentTeamStatsDto[] | null>(<any>null);
+    }
 }
 
 export class LeagueDto implements ILeagueDto {
@@ -1248,6 +1292,98 @@ export interface ILolTournamentPlayerStatsDto {
     firstRecentChampionImageUrl: string | undefined;
     secondRecentChampionImageUrl: string | undefined;
     thirdRecentChampionImageUrl: string | undefined;
+}
+
+export class LolTournamentTeamStatsDto implements ILolTournamentTeamStatsDto {
+    teamName!: string | undefined;
+    teamImageUrl!: string | undefined;
+    kills!: number | undefined;
+    assists!: number | undefined;
+    deaths!: number | undefined;
+    gold!: number | undefined;
+    dragons!: number | undefined;
+    heralds!: number | undefined;
+    barons!: number | undefined;
+    towers!: number | undefined;
+    firstRecentChampionImageUrl!: string | undefined;
+    secondRecentChampionImageUrl!: string | undefined;
+    thirdRecentChampionImageUrl!: string | undefined;
+    fourthRecentChampionImageUrl!: string | undefined;
+    fivethRecentChampionImageUrl!: string | undefined;
+
+    constructor(data?: ILolTournamentTeamStatsDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.teamName = _data["teamName"];
+            this.teamImageUrl = _data["teamImageUrl"];
+            this.kills = _data["kills"];
+            this.assists = _data["assists"];
+            this.deaths = _data["deaths"];
+            this.gold = _data["gold"];
+            this.dragons = _data["dragons"];
+            this.heralds = _data["heralds"];
+            this.barons = _data["barons"];
+            this.towers = _data["towers"];
+            this.firstRecentChampionImageUrl = _data["firstRecentChampionImageUrl"];
+            this.secondRecentChampionImageUrl = _data["secondRecentChampionImageUrl"];
+            this.thirdRecentChampionImageUrl = _data["thirdRecentChampionImageUrl"];
+            this.fourthRecentChampionImageUrl = _data["fourthRecentChampionImageUrl"];
+            this.fivethRecentChampionImageUrl = _data["fivethRecentChampionImageUrl"];
+        }
+    }
+
+    static fromJS(data: any): LolTournamentTeamStatsDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LolTournamentTeamStatsDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["teamName"] = this.teamName;
+        data["teamImageUrl"] = this.teamImageUrl;
+        data["kills"] = this.kills;
+        data["assists"] = this.assists;
+        data["deaths"] = this.deaths;
+        data["gold"] = this.gold;
+        data["dragons"] = this.dragons;
+        data["heralds"] = this.heralds;
+        data["barons"] = this.barons;
+        data["towers"] = this.towers;
+        data["firstRecentChampionImageUrl"] = this.firstRecentChampionImageUrl;
+        data["secondRecentChampionImageUrl"] = this.secondRecentChampionImageUrl;
+        data["thirdRecentChampionImageUrl"] = this.thirdRecentChampionImageUrl;
+        data["fourthRecentChampionImageUrl"] = this.fourthRecentChampionImageUrl;
+        data["fivethRecentChampionImageUrl"] = this.fivethRecentChampionImageUrl;
+        return data; 
+    }
+}
+
+export interface ILolTournamentTeamStatsDto {
+    teamName: string | undefined;
+    teamImageUrl: string | undefined;
+    kills: number | undefined;
+    assists: number | undefined;
+    deaths: number | undefined;
+    gold: number | undefined;
+    dragons: number | undefined;
+    heralds: number | undefined;
+    barons: number | undefined;
+    towers: number | undefined;
+    firstRecentChampionImageUrl: string | undefined;
+    secondRecentChampionImageUrl: string | undefined;
+    thirdRecentChampionImageUrl: string | undefined;
+    fourthRecentChampionImageUrl: string | undefined;
+    fivethRecentChampionImageUrl: string | undefined;
 }
 
 export class SwaggerException extends Error {

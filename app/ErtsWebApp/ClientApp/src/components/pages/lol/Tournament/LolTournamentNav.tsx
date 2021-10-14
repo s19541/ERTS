@@ -26,7 +26,7 @@ function LolTournamentNav(props: { activeKey: string }) {
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="team-stats">TEAM STATS</Nav.Link>
+				<Nav.Link eventKey="team-stats" onClick={() => redirectToPage("./teamStats")}>TEAM STATS</Nav.Link>
 			</Nav.Item>
 		</Nav>
 	);

@@ -331,6 +331,42 @@
           }
         }
       }
+    },
+    "/api/Tournament/GetLolTournamentTeamStats/{tournamentId}": {
+      "get": {
+        "tags": [
+          "Tournament"
+        ],
+        "operationId": "Tournament_GetLolTournamentTeamStats",
+        "parameters": [
+          {
+            "name": "tournamentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/LolTournamentTeamStatsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -844,6 +880,80 @@
             "nullable": true
           },
           "thirdRecentChampionImageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "LolTournamentTeamStatsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "teamName": {
+            "type": "string",
+            "nullable": true
+          },
+          "teamImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "kills": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "assists": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "deaths": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "gold": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "dragons": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "heralds": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "barons": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "towers": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "firstRecentChampionImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondRecentChampionImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "thirdRecentChampionImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "fourthRecentChampionImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "fivethRecentChampionImageUrl": {
             "type": "string",
             "nullable": true
           }
