@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ErtsApplication.DTO
-{
-    public class MatchDto
-    {
+namespace ErtsApplication.DTO {
+    public class MatchDto {
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public long Team1Id { get; set; }
         public long Team2Id { get; set; }
         public string Team1ImageUrl { get; set; }

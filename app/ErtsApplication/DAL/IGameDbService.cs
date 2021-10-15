@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace ErtsApplication.DAL
-{
-    public interface IGameDbService
-    {
-        ActionResult<IEnumerable<LolGameStatsDto>> GetLolMatchGamesStats(int matchId);
+namespace ErtsApplication.DAL {
+    public interface IGameDbService {
+        ActionResult<IEnumerable<LolGameFullStatsDto>> GetLolGameStats(int gameId);
     }
 }

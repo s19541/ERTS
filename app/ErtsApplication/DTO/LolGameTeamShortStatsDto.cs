@@ -1,7 +1,5 @@
-﻿namespace ErtsApplication.DTO
-{
-    public class LolGameTeamStatsDto
-    {
+﻿namespace ErtsApplication.DTO {
+    public class LolGameTeamShortStatsDto {
         public long TeamId { get; set; }
         public int BaronKilled { get; set; }
         public int MountainDrakeKilled { get; set; }
@@ -19,11 +17,6 @@
         public string Ban3ImageUrl { get; set; }
         public string Ban4ImageUrl { get; set; }
         public string Ban5ImageUrl { get; set; }
-        public bool FirstBaron { get; set; }
-        public bool FirstDragon { get; set; }
-        public bool FirstBlood { get; set; }
-        public bool FirstInhibitor { get; set; }
-        public bool FirstTurret { get; set; }
 
     }
 }

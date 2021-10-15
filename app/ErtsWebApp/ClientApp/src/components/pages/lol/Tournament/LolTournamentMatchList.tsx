@@ -10,7 +10,7 @@ import {
 import LolMatchListTable from "../LolMatchListTable";
 import LolTournamentNav from "./LolTournamentNav";
 
-interface IProps {}
+interface IProps { }
 
 interface IPassedProps {
 	tournamentId: string;

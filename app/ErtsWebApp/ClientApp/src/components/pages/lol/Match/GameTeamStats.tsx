@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { LolGameTeamStatsDto } from "../../../../services/GeneratedClient";
+import { LolGameTeamShortStatsDto } from "../../../../services/GeneratedClient";
 
-function GameTeamStats(props: { teamStats: LolGameTeamStatsDto | undefined }) {
+function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined }) {
 	const teamStats = props.teamStats;
 
 	return (

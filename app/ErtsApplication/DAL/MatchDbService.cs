@@ -4,63 +4,51 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ErtsApplication.DAL
-{
-    public class MatchDbService : IMatchDbService
-    {
+namespace ErtsApplication.DAL {
+    public class MatchDbService : IMatchDbService {
         public ErtsContext Context { get; set; }
-        public MatchDbService(ErtsContext dbContext)
-        {
+        public MatchDbService(ErtsContext dbContext) {
             Context = dbContext;
         }
-        public ActionResult<IEnumerable<MatchDto>> GetMatches(int tournamentId)
-        {
+        public ActionResult<IEnumerable<MatchDto>> GetMatches(int tournamentId) {
             List<MatchDto> tournamentMatchesDtos = new List<MatchDto>();
-            var matchIds = Context.Matches.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
-            foreach (int matchId in matchIds)
-            {
-                var team1 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team1).FirstOrDefault();
-                var team2 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team2).FirstOrDefault();
-                var games = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Games).FirstOrDefault();
+            var matches = Context.Matches.Where(o => o.Tournament.Id == tournamentId).ToList();
+            foreach (var match in matches) {
+
                 var team1GamesWon = 0;
                 var team2GamesWon = 0;
-                foreach (var game in games)
-                {
-                    if (game.Winner == team1)
+                foreach (var game in match.Games) {
+                    if (game.Winner == match.Team1)
                         team1GamesWon++;
                     else
                         team2GamesWon++;
                 }
-                var tournamentMatchDto = new MatchDto()
-                {
-                    Id = matchId,
-                    StartTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StartTime).FirstOrDefault(),
-                    EndTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.EndTime).FirstOrDefault(),
-                    Team1ImageUrl = team1.ImageUrl,
-                    Team2ImageUrl = team2.ImageUrl,
-                    Team1Acronym = team1.Acronym,
-                    Team2Acronym = team2.Acronym,
+                var tournamentMatchDto = new MatchDto() {
+                    Id = match.Id,
+                    StartTime = match.StartTime,
+                    EndTime = match.EndTime,
+                    Team1ImageUrl = match.Team1.ImageUrl,
+                    Team2ImageUrl = match.Team2.ImageUrl,
+                    Team1Acronym = match.Team1.Acronym,
+                    Team2Acronym = match.Team2.Acronym,
                     Team1GamesWon = team1GamesWon,
                     Team2GamesWon = team2GamesWon,
-                    StreamUrl = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StreamUrl).FirstOrDefault()
+                    StreamUrl = match.StreamUrl
                 };
                 tournamentMatchesDtos.Add(tournamentMatchDto);
             }
-            tournamentMatchesDtos.OrderByDescending(x => x.StartTime).ToList();
 
-            return tournamentMatchesDtos;
+            return tournamentMatchesDtos.OrderByDescending(x => x.StartTime).ToList();
         }
 
-        public ActionResult<MatchDto> GetMatch(int matchId)
-        {
+        public ActionResult<MatchDto> GetMatch(int matchId) {
             var team1 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team1).FirstOrDefault();
             var team2 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team2).FirstOrDefault();
             var games = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Games).FirstOrDefault();
             var team1GamesWon = 0;
             var team2GamesWon = 0;
             var gameStatsDtos = new List<LolGameShortStatsDto>();
-            foreach (var game in games)
-            {
+            foreach (var game in games) {
                 if (game.Winner == team1)
                     team1GamesWon++;
                 else
@@ -70,10 +58,8 @@ namespace ErtsApplication.DAL
 
                 var playersStats = Context.LolGamePlayers.Where(o => o.Game == game).ToList();
 
-                foreach (var playerStats in playersStats)
-                {
-                    var playersStatsDto = new LolGamePlayerShortStatsDto()
-                    {
+                foreach (var playerStats in playersStats) {
+                    var playersStatsDto = new LolGamePlayerShortStatsDto() {
                         TeamId = Context.Teams.Where(o => o.Players.Contains(playerStats.Player)).Select(o => o.Id).FirstOrDefault(),
                         PlayerNick = playerStats.Player.Nick,
                         Role = playerStats.Role,
@@ -100,8 +86,7 @@ namespace ErtsApplication.DAL
                 var blueTeamStats = Context.LolGameTeam.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.blue).FirstOrDefault();
                 var redTeamStats = Context.LolGameTeam.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.red).FirstOrDefault();
 
-                var blueTeamStatsDto = new LolGameTeamStatsDto()
-                {
+                var blueTeamStatsDto = new LolGameTeamShortStatsDto() {
                     TeamId = blueTeamStats.Team.Id,
                     BaronKilled = blueTeamStats.BaronKilled,
                     MountainDrakeKilled = blueTeamStats.MountainDrakeKilled,
@@ -118,16 +103,10 @@ namespace ErtsApplication.DAL
                     Ban2ImageUrl = blueTeamStats.Ban2.ImageUrl,
                     Ban3ImageUrl = blueTeamStats.Ban3.ImageUrl,
                     Ban4ImageUrl = blueTeamStats.Ban4.ImageUrl,
-                    Ban5ImageUrl = blueTeamStats.Ban5.ImageUrl,
-                    FirstBaron = blueTeamStats.FirstBaron,
-                    FirstDragon = blueTeamStats.FirstDragon,
-                    FirstBlood = blueTeamStats.FirstBlood,
-                    FirstInhibitor = blueTeamStats.FirstInhibitor,
-                    FirstTurret = blueTeamStats.FirstTurret
+                    Ban5ImageUrl = blueTeamStats.Ban5.ImageUrl
                 };
 
-                var redTeamStatsDto = new LolGameTeamStatsDto()
-                {
+                var redTeamStatsDto = new LolGameTeamShortStatsDto() {
                     TeamId = redTeamStats.Team.Id,
                     BaronKilled = redTeamStats.BaronKilled,
                     MountainDrakeKilled = redTeamStats.MountainDrakeKilled,
@@ -144,16 +123,10 @@ namespace ErtsApplication.DAL
                     Ban2ImageUrl = redTeamStats.Ban2.ImageUrl,
                     Ban3ImageUrl = redTeamStats.Ban3.ImageUrl,
                     Ban4ImageUrl = redTeamStats.Ban4.ImageUrl,
-                    Ban5ImageUrl = redTeamStats.Ban5.ImageUrl,
-                    FirstBaron = redTeamStats.FirstBaron,
-                    FirstDragon = redTeamStats.FirstDragon,
-                    FirstBlood = redTeamStats.FirstBlood,
-                    FirstInhibitor = redTeamStats.FirstInhibitor,
-                    FirstTurret = redTeamStats.FirstTurret
+                    Ban5ImageUrl = redTeamStats.Ban5.ImageUrl
                 };
 
-                var gameStatsDto = new LolGameShortStatsDto()
-                {
+                var gameStatsDto = new LolGameShortStatsDto() {
                     GameLength = gameLength,
                     StartTime = game.StartTime,
                     WinnerTeamId = game.Winner.Id,
@@ -167,8 +140,7 @@ namespace ErtsApplication.DAL
             }
 
 
-            return new MatchDto()
-            {
+            return new MatchDto() {
                 Id = matchId,
                 StartTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StartTime).FirstOrDefault(),
                 EndTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.EndTime).FirstOrDefault(),
