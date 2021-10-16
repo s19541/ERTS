@@ -76,8 +76,8 @@ namespace ErtsApplication.DAL {
                     playersStatsDtos.Add(playersStatsDto);
                 }
                 var ts = (game.EndTime - game.StartTime);
-                var minutes = ts.TotalMinutes != 0 ? ts.TotalMinutes.ToString() : "00";
-                var seconds = ts.TotalSeconds % 60 != 0 ? (ts.TotalMinutes % 60).ToString() : "00";
+                var minutes = ts.TotalMinutes != 0 ? ((int)ts.TotalMinutes).ToString() : "00";
+                var seconds = ts.TotalSeconds % 60 != 0 ? (ts.TotalSeconds % 60).ToString() : "00";
                 var gameLength = minutes + ":" + seconds;
                 var blueTeamId = Context.LolGameTeam.Where(o => o.Game == game).Where(o => o.Color == ErtsModel.Enums.LolColor.blue).Select(o => o.Team.Id).FirstOrDefault();
                 var blueTeamplayersStats = playersStatsDtos.Where(o => o.TeamId == blueTeamId).ToList();

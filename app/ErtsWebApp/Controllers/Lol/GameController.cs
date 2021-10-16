@@ -1,7 +1,6 @@
 ﻿using ErtsApplication.DAL;
 using ErtsApplication.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace ErtsWebApp.Controllers.Lol {
     [Route("api/[controller]")]
@@ -11,9 +10,9 @@ namespace ErtsWebApp.Controllers.Lol {
         public GameController(IGameDbService dbService) {
             _dbService = dbService;
         }
-        [Route("[action]/{matchId}")]
+        [Route("[action]/{gameId}")]
         [HttpGet]
-        public ActionResult<IEnumerable<LolGameFullStatsDto>> GetLolGameStats(int gameId) {
+        public ActionResult<LolGameFullStatsDto> GetLolGameStats(int gameId) {
             return _dbService.GetLolGameStats(gameId);
         }
 
