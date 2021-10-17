@@ -10,7 +10,7 @@ import {
 import GameList from "./GameList";
 import MatchInfo from "./MatchInfo";
 
-interface IProps {}
+interface IProps { }
 
 interface IPassedProps {
 	matchId: string;
@@ -23,7 +23,7 @@ interface IState {
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 
-class LolTournamentMatchList extends React.Component<IJoinedProps, IState> {
+class MatchStats extends React.Component<IJoinedProps, IState> {
 	constructor(props: IJoinedProps) {
 		super(props);
 
@@ -60,4 +60,4 @@ class LolTournamentMatchList extends React.Component<IJoinedProps, IState> {
 		);
 	}
 }
-export default withRouter(LolTournamentMatchList);
+export default withRouter(MatchStats);

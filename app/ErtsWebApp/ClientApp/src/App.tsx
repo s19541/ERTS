@@ -12,6 +12,7 @@ import LolTournamentMatchList from "./components/pages/lol/Tournament/LolTournam
 import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolTournamentPlayerStatsList";
 import LolTournamentTeamStatsList from "./components/pages/lol/Tournament/LolTournamentTeamStatsList";
 import MatchStats from "./components/pages/lol/Match/MatchStats";
+import GameStats from "./components/pages/lol/Game/GameStats";
 
 const App: React.FunctionComponent = () => {
 	document.body.style.backgroundColor = "#778899";
@@ -27,7 +28,12 @@ const App: React.FunctionComponent = () => {
 				/>
 				<Route
 					exact
-					path={Resources.pageAdresses.game}
+					path={Resources.pageAdresses.lolGame}
+					component={GameStats}
+				/>
+				<Route
+					exact
+					path={Resources.pageAdresses.leagues}
 					component={LeagueList}
 				/>
 				<Route

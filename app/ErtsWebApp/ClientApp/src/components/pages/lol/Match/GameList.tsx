@@ -2,17 +2,22 @@ import { Container, Row, Col } from "react-bootstrap";
 import { LolGameShortStatsDto } from "../../../../services/GeneratedClient";
 import GamePlayerStatsTable from "./GamePlayerStatsTable";
 import GameTeamStats from "./GameTeamStats";
+import { useHistory } from "react-router";
 
 function LolMatchListTable(props: {
 	gameList: LolGameShortStatsDto[] | undefined;
 }) {
+	let history = useHistory();
+	const redirectToPage = (page: string) => {
+		history.push(page);
+	}
 	const gameList = props.gameList;
 
 	return (
 		<Container>
 			{gameList?.map((game, i) => (
 				<div className="h1 text-white">
-					Game {i + 1}
+					<h1 onClick={() => redirectToPage(`/lol/game/${game.id}`)}>Game {i + 1}</h1>
 					<div className="h5 text-white">
 						Start Time: {game.startTime.format("HH:mm DD-MM-YYYY")} Length:{" "}
 						{game.gameLength}

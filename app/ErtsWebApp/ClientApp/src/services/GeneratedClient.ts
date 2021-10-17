@@ -680,6 +680,8 @@ export class LolGameTeamFullStatsDto implements ILolGameTeamFullStatsDto {
     ban3ImageUrl!: string | undefined;
     ban4ImageUrl!: string | undefined;
     ban5ImageUrl!: string | undefined;
+    teamName!: string | undefined;
+    teamImageUrl!: string | undefined;
     firstBaron!: boolean;
     firstDragon!: boolean;
     firstBlood!: boolean;
@@ -714,6 +716,8 @@ export class LolGameTeamFullStatsDto implements ILolGameTeamFullStatsDto {
             this.ban3ImageUrl = _data["ban3ImageUrl"];
             this.ban4ImageUrl = _data["ban4ImageUrl"];
             this.ban5ImageUrl = _data["ban5ImageUrl"];
+            this.teamName = _data["teamName"];
+            this.teamImageUrl = _data["teamImageUrl"];
             this.firstBaron = _data["firstBaron"];
             this.firstDragon = _data["firstDragon"];
             this.firstBlood = _data["firstBlood"];
@@ -748,6 +752,8 @@ export class LolGameTeamFullStatsDto implements ILolGameTeamFullStatsDto {
         data["ban3ImageUrl"] = this.ban3ImageUrl;
         data["ban4ImageUrl"] = this.ban4ImageUrl;
         data["ban5ImageUrl"] = this.ban5ImageUrl;
+        data["teamName"] = this.teamName;
+        data["teamImageUrl"] = this.teamImageUrl;
         data["firstBaron"] = this.firstBaron;
         data["firstDragon"] = this.firstDragon;
         data["firstBlood"] = this.firstBlood;
@@ -775,6 +781,8 @@ export interface ILolGameTeamFullStatsDto {
     ban3ImageUrl: string | undefined;
     ban4ImageUrl: string | undefined;
     ban5ImageUrl: string | undefined;
+    teamName: string | undefined;
+    teamImageUrl: string | undefined;
     firstBaron: boolean;
     firstDragon: boolean;
     firstBlood: boolean;
@@ -1075,6 +1083,7 @@ export interface IMatchDto {
 }
 
 export class LolGameShortStatsDto implements ILolGameShortStatsDto {
+    id!: number;
     startTime!: moment.Moment;
     gameLength!: string | undefined;
     winnerTeamId!: number;
@@ -1095,6 +1104,7 @@ export class LolGameShortStatsDto implements ILolGameShortStatsDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
             this.gameLength = _data["gameLength"];
             this.winnerTeamId = _data["winnerTeamId"];
@@ -1123,6 +1133,7 @@ export class LolGameShortStatsDto implements ILolGameShortStatsDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
         data["gameLength"] = this.gameLength;
         data["winnerTeamId"] = this.winnerTeamId;
@@ -1144,6 +1155,7 @@ export class LolGameShortStatsDto implements ILolGameShortStatsDto {
 }
 
 export interface ILolGameShortStatsDto {
+    id: number;
     startTime: moment.Moment;
     gameLength: string | undefined;
     winnerTeamId: number;

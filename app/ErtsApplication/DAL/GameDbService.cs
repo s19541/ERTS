@@ -29,6 +29,8 @@ namespace ErtsApplication.DAL {
 
                 var blueTeamStatsDto = new LolGameTeamFullStatsDto() {
                     TeamId = blueTeamStats.Team.Id,
+                    TeamName = blueTeamStats.Team.Name,
+                    TeamImageUrl = blueTeamStats.Team.ImageUrl,
                     BaronKilled = blueTeamStats.BaronKilled,
                     MountainDrakeKilled = blueTeamStats.MountainDrakeKilled,
                     InfernalDrakeKilled = blueTeamStats.InfernalDrakeKilled,
@@ -52,6 +54,8 @@ namespace ErtsApplication.DAL {
                 };
                 var redTeamStatsDto = new LolGameTeamFullStatsDto() {
                     TeamId = redTeamStats.Team.Id,
+                    TeamName = redTeamStats.Team.Name,
+                    TeamImageUrl = redTeamStats.Team.ImageUrl,
                     BaronKilled = redTeamStats.BaronKilled,
                     MountainDrakeKilled = redTeamStats.MountainDrakeKilled,
                     InfernalDrakeKilled = redTeamStats.InfernalDrakeKilled,

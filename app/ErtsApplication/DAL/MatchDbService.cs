@@ -127,6 +127,7 @@ namespace ErtsApplication.DAL {
                 };
 
                 var gameStatsDto = new LolGameShortStatsDto() {
+                    Id = game.Id,
                     GameLength = gameLength,
                     StartTime = game.StartTime,
                     WinnerTeamId = game.Winner.Id,
