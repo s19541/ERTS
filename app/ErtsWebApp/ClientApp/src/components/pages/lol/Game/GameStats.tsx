@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../css/myStyle.css";
 import { GameClient, LolGameFullStatsDto } from "../../../../services/GeneratedClient";
@@ -8,6 +8,7 @@ import {
     SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
 import GameInfo from "./GameInfo";
+import GameTeamFullStats from "./GameTeamFullStats";
 
 interface IProps { }
 
@@ -54,7 +55,12 @@ class GameStats extends React.Component<IJoinedProps, IState> {
                 }}
             >
                 <GameInfo game={this.state.game} />
+
+                <GameTeamFullStats blueTeamStats={this.state.game?.blueTeamStats} redTeamStats={this.state.game?.redTeamStats} />
             </Container>
+
+
+
         );
     }
 }
