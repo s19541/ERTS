@@ -92,7 +92,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
             <Row >
                 <Col style={{ textAlign: "right" }}>
                     <h4>
-                        ({[...Array(blueTeamStats?.oceanDrakeKilled)].map((x, i) => (
+                        {[...Array(blueTeamStats?.oceanDrakeKilled)].map((x, i) => (
                             <img
                                 src="/images/lol/ocean-drake-icon.png"
                                 width={29}
@@ -123,7 +123,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                                 height={29}
                                 alt="cloudDrake"
                             />
-                        ))})
+                        ))}
                         {redTeamStats != null ? redTeamStats.infernalDrakeKilled + redTeamStats.oceanDrakeKilled + redTeamStats.mountainDrakeKilled + redTeamStats.cloudDrakeKilled : 0}
                     </h4>
                 </Col>
@@ -131,7 +131,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                 <Col style={{ textAlign: "left" }}>
                     <h4>
                         {redTeamStats != null ? redTeamStats.infernalDrakeKilled + redTeamStats.oceanDrakeKilled + redTeamStats.mountainDrakeKilled + redTeamStats.cloudDrakeKilled : 0}
-                        ({[...Array(redTeamStats?.oceanDrakeKilled)].map((x, i) => (
+                        {[...Array(redTeamStats?.oceanDrakeKilled)].map((x, i) => (
                             <img
                                 src="/images/lol/ocean-drake-icon.png"
                                 width={29}
@@ -162,7 +162,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                                 height={29}
                                 alt="cloudDrake"
                             />
-                        ))})
+                        ))}
                     </h4>
                 </Col>
             </Row>

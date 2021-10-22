@@ -980,6 +980,7 @@ export enum LolRole {
     Mid = "mid",
     Adc = "adc",
     Sup = "sup",
+    Sub = "sub",
 }
 
 export class MatchDto implements IMatchDto {

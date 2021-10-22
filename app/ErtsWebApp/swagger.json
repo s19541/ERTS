@@ -711,14 +711,16 @@
           "jun",
           "mid",
           "adc",
-          "sup"
+          "sup",
+          "sub"
         ],
         "enum": [
           "top",
           "jun",
           "mid",
           "adc",
-          "sup"
+          "sup",
+          "sub"
         ]
       },
       "MatchDto": {

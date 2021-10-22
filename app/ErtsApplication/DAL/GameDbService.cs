@@ -95,7 +95,7 @@ namespace ErtsApplication.DAL {
                         Cs = playerStats.MinionsKilled,
                         Spell1ImageUrl = playerStats.Spell1.ImageUrl,
                         Spell2ImageUrl = playerStats.Spell2.ImageUrl,
-                        ItemImages = Context.LolGamePlayerItems.Where(o => o.GamePlayer == playerStats).Select(o => o.Item).Select(o => o.ImageUrl).ToList(),
+                        ItemImages = Context.LolGamePlayerItems.Where(o => o.GamePlayer == playerStats).Select(o => o.Item).OrderBy(o => o.IsTrinket).Select(o => o.ImageUrl).ToList(),
                         PhysicalDamageDealt = playerStats.PhysicalDamageDealt,
                         PhysicalDamageDealtToChamps = playerStats.PhysicalDamageDealt,
                         MagicDamageDealt = playerStats.MagicDamageDealt,

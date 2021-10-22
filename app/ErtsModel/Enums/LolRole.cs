@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel;
 
-namespace ErtsModel.Enums
-{
-    public enum LolRole
-    {
+namespace ErtsModel.Enums {
+    public enum LolRole {
         [Description("Top")]
         top,
         [Description("Jungle")]
@@ -14,5 +12,7 @@ namespace ErtsModel.Enums
         adc,
         [Description("Support")]
         sup,
+        [Description("Substitute")]
+        sub,
     }
 }

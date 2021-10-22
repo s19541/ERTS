@@ -71,12 +71,29 @@ namespace ErtsApiFetcher.RecurringJobs {
                             Ban4 = champions[random.Next(champions.Count())],
                             Ban5 = champions[random.Next(champions.Count())]
                         });
+                        ErtsModel.Enums.LolRole[] rolesT1 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
+
+                        ErtsModel.Enums.LolRole[] rolesT2 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
+
 
                         foreach (var player in newMatch.Team1.Players.Union(newMatch.Team2.Players)) {
+                            var role = ErtsModel.Enums.LolRole.sub;
+                            if (newMatch.Team1.Players.Contains(player)) {
+                                if (rolesT1.Length != 0) {
+                                    role = rolesT1[random.Next(rolesT1.Count())];
+                                    rolesT1 = rolesT1.Where(e => e != role).ToArray();
+                                }
+                            } else {
+                                if (rolesT2.Length != 0) {
+                                    role = rolesT2[random.Next(rolesT2.Count())];
+                                    rolesT2 = rolesT2.Where(e => e != role).ToArray();
+                                }
+                            }
+
                             var lolGamePlayer = new LolGamePlayer() {
                                 Player = player,
                                 Game = newGame,
-                                Role = ErtsModel.Enums.LolRole.mid,
+                                Role = role,
                                 Champion = champions[random.Next(champions.Count())],
                                 Spell1 = spells[random.Next(spells.Count())],
                                 Spell2 = spells[random.Next(spells.Count())]
