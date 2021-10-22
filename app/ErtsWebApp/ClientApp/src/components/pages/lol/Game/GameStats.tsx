@@ -8,6 +8,7 @@ import {
     SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
 import GameInfo from "./GameInfo";
+import GamePlayerFullStats from "./GamePlayerFullStats";
 import GameTeamFullStats from "./GameTeamFullStats";
 
 interface IProps { }
@@ -57,6 +58,9 @@ class GameStats extends React.Component<IJoinedProps, IState> {
                 <GameInfo game={this.state.game} />
 
                 <GameTeamFullStats blueTeamStats={this.state.game?.blueTeamStats} redTeamStats={this.state.game?.redTeamStats} />
+
+                <GamePlayerFullStats blueTeamPlayersStats={this.state.game?.blueTeamPlayersStats} redTeamPlayersStats={this.state.game?.redTeamPlayersStats} />
+
             </Container>
 
 
