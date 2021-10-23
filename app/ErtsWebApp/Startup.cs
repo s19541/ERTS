@@ -103,6 +103,7 @@ namespace ErtsWebApp {
             services.AddScoped<ISerieDbService, SerieDbService>();
             services.AddScoped<IMatchDbService, MatchDbService>();
             services.AddScoped<IGameDbService, GameDbService>();
+            services.AddScoped<ITeamDbService, TeamDbService>();
         }
     }
 }
