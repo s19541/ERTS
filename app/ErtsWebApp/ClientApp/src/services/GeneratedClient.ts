@@ -1784,6 +1784,7 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
     gamesLost!: number;
     teamName!: string | undefined;
     teamImageUrl!: string | undefined;
+    teamId!: number;
 
     constructor(data?: ITournamentTeamShortDto) {
         if (data) {
@@ -1802,6 +1803,7 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
             this.gamesLost = _data["gamesLost"];
             this.teamName = _data["teamName"];
             this.teamImageUrl = _data["teamImageUrl"];
+            this.teamId = _data["teamId"];
         }
     }
 
@@ -1820,6 +1822,7 @@ export class TournamentTeamShortDto implements ITournamentTeamShortDto {
         data["gamesLost"] = this.gamesLost;
         data["teamName"] = this.teamName;
         data["teamImageUrl"] = this.teamImageUrl;
+        data["teamId"] = this.teamId;
         return data; 
     }
 }
@@ -1831,6 +1834,7 @@ export interface ITournamentTeamShortDto {
     gamesLost: number;
     teamName: string | undefined;
     teamImageUrl: string | undefined;
+    teamId: number;
 }
 
 export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto {

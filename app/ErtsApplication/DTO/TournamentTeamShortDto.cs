@@ -8,5 +8,6 @@
         public int GamesLost { get; set; }
         public string TeamName { get; set; }
         public string TeamImageUrl { get; set; }
+        public long TeamId { get; set; }
     }
 }

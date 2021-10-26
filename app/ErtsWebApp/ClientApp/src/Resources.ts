@@ -9,7 +9,8 @@ export default class Resources {
 		lolTournamentPlayerStatsList: "/:gameType/:leagueId/:serieId/:tournamentId/playerStats",
 		lolTournamentTeamStatsList: "/:gameType/:leagueId/:serieId/:tournamentId/teamStats",
 		lolMatch: "/:gameType/match/:matchId",
-		lolGame: "/:gameType/game/:gameId"
+		lolGame: "/:gameType/game/:gameId",
+		team: "/:gameType/team/:teamId"
 	};
 	public static buttons = {
 		accept: "Akceptuję",

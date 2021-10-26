@@ -13,6 +13,7 @@ import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolT
 import LolTournamentTeamStatsList from "./components/pages/lol/Tournament/LolTournamentTeamStatsList";
 import MatchStats from "./components/pages/lol/Match/MatchStats";
 import GameStats from "./components/pages/lol/Game/GameStats";
+import TeamStats from "./components/pages/common/Team/TeamStats";
 
 const App: React.FunctionComponent = () => {
 	document.body.style.backgroundColor = "#778899";
@@ -21,6 +22,11 @@ const App: React.FunctionComponent = () => {
 			<Navigation />
 			<Switch>
 				<Route path={Resources.pageAdresses.home} exact component={Home} />
+				<Route
+					exact
+					path={Resources.pageAdresses.team}
+					component={TeamStats}
+				/>
 				<Route
 					exact
 					path={Resources.pageAdresses.lolMatch}

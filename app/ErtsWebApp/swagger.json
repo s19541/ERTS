@@ -1256,6 +1256,10 @@
           "teamImageUrl": {
             "type": "string",
             "nullable": true
+          },
+          "teamId": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },

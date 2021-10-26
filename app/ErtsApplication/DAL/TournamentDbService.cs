@@ -38,7 +38,8 @@ namespace ErtsApplication.DAL {
                     GamesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesWon).FirstOrDefault(),
                     GamesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesLost).FirstOrDefault(),
                     TeamName = Context.Teams.Where(p => p.Id == teamId).Select(p => p.Name).FirstOrDefault(),
-                    TeamImageUrl = Context.Teams.Where(p => p.Id == teamId).Select(p => p.ImageUrl).FirstOrDefault()
+                    TeamImageUrl = Context.Teams.Where(p => p.Id == teamId).Select(p => p.ImageUrl).FirstOrDefault(),
+                    TeamId = teamId
                 };
                 tournamentTeamShortDtos.Add(tournamentTeamShortDto);
             }

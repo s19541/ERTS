@@ -1,12 +1,18 @@
 import {
-	TournamentShortDto,
+	GameType,
 	TournamentTeamShortDto,
 } from "../../../../services/GeneratedClient";
+import { useHistory } from "react-router";
 
 function LolTournamentTeamTableRow(props: {
 	position: number;
 	tournamentTeam: TournamentTeamShortDto;
 }) {
+	let history = useHistory();
+	const redirectToPage = (page: string) => {
+		history.push(page);
+	}
+
 	const position = props.position;
 	const tournamentTeam = props.tournamentTeam;
 
@@ -24,6 +30,7 @@ function LolTournamentTeamTableRow(props: {
 				style={{
 					verticalAlign: "middle",
 				}}
+				onClick={() => redirectToPage(`/lol/team/${tournamentTeam.teamId}`)}
 			>
 				<img
 					src={tournamentTeam.teamImageUrl}
