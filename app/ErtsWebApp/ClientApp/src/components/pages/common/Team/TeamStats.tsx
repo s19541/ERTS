@@ -7,6 +7,8 @@ import {
     IActionParameters,
     SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
+import TeamInfo from "./TeamInfo";
+import PlayerList from "./PlayerList";
 
 interface IProps { }
 
@@ -53,18 +55,14 @@ class TeamStats extends React.Component<IJoinedProps, IState> {
                     color: "white"
                 }}
             >
-                <Row className="align-items-center">
-                    <Col md="auto">
-                        <Image src={this.state.team?.imageUrl}
-                            width={250}
-                            height={250} />
-                    </Col>
-                    <Col md="auto">
-                        <h1>{this.state.team?.name}</h1>
-                        <h3>{this.state.team?.acronym}</h3>
+                <TeamInfo team={this.state.team} />
+                <Row>
+                    <Col xs={4}>
+                        <PlayerList players={this.state.team?.players} />
                     </Col>
 
                 </Row>
+
 
             </Container>
         );

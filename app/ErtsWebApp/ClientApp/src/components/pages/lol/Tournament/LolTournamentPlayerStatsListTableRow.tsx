@@ -1,13 +1,19 @@
 import { LolTournamentPlayerStatsDto } from "../../../../services/GeneratedClient";
+import { useHistory } from "react-router";
 
 function LolTournamentPlayerStatsListTableRow(props: {
 	playerStats: LolTournamentPlayerStatsDto;
 }) {
+	let history = useHistory();
+	const redirectToPage = (page: string) => {
+		history.push(page);
+	}
+
 	const playerStats = props.playerStats;
 
 	return (
 		<tr>
-			<td
+			<td onClick={() => redirectToPage(`/lol/team/${playerStats.teamId}`)}
 				style={{
 					textAlign: "center",
 					verticalAlign: "middle",

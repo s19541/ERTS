@@ -1,5 +1,6 @@
 ﻿namespace ErtsApplication.DTO {
     public class LolTournamentTeamStatsDto {
+        public long TeamId { get; set; }
         public string TeamName { get; set; }
         public string TeamImageUrl { get; set; }
         public double? Kills { get; set; }

@@ -56,6 +56,7 @@ namespace ErtsApplication.DAL {
                 var lolTournamentPlayerStatsDto = new LolTournamentPlayerStatsDto() {
                     PlayerNick = tournamentPlayer.Player.Nick,
                     TeamImageUrl = Context.Teams.Where(contextTeam => contextTeam.Players.Contains(tournamentPlayer.Player)).FirstOrDefault().ImageUrl,
+                    TeamId = Context.Teams.Where(contextTeam => contextTeam.Players.Contains(tournamentPlayer.Player)).FirstOrDefault().Id,
                     Kills = tournamentPlayer.AverageKills,
                     Deaths = tournamentPlayer.AverageDeaths,
                     Assists = tournamentPlayer.AverageAssists,
@@ -84,6 +85,7 @@ namespace ErtsApplication.DAL {
             var tournamentTeams = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).ToList();
             foreach (var tournamentTeam in tournamentTeams) {
                 var lolTournamentTeamStatsDto = new LolTournamentTeamStatsDto() {
+                    TeamId = tournamentTeam.Team.Id,
                     TeamName = tournamentTeam.Team.Name,
                     TeamImageUrl = tournamentTeam.Team.ImageUrl,
                     Kills = tournamentTeam.AverageKills,

@@ -1271,6 +1271,10 @@
             "type": "string",
             "nullable": true
           },
+          "teamId": {
+            "type": "integer",
+            "format": "int64"
+          },
           "teamImageUrl": {
             "type": "string",
             "nullable": true
@@ -1344,6 +1348,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "teamId": {
+            "type": "integer",
+            "format": "int64"
+          },
           "teamName": {
             "type": "string",
             "nullable": true

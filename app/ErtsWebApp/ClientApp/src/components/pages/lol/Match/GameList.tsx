@@ -4,7 +4,7 @@ import GamePlayerStatsTable from "./GamePlayerStatsTable";
 import GameTeamStats from "./GameTeamStats";
 import { useHistory } from "react-router";
 
-function LolMatchListTable(props: {
+function GameList(props: {
 	gameList: LolGameShortStatsDto[] | undefined;
 }) {
 	let history = useHistory();
@@ -44,4 +44,4 @@ function LolMatchListTable(props: {
 	);
 }
 
-export default LolMatchListTable;
+export default GameList;

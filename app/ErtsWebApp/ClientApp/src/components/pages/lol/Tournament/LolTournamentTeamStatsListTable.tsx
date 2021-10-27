@@ -11,7 +11,6 @@ function LolTournamentTeamStatsListTable(props: {
         <Table striped bordered hover variant="dark">
             <thead>
                 <tr>
-                    <th style={{ width: "3vh", textAlign: "center" }}></th>
                     <th style={{ width: "5vh", textAlign: "center" }}>Team</th>
                     <th style={{ width: "5vh", textAlign: "center" }}>K</th>
                     <th style={{ width: "5vh", textAlign: "center" }}>D</th>

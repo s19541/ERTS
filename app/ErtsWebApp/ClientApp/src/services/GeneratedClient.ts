@@ -1839,6 +1839,7 @@ export interface ITournamentTeamShortDto {
 
 export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto {
     playerNick!: string | undefined;
+    teamId!: number;
     teamImageUrl!: string | undefined;
     kills!: number | undefined;
     deaths!: number | undefined;
@@ -1867,6 +1868,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
     init(_data?: any) {
         if (_data) {
             this.playerNick = _data["playerNick"];
+            this.teamId = _data["teamId"];
             this.teamImageUrl = _data["teamImageUrl"];
             this.kills = _data["kills"];
             this.deaths = _data["deaths"];
@@ -1895,6 +1897,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["playerNick"] = this.playerNick;
+        data["teamId"] = this.teamId;
         data["teamImageUrl"] = this.teamImageUrl;
         data["kills"] = this.kills;
         data["deaths"] = this.deaths;
@@ -1916,6 +1919,7 @@ export class LolTournamentPlayerStatsDto implements ILolTournamentPlayerStatsDto
 
 export interface ILolTournamentPlayerStatsDto {
     playerNick: string | undefined;
+    teamId: number;
     teamImageUrl: string | undefined;
     kills: number | undefined;
     deaths: number | undefined;
@@ -1934,6 +1938,7 @@ export interface ILolTournamentPlayerStatsDto {
 }
 
 export class LolTournamentTeamStatsDto implements ILolTournamentTeamStatsDto {
+    teamId!: number;
     teamName!: string | undefined;
     teamImageUrl!: string | undefined;
     kills!: number | undefined;
@@ -1961,6 +1966,7 @@ export class LolTournamentTeamStatsDto implements ILolTournamentTeamStatsDto {
 
     init(_data?: any) {
         if (_data) {
+            this.teamId = _data["teamId"];
             this.teamName = _data["teamName"];
             this.teamImageUrl = _data["teamImageUrl"];
             this.kills = _data["kills"];
@@ -1988,6 +1994,7 @@ export class LolTournamentTeamStatsDto implements ILolTournamentTeamStatsDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["teamId"] = this.teamId;
         data["teamName"] = this.teamName;
         data["teamImageUrl"] = this.teamImageUrl;
         data["kills"] = this.kills;
@@ -2008,6 +2015,7 @@ export class LolTournamentTeamStatsDto implements ILolTournamentTeamStatsDto {
 }
 
 export interface ILolTournamentTeamStatsDto {
+    teamId: number;
     teamName: string | undefined;
     teamImageUrl: string | undefined;
     kills: number | undefined;
