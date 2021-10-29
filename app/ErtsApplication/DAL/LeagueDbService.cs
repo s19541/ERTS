@@ -17,14 +17,13 @@ namespace ErtsApplication.DAL
 
         public ActionResult<LeagueDto> GetLeague(int leagueId)
         {
-
-            var leagueDto = new LeagueDto()
+            var contextLeague = Context.Leagues.Where(p => p.Id == leagueId).FirstOrDefault();
+           return new LeagueDto()
             {
-                Name = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Name).FirstOrDefault(),
-                ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault(),
-                Url = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Url).FirstOrDefault()
+                Name = contextLeague.Name,
+                ImageUrl = contextLeague.ImageUrl,
+                Url = contextLeague.Url
             };
-            return leagueDto;
         }
 
         public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType)

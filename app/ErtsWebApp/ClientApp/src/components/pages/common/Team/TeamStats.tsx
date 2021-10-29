@@ -9,6 +9,8 @@ import {
 } from "../../../../_infrastructure/actions/SendAction";
 import TeamInfo from "./TeamInfo";
 import PlayerList from "./PlayerList";
+import LastMatches from "./LastMatches";
+import UpcomingMatches from "./UpcomingMatches";
 
 interface IProps { }
 
@@ -57,10 +59,17 @@ class TeamStats extends React.Component<IJoinedProps, IState> {
             >
                 <TeamInfo team={this.state.team} />
                 <Row>
-                    <Col xs={4}>
+                    <Col>
                         <PlayerList players={this.state.team?.players} />
                     </Col>
-
+                </Row>
+                <Row>
+                    <Col>
+                        <LastMatches lastMatches={this.state.team?.lastMatches} />
+                    </Col>
+                    <Col>
+                        <UpcomingMatches upcomingMatches={this.state.team?.upcomingMatches} />
+                    </Col>
                 </Row>
 
 

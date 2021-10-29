@@ -12,14 +12,14 @@ namespace ErtsApplication.DAL {
         }
         public ActionResult<IEnumerable<TournamentShortDto>> GetTournamentsShort(int serieId) {
             List<TournamentShortDto> tournamentShortDtos = new List<TournamentShortDto>();
-            var tournamentIds = Context.Tournaments.Where(o => o.Serie.Id == serieId).Select(o => o.Id).ToList();
+            var tournaments = Context.Tournaments.Where(o => o.Serie.Id == serieId).ToList();
 
-            foreach (int tournamentId in tournamentIds) {
+            foreach (var tournament in tournaments) {
                 var tournamentShortDto = new TournamentShortDto() {
-                    Id = tournamentId,
-                    Name = Context.Tournaments.Where(p => p.Id == tournamentId).Select(p => p.Name).FirstOrDefault(),
-                    StartTime = Context.Tournaments.Where(p => p.Id == tournamentId).Select(p => p.StartTime).FirstOrDefault(),
-                    EndTime = Context.Tournaments.Where(p => p.Id == tournamentId).Select(p => p.EndTime).FirstOrDefault()
+                    Id = tournament.Id,
+                    Name = tournament.Name,
+                    StartTime = tournament.StartTime,
+                    EndTime = tournament.EndTime
                 };
                 tournamentShortDtos.Add(tournamentShortDto);
             }
@@ -28,23 +28,22 @@ namespace ErtsApplication.DAL {
 
         public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId) {
             List<TournamentTeamShortDto> tournamentTeamShortDtos = new List<TournamentTeamShortDto>();
-            var tournamentTeamIds = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).Select(o => o.Id).ToList();
+            var tournamentTeams = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).ToList();
 
-            foreach (int tournamentTeamId in tournamentTeamIds) {
-                var teamId = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.Team.Id).FirstOrDefault();
+            foreach (var tournamentTeam in tournamentTeams) {
+                var team = tournamentTeam.Team;
                 var tournamentTeamShortDto = new TournamentTeamShortDto() {
-                    MatchesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesWon).FirstOrDefault(),
-                    MatchesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.MatchesLost).FirstOrDefault(),
-                    GamesWon = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesWon).FirstOrDefault(),
-                    GamesLost = Context.LolTournamentTeams.Where(p => p.Id == tournamentTeamId).Select(p => p.GamesLost).FirstOrDefault(),
-                    TeamName = Context.Teams.Where(p => p.Id == teamId).Select(p => p.Name).FirstOrDefault(),
-                    TeamImageUrl = Context.Teams.Where(p => p.Id == teamId).Select(p => p.ImageUrl).FirstOrDefault(),
-                    TeamId = teamId
+                    MatchesWon = tournamentTeam.MatchesWon,
+                    MatchesLost = tournamentTeam.MatchesLost,
+                    GamesWon = tournamentTeam.GamesWon,
+                    GamesLost = tournamentTeam.GamesLost,
+                    TeamName = team.Name,
+                    TeamImageUrl = team.ImageUrl,
+                    TeamId = team.Id
                 };
                 tournamentTeamShortDtos.Add(tournamentTeamShortDto);
             }
-            tournamentTeamShortDtos = tournamentTeamShortDtos.OrderByDescending(x => x.MatchesWon).ThenBy(x => x.GamesLost).ToList();
-            return tournamentTeamShortDtos;
+            return tournamentTeamShortDtos.OrderByDescending(x => x.MatchesWon).ThenBy(x => x.GamesLost).ToList();
         }
 
         public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId) {
