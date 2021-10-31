@@ -28,7 +28,7 @@ namespace ErtsApplication.DAL {
 
         public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId) {
             List<TournamentTeamShortDto> tournamentTeamShortDtos = new List<TournamentTeamShortDto>();
-            var tournamentTeams = Context.LolTournamentTeams.Where(o => o.Tournament.Id == tournamentId).ToList();
+            var tournamentTeams = Context.TournamentTeams.Where(o => o.Tournament.Id == tournamentId).ToList();
 
             foreach (var tournamentTeam in tournamentTeams) {
                 var team = tournamentTeam.Team;

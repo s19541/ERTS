@@ -6,24 +6,25 @@ using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
     [RecurringJobInfo(typeof(CsgoInitialRecurringJob), nameof(CsgoInitialRecurringJob), ErtsCron.OncePerWeek)]
-    public class CsgoInitialRecurringJob : IRecurringJob {
-        private readonly ErtsContext context;
+    public class CsgoInitialRecurringJob : RecurringJobBase, IRecurringJob {
         private readonly CsgoDataFetcher csgoDataFetcher;
         public CsgoInitialRecurringJob(ErtsContext context) {
             this.context = context;
+            this.gameType = ErtsModel.Enums.GameType.csgo;
             this.csgoDataFetcher = new CsgoDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
         }
 
         [AutomaticRetry(Attempts = 0)]
         public void Job() {
             context.Database.BeginTransaction();
-
             FetchAndSaveLeagues();
             FetchAndSaveSeries();
             FetchAndSaveTournaments();
             FetchAndSavePlayers();
             FetchAndSaveTeams();
             FetchAndSaveMatches();
+
+            CreateTournamentTeamStats();
 
             context.Database.CommitTransaction();
         }

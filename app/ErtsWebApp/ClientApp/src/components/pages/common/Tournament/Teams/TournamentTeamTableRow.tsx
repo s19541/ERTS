@@ -1,10 +1,10 @@
 import {
 	GameType,
 	TournamentTeamShortDto,
-} from "../../../../services/GeneratedClient";
+} from "../../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function LolTournamentTeamTableRow(props: {
+function TournamentTeamTableRow(props: {
 	position: number;
 	tournamentTeam: TournamentTeamShortDto;
 }) {
@@ -57,4 +57,4 @@ function LolTournamentTeamTableRow(props: {
 		</tr>
 	);
 }
-export default LolTournamentTeamTableRow;
+export default TournamentTeamTableRow;

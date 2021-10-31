@@ -7,8 +7,8 @@ import Resources from "./Resources";
 import LeagueList from "./components/pages/common/League/LeagueList";
 import TournamentList from "./components/pages/common/Tournament/TournamentList";
 import SerieList from "./components/pages/common/Serie/SerieList";
-import LolTournamentScoreBoard from "./components/pages/lol/Tournament/LolTournamentScoreBoard";
-import LolTournamentMatchList from "./components/pages/lol/Tournament/LolTournamentMatchList";
+import LolTournamentScoreBoard from "./components/pages/common/Tournament/Teams/TournamentScoreBoard";
+import TournamentMatchList from "./components/pages/common/Tournament/Matches/TournamentMatchList";
 import LolTournamentPlayerStatsList from "./components/pages/lol/Tournament/LolTournamentPlayerStatsList";
 import LolTournamentTeamStatsList from "./components/pages/lol/Tournament/LolTournamentTeamStatsList";
 import MatchStats from "./components/pages/lol/Match/MatchStats";
@@ -60,7 +60,7 @@ const App: React.FunctionComponent = () => {
 				<Route
 					exact
 					path={Resources.pageAdresses.lolTournamentMatchList}
-					component={LolTournamentMatchList}
+					component={TournamentMatchList}
 				/>
 				<Route
 					exact

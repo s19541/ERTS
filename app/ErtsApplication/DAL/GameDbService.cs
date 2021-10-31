@@ -24,8 +24,8 @@ namespace ErtsApplication.DAL {
                 var seconds = ts.TotalSeconds % 60 != 0 ? (ts.TotalSeconds % 60).ToString() : "00";
                 var gameLength = minutes + ":" + seconds;
 
-                var blueTeamStats = Context.LolGameTeam.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.blue).FirstOrDefault();
-                var redTeamStats = Context.LolGameTeam.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.red).FirstOrDefault();
+                var blueTeamStats = Context.LolGameTeams.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.blue).FirstOrDefault();
+                var redTeamStats = Context.LolGameTeams.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.red).FirstOrDefault();
 
                 var blueTeamStatsDto = new LolGameTeamFullStatsDto() {
                     TeamId = blueTeamStats.Team.Id,
@@ -124,7 +124,7 @@ namespace ErtsApplication.DAL {
                     };
                     playerStatsDtos.Add(playerStatsDto);
                 }
-                var blueTeamId = Context.LolGameTeam.Where(o => o.Game == game).Where(o => o.Color == ErtsModel.Enums.LolColor.blue).Select(o => o.Team.Id).FirstOrDefault();
+                var blueTeamId = Context.LolGameTeams.Where(o => o.Game == game).Where(o => o.Color == ErtsModel.Enums.LolColor.blue).Select(o => o.Team.Id).FirstOrDefault();
 
                 var blueTeamplayersStats = playerStatsDtos.Where(o => o.TeamId == blueTeamId).ToList();
                 var redTeamplayersStats = playerStatsDtos.Where(o => o.TeamId != blueTeamId).ToList();

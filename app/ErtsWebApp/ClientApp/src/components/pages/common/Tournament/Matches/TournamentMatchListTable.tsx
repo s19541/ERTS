@@ -1,9 +1,10 @@
 import { Table } from "react-bootstrap";
-import { MatchDto } from "../../../services/GeneratedClient";
-import LolMatchListTableRow from "./LolMatchListTableRow";
+import { MatchDto } from "../../../../../services/GeneratedClient";
+import LolMatchListTableRow from "./TournamentMatchListTableRow";
 
-function LolMatchListTable(props: { matchList: MatchDto[] | null }) {
+function TournamentMatchListTable(props: { matchList: MatchDto[] | null, gameType: string }) {
 	const matchList = props.matchList;
+	const gameType = props.gameType;
 
 	return (
 		<Table striped bordered hover variant="dark">
@@ -18,11 +19,11 @@ function LolMatchListTable(props: { matchList: MatchDto[] | null }) {
 			</thead>
 			<tbody>
 				{matchList?.map((match, i) => (
-					<LolMatchListTableRow match={match} />
+					<LolMatchListTableRow match={match} gameType={gameType} />
 				))}
 			</tbody>
 		</Table>
 	);
 }
 
-export default LolMatchListTable;
+export default TournamentMatchListTable;

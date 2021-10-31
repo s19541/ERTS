@@ -25,7 +25,7 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
             services.AddSingleton<RecurringJobInitalizer>();
 
             services.AddScoped<TestRecurringJob>();
-            services.AddScoped<LolRecurringJob>();
+            services.AddScoped<LolInitialRecurringJob>();
             services.AddScoped<CsgoInitialRecurringJob>();
         }
 

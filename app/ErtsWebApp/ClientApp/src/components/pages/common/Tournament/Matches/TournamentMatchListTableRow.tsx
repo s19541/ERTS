@@ -1,12 +1,14 @@
-import { MatchDto } from "../../../services/GeneratedClient";
+import { MatchDto } from "../../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function LolMatchListTableRow(props: { match: MatchDto }) {
+function TournamentMatchListTableRow(props: { match: MatchDto, gameType: string }) {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
-		history.push(page);
+		if (gameType == "lol")
+			history.push(page);
 	}
 	const match = props.match;
+	const gameType = props.gameType;
 	const startTime = match.startTime?.format("HH:mm DD-MM-YYYY");
 	var result = match.team1GamesWon + ":" + match.team2GamesWon;
 	if (match.endTime == null) result = "vs";
@@ -61,4 +63,4 @@ function LolMatchListTableRow(props: { match: MatchDto }) {
 		</tr>
 	);
 }
-export default LolMatchListTableRow;
+export default TournamentMatchListTableRow;

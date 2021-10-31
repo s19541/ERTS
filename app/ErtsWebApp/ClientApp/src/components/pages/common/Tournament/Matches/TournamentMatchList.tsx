@@ -1,22 +1,24 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import "../../../../css/myStyle.css";
-import { MatchClient, MatchDto } from "../../../../services/GeneratedClient";
+import "../../../../../css/myStyle.css";
+import { MatchClient, MatchDto } from "../../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
-} from "../../../../_infrastructure/actions/SendAction";
-import LolMatchListTable from "../LolMatchListTable";
-import LolTournamentNav from "./LolTournamentNav";
+} from "../../../../../_infrastructure/actions/SendAction";
+import LolMatchListTable from "./TournamentMatchListTable";
+import TournamentNav from "../TournamentNav";
 
 interface IProps { }
 
 interface IPassedProps {
+	gameType: string;
 	tournamentId: string;
 }
 
 interface IState {
+	gameType: string;
 	tournamentId: number;
 	matchList: MatchDto[] | null;
 	key: string;
@@ -24,11 +26,12 @@ interface IState {
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 
-class LolTournamentMatchList extends React.Component<IJoinedProps, IState> {
+class TournamentMatchList extends React.Component<IJoinedProps, IState> {
 	constructor(props: IJoinedProps) {
 		super(props);
 
 		this.state = {
+			gameType: props.match.params.gameType,
 			tournamentId: Number(props.match.params.tournamentId),
 			matchList: null,
 			key: "matches",
@@ -56,10 +59,10 @@ class LolTournamentMatchList extends React.Component<IJoinedProps, IState> {
 					paddingTop: "5vh",
 				}}
 			>
-				<LolTournamentNav activeKey={this.state.key} />
-				<LolMatchListTable matchList={this.state.matchList} />
+				<TournamentNav activeKey={this.state.key} gameType={this.state.gameType} />
+				<LolMatchListTable matchList={this.state.matchList} gameType={this.state.gameType} />
 			</Container>
 		);
 	}
 }
-export default withRouter(LolTournamentMatchList);
+export default withRouter(TournamentMatchList);

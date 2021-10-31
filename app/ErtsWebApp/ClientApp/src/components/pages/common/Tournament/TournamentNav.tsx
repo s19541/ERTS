@@ -1,12 +1,13 @@
 import { Nav } from "react-bootstrap";
 import { useHistory } from "react-router";
 
-function LolTournamentNav(props: { activeKey: string }) {
+function TournamentNav(props: { activeKey: string, gameType: string }) {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		history.push(page);
 	}
 	const key = props.activeKey;
+	const gameType = props.gameType;
 
 	return (
 		<Nav justify variant="tabs" activeKey={key} className="font-weight-bold">
@@ -21,15 +22,17 @@ function LolTournamentNav(props: { activeKey: string }) {
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="player-stats" onClick={() => redirectToPage("./playerStats")}>
+				<Nav.Link eventKey="player-stats" onClick={() => redirectToPage("./playerStats")} disabled={gameType != "lol"}>
 					PLAYER STATS
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="team-stats" onClick={() => redirectToPage("./teamStats")}>TEAM STATS</Nav.Link>
+				<Nav.Link eventKey="team-stats" onClick={() => redirectToPage("./teamStats")} disabled={gameType != "lol"}>
+					TEAM STATS
+				</Nav.Link>
 			</Nav.Item>
 		</Nav>
 	);
 }
 
-export default LolTournamentNav;
+export default TournamentNav;

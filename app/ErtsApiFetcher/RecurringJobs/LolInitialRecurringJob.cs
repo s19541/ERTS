@@ -7,13 +7,13 @@ using System;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(LolRecurringJob), nameof(LolRecurringJob), ErtsCron.OncePerWeek)]
-    public class LolRecurringJob : IRecurringJob {
-        private readonly ErtsContext context;
+    [RecurringJobInfo(typeof(LolInitialRecurringJob), nameof(LolInitialRecurringJob), ErtsCron.OncePerWeek)]
+    public class LolInitialRecurringJob : RecurringJobBase, IRecurringJob {
         private readonly LolDataFetcher lolDataFetcher;
 
-        public LolRecurringJob(ErtsContext context) {
+        public LolInitialRecurringJob(ErtsContext context) {
             this.context = context;
+            this.gameType = ErtsModel.Enums.GameType.lol;
             this.lolDataFetcher = new LolDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
         }
 
@@ -50,7 +50,7 @@ namespace ErtsApiFetcher.RecurringJobs {
 
                 foreach (var newGame in newGames) {
                     if (newGame.EndTime != null) {
-                        context.LolGameTeam.Add(new LolGameTeam() {
+                        context.LolGameTeams.Add(new LolGameTeam() {
                             Team = newMatch.Team1,
                             Game = newGame,
                             Color = ErtsModel.Enums.LolColor.blue,
@@ -61,7 +61,7 @@ namespace ErtsApiFetcher.RecurringJobs {
                             Ban5 = champions[random.Next(champions.Count())]
                         });
 
-                        context.LolGameTeam.Add(new LolGameTeam() {
+                        context.LolGameTeams.Add(new LolGameTeam() {
                             Team = newMatch.Team2,
                             Game = newGame,
                             Color = ErtsModel.Enums.LolColor.red,
@@ -215,7 +215,7 @@ namespace ErtsApiFetcher.RecurringJobs {
                             else
                                 matchGamesLost++;
 
-                            foreach (var gameTeam in context.LolGameTeam.Where(contextGameTeam => contextGameTeam.Game == game && contextGameTeam.Team == team)) {
+                            foreach (var gameTeam in context.LolGameTeams.Where(contextGameTeam => contextGameTeam.Game == game && contextGameTeam.Team == team)) {
                                 goldEarned += gameTeam.GoldEarned;
                                 dragonKilled += gameTeam.CloudDrakeKilled;
                                 dragonKilled += gameTeam.MountainDrakeKilled;

@@ -1,7 +1,5 @@
-﻿namespace ErtsApiFetcher._Infrastructure.RecurringJobs
-{
-    public interface IRecurringJob
-    {
+﻿namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
+    public interface IRecurringJob {
         void Job();
     }
 }

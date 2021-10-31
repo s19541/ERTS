@@ -84,15 +84,37 @@ namespace ErtsApiFetcher.Fetchers {
             var series = new List<ErtsModel.Entities.Serie>();
 
             foreach (var result in results) {
+
+
+
+
                 var league = context.Leagues.Where(league => league.ApiId == result.LeagueId).FirstOrDefault();
-                if (league != null)
+
+                if (league != null) {
+                    var name = result.Name != null && result.Name != "" ? result.Name : league.Name + " " + result.BeginAt?.Year;
+                    var sameNameSerie = series.Where(serie => serie.Name == name).FirstOrDefault();
+                    if (sameNameSerie != null) {
+                        if (result.EndAt != null) {
+                            name += " " + getSeason(result.EndAt.Value).ToString();
+                        } else if (result.BeginAt != null) {
+                            name += " " + getSeason(result.BeginAt.Value).ToString();
+                        }
+                        if (sameNameSerie.EndTime != null) {
+                            sameNameSerie.Name += " " + getSeason(sameNameSerie.EndTime.Value).ToString();
+                        } else if (sameNameSerie.StartTime != null) {
+                            sameNameSerie.Name += " " + getSeason(sameNameSerie.StartTime.Value).ToString();
+                        }
+                    }
+
                     series.Add(new ErtsModel.Entities.Serie() {
                         ApiId = result.Id,
-                        Name = result.Name != null ? result.Name : "",
+                        Name = name,
                         StartTime = result.BeginAt,
                         EndTime = result.EndAt,
                         League = league
                     });
+                }
+
             }
 
             return series;
@@ -162,6 +184,18 @@ namespace ErtsApiFetcher.Fetchers {
             }
 
             return matches;
+        }
+        private Season getSeason(DateTime date) {
+
+            int doy = date.DayOfYear - Convert.ToInt32((DateTime.IsLeapYear(date.Year)) && date.DayOfYear > 59);
+
+            if (doy < 80 || doy >= 355) return Season.Winter;
+
+            if (doy >= 80 && doy < 172) return Season.Spring;
+
+            if (doy >= 172 && doy < 266) return Season.Summer;
+
+            return Season.Autumn;
         }
     }
 }

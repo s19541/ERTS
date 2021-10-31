@@ -10,7 +10,7 @@ import {
     IActionParameters,
     SendActionWithResponse,
 } from "../../../../_infrastructure/actions/SendAction";
-import LolTournamentNav from "./LolTournamentNav";
+import TournamentNav from "../../common/Tournament/TournamentNav";
 import LolTournamentTeamStatsListTable from "./LolTournamentTeamStatsListTable";
 
 interface IProps { }
@@ -67,7 +67,7 @@ class LolTournamentTeamStatsList extends React.Component<
                     paddingTop: "5vh",
                 }}
             >
-                <LolTournamentNav activeKey={this.state.key} />
+                <TournamentNav activeKey={this.state.key} gameType="lol" />
                 <LolTournamentTeamStatsListTable
                     teamStatsList={this.state.teamStatsList}
                 />

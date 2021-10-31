@@ -47,6 +47,8 @@
     <Compile Include="Migrations\20211004172705_ChangedFieldsInTournamentPlayerIntoNullable.Designer.cs" />
     <Compile Include="Migrations\20211004174020_AddedAverageGoldEarnedToTournamentPlayer.cs" />
     <Compile Include="Migrations\20211004174020_AddedAverageGoldEarnedToTournamentPlayer.Designer.cs" />
+    <Compile Include="Migrations\20211030182405_AddedTournamentTeams.cs" />
+    <Compile Include="Migrations\20211030182405_AddedTournamentTeams.Designer.cs" />
     <Compile Include="Migrations\ErtsContextModelSnapshot.cs" />
   </ItemGroup>
 

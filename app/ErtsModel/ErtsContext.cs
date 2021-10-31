@@ -3,14 +3,11 @@ using ErtsModel.Entities;
 using ErtsModel.Entities.Lol;
 using Microsoft.EntityFrameworkCore;
 
-namespace ErtsModel
-{
-    public class ErtsContext : DbContext
-    {
+namespace ErtsModel {
+    public class ErtsContext : DbContext {
         public ErtsContext(string connectionString) : base(GetDbContextOptionsForMigrations(connectionString)) { }
 
-        private static DbContextOptions GetDbContextOptionsForMigrations(string connectionString)
-        {
+        private static DbContextOptions GetDbContextOptionsForMigrations(string connectionString) {
             var option = new DbContextOptionsBuilder();
             option.UseNpgsql(connectionString);
 
@@ -32,11 +29,11 @@ namespace ErtsModel
         public DbSet<LolTournamentPlayer> LolTournamentPlayers { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<LolGamePlayer> LolGamePlayers { get; set; }
-        public DbSet<LolGameTeam> LolGameTeam { get; set; }
+        public DbSet<LolGameTeam> LolGameTeams { get; set; }
         public DbSet<LolGamePlayerItem> LolGamePlayerItems { get; set; }
+        public DbSet<TournamentTeam> TournamentTeams { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
             modelBuilder.ApplyConfiguration(new MatchConfiguration());
@@ -52,6 +49,7 @@ namespace ErtsModel
             modelBuilder.ApplyConfiguration(new LolGamePlayerConfiguration());
             modelBuilder.ApplyConfiguration(new LolGameTeamConfiguration());
             modelBuilder.ApplyConfiguration(new LolGamePlayerItemConfiguration());
+            modelBuilder.ApplyConfiguration(new TournamentTeamConfiguration());
         }
     }
 }
