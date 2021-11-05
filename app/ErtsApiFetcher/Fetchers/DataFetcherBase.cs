@@ -16,7 +16,7 @@ namespace ErtsApiFetcher.Fetchers {
         }
         public IEnumerable<ErtsModel.Entities.Team> FetchTeams() {
             var query = new TeamQueryOptions();
-            var results = provider.FetchAndCatch(lolService => lolService.GetTeams(query));
+            var results = provider.FetchAndCatch(service => service.GetTeams(query));
 
             var teams = new List<ErtsModel.Entities.Team>();
 
@@ -27,7 +27,7 @@ namespace ErtsApiFetcher.Fetchers {
 
                 teams.Add(new ErtsModel.Entities.Team() {
                     Name = result.Name,
-                    GameType = (GameType)Enum.Parse(typeof(GameType), result.CurrentVideoGame.Name.ToLower().Replace(":", "")),
+                    GameType = (GameType)Enum.Parse(typeof(GameType), result.CurrentVideoGame.Name.ToLower().Replace(":", "").Replace(" ", "")),
                     ImageUrl = result.ImageUrl,
                     Acronym = result.Acronym,
                     Players = teamPlayers,
@@ -68,7 +68,7 @@ namespace ErtsApiFetcher.Fetchers {
                 leagues.Add(new ErtsModel.Entities.League() {
                     Name = result.Name,
                     ImageUrl = result.ImageUrl,
-                    GameType = (GameType)Enum.Parse(typeof(GameType), result.VideoGame.Name.ToLower().Replace(":", "")),
+                    GameType = (GameType)Enum.Parse(typeof(GameType), result.VideoGame.Name.ToLower().Replace(":", "").Replace(" ", "")),
                     Url = result.Url,
                     ApiId = result.Id
                 });
@@ -84,9 +84,6 @@ namespace ErtsApiFetcher.Fetchers {
             var series = new List<ErtsModel.Entities.Serie>();
 
             foreach (var result in results) {
-
-
-
 
                 var league = context.Leagues.Where(league => league.ApiId == result.LeagueId).FirstOrDefault();
 
@@ -141,14 +138,17 @@ namespace ErtsApiFetcher.Fetchers {
             return tournaments;
         }
 
-        public IEnumerable<ErtsModel.Entities.Match> FetchMatches() {
+        public IEnumerable<ErtsModel.Entities.Match> FetchMatches(DateTime? from = null) {
             var query = new MatchQueryOptions();
+            if (from != null)
+                query.ModifiedAt.Range(from.Value, DateTime.Now);
             var results = provider.FetchAndCatch(lolService => lolService.GetMatches(query));
 
             var matches = new List<ErtsModel.Entities.Match>();
 
             foreach (var result in results) {
                 var tournament = context.Tournaments.Where(contextTournament => contextTournament.ApiId == result.TournamentId).FirstOrDefault();
+
                 if (result.Opponents.Length == 2) {
                     var team1 = context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[0].Team.Id).FirstOrDefault();
                     var team2 = context.Teams.Where(contextTeam => contextTeam.ApiId == result.Opponents[1].Team.Id).FirstOrDefault();
@@ -185,6 +185,7 @@ namespace ErtsApiFetcher.Fetchers {
 
             return matches;
         }
+
         private Season getSeason(DateTime date) {
 
             int doy = date.DayOfYear - Convert.ToInt32((DateTime.IsLeapYear(date.Year)) && date.DayOfYear > 59);

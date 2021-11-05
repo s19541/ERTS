@@ -13,10 +13,10 @@ function LastMatches(props: {
 
     var upcomingMatches = props.upcomingMatches;
     return (
-        <Container>
+        <Container style={{ textAlign: "right" }}>
             <h1>Upcoming Matches</h1>
             {upcomingMatches?.map((match, i) => (
-                <Row onClick={() => redirectToPage(`/lol/match/${match.matchId}`)}>
+                <Row onClick={() => redirectToPage(`/lol/match/${match.matchId}`)} >
                     <Col md="auto">
                         <Image src={match.leagueImageUrl}
                             width={25}
@@ -27,11 +27,7 @@ function LastMatches(props: {
                         <Image src={match.team1ImageUrl}
                             width={25}
                             height={25} />
-                        {match.team1Name}
-                    </Col>
-                    <Col md="auto"> vs </Col>
-                    <Col md="auto" style={{ textAlign: "right" }}>
-                        {match.team2Name}
+                        {match.team1Name} vs {match.team2Name}
                         <Image src={match.team2ImageUrl}
                             width={25}
                             height={25} />

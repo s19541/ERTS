@@ -27,13 +27,7 @@ function LastMatches(props: {
                         <Image src={match.team1ImageUrl}
                             width={25}
                             height={25} />
-                        {match.team1Name}
-                    </Col>
-                    <Col md="auto">
-                        {match.team1GamesWon}:{match.team2GamesWon}
-                    </Col>
-                    <Col md="auto" style={{ textAlign: "right" }}>
-                        {match.team2Name}
+                        {match.team1Name} {match.team1GamesWon}:{match.team2GamesWon} {match.team2Name}
                         <Image src={match.team2ImageUrl}
                             width={25}
                             height={25} />

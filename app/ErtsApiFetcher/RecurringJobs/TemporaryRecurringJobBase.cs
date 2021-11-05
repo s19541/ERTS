@@ -1,127 +1,146 @@
-﻿using ErtsApiFetcher._Infrastructure.RecurringJobs;
-using ErtsApiFetcher.Fetchers;
+﻿using ErtsApiFetcher.Fetchers;
 using ErtsModel;
+using ErtsModel.Entities;
 using ErtsModel.Entities.Lol;
-using Hangfire;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(LolInitialRecurringJob), nameof(LolInitialRecurringJob), ErtsCron.Never)]
-    public class LolInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
-        private readonly LolDataFetcher lolDataFetcher;
+    public abstract class TemporaryRecurringJobBase {
+        protected ErtsContext context;
 
-        public LolInitialRecurringJob(ErtsContext context) {
-            this.context = context;
-            this.lolDataFetcher = new LolDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
+        protected CsgoDataFetcher csgoDataFetcher;
+
+        protected LolDataFetcher lolDataFetcher;
+
+        protected ValorantDataFetcher valorantDataFetcher;
+
+        protected OwDataFetcher owDataFetcher;
+
+        protected Dota2DataFetcher dota2DataFetcher;
+
+        protected DateTime from;
+
+        protected void createProviders() {
+            var token = "YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM";
+            csgoDataFetcher = new CsgoDataFetcher(token, context);
+            lolDataFetcher = new LolDataFetcher(token, context);
+            valorantDataFetcher = new ValorantDataFetcher(token, context);
+            owDataFetcher = new OwDataFetcher(token, context);
+            dota2DataFetcher = new Dota2DataFetcher(token, context);
+
         }
-
-        [AutomaticRetry(Attempts = 0)]
-        public void Job() {
-            context.Database.BeginTransaction();
-            /*FetchAndSaveChampions();
-            FetchAndSaveItems();
-            FetchAndSaveSpells();
-            FetchAndSaveLeagues();
-            FetchAndSaveSeries();
-            FetchAndSaveTournaments();
-            FetchAndSavePlayers();
-            FetchAndSaveTeams();*/
-            FetchAndSaveMatches();
-            context.Database.CommitTransaction();
-            createTournamentTeamStats();
-            createTournamentPlayerStats();
+        protected void updateAllGames() {
+            createProviders();
+            FetchAndSaveLolMatches();
+            FetchAndSaveCsgoMatches();
+            FetchAndSaveValorantMatches();
+            FetchAndSaveOwMatches();
+            FetchAndSaveDota2Matches();
         }
-
-        private void FetchAndSaveMatches() {
-            var apiMatches = lolDataFetcher.FetchMatches();
-            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatches => contextMatches.ApiId == apiMatches.ApiId));
+        private void FetchAndSaveCsgoMatches() {
+            var apiMatches = csgoDataFetcher.FetchMatches(from);
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 
-            var random = new Random();
-            var champions = context.LolChampions.ToArray();
-            var spells = context.LolSpells.ToArray();
-            var items = context.LolItems.Where(item => !item.IsTrinket).ToArray();
-            var trinkets = context.LolItems.Where(item => item.IsTrinket).ToArray();
+            context.SaveChanges();
 
-            foreach (var newMatch in newMatches) {
-                var newGames = newMatch.Games.Where(apiGame => !context.Games.Any(contextGame => contextGame.ApiId == apiGame.ApiId));
+            CreateTournamentTeamStats(GetTournamentsFromMatches(newMatches));
+        }
+        private void FetchAndSaveValorantMatches() {
+            var apiMatches = valorantDataFetcher.FetchMatches(from);
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
+            context.Matches.AddRange(newMatches);
 
-                foreach (var newGame in newGames) {
-                    if (newGame.EndTime != null) {
-                        context.LolGameTeams.Add(new LolGameTeam() {
-                            Team = newMatch.Team1,
-                            Game = newGame,
-                            Color = ErtsModel.Enums.LolColor.blue,
-                            Ban1 = champions[random.Next(champions.Count())],
-                            Ban2 = champions[random.Next(champions.Count())],
-                            Ban3 = champions[random.Next(champions.Count())],
-                            Ban4 = champions[random.Next(champions.Count())],
-                            Ban5 = champions[random.Next(champions.Count())]
-                        });
+            context.SaveChanges();
 
-                        context.LolGameTeams.Add(new LolGameTeam() {
-                            Team = newMatch.Team2,
-                            Game = newGame,
-                            Color = ErtsModel.Enums.LolColor.red,
-                            Ban1 = champions[random.Next(champions.Count())],
-                            Ban2 = champions[random.Next(champions.Count())],
-                            Ban3 = champions[random.Next(champions.Count())],
-                            Ban4 = champions[random.Next(champions.Count())],
-                            Ban5 = champions[random.Next(champions.Count())]
-                        });
-                        ErtsModel.Enums.LolRole[] rolesT1 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
+            CreateTournamentTeamStats(GetTournamentsFromMatches(newMatches));
+        }
+        private void FetchAndSaveOwMatches() {
+            var apiMatches = owDataFetcher.FetchMatches(from);
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
+            context.Matches.AddRange(newMatches);
 
-                        ErtsModel.Enums.LolRole[] rolesT2 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
+            context.SaveChanges();
 
+            CreateTournamentTeamStats(GetTournamentsFromMatches(newMatches));
+        }
+        private void FetchAndSaveDota2Matches() {
+            var apiMatches = dota2DataFetcher.FetchMatches(from);
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
+            context.Matches.AddRange(newMatches);
 
-                        foreach (var player in newMatch.Team1.Players.Union(newMatch.Team2.Players)) {
-                            var role = ErtsModel.Enums.LolRole.sub;
-                            if (newMatch.Team1.Players.Contains(player)) {
-                                if (rolesT1.Length != 0) {
-                                    role = rolesT1[random.Next(rolesT1.Count())];
-                                    rolesT1 = rolesT1.Where(e => e != role).ToArray();
-                                }
-                            } else {
-                                if (rolesT2.Length != 0) {
-                                    role = rolesT2[random.Next(rolesT2.Count())];
-                                    rolesT2 = rolesT2.Where(e => e != role).ToArray();
-                                }
-                            }
+            context.SaveChanges();
 
-                            var lolGamePlayer = new LolGamePlayer() {
-                                Player = player,
-                                Game = newGame,
-                                Role = role,
-                                Champion = champions[random.Next(champions.Count())],
-                                Spell1 = spells[random.Next(spells.Count())],
-                                Spell2 = spells[random.Next(spells.Count())]
-                            };
-                            context.LolGamePlayers.Add(lolGamePlayer);
+            CreateTournamentTeamStats(GetTournamentsFromMatches(newMatches));
+        }
+        private void FetchAndSaveLolMatches() {
+            var apiMatches = lolDataFetcher.FetchMatches(from);
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId)).ToArray();
+            context.Matches.AddRange(newMatches);
 
-                            context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
-                                GamePlayer = lolGamePlayer,
-                                Item = trinkets[random.Next(trinkets.Count())]
-                            });
-                            for (int i = 0; i < random.Next(7); i++) {
-                                context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
-                                    GamePlayer = lolGamePlayer,
-                                    Item = items[random.Next(items.Count())]
-                                });
-                            }
+            context.SaveChanges();
+
+            CreateLolTournamentTeamStats(GetTournamentsFromMatches(newMatches));
+            CreateLolTournamentPlayerStats(GetTournamentsFromMatches(newMatches));
+
+        }
+
+        private IEnumerable<Tournament> GetTournamentsFromMatches(IEnumerable<Match> matches) {
+            return matches.Select(match => match.Tournament).Distinct();
+        }
+
+        private void CreateTournamentTeamStats(IEnumerable<Tournament> tournaments) {
+            context.TournamentTeams.RemoveRange(context.TournamentTeams.Where(o => tournaments.Contains(o.Tournament)));
+            context.SaveChanges();
+
+            foreach (var tournament in tournaments) {
+                var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
+
+                foreach (var team in teams) {
+                    var gamesLost = 0;
+                    var gamesWon = 0;
+                    var matchesWon = 0;
+                    var matchesLost = 0;
+
+                    var matches = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament && contextMatch.EndTime != null && (contextMatch.Team1 == team || contextMatch.Team2 == team)).ToArray();
+                    foreach (var match in matches) {
+                        var matchGamesWon = 0;
+                        var matchGamesLost = 0;
+                        foreach (var game in match.Games) {
+                            if (game.Winner == team)
+                                matchGamesWon++;
+                            else
+                                matchGamesLost++;
+
+                            gamesLost += matchGamesLost;
+                            gamesWon += matchGamesWon;
+                            if (matchGamesWon > matchGamesLost)
+                                matchesWon++;
+                            else if (matchGamesLost > matchGamesWon)
+                                matchesLost++;
                         }
                     }
 
+                    context.TournamentTeams.Add(new ErtsModel.Entities.TournamentTeam() {
+                        Tournament = tournament,
+                        Team = team,
+                        GamesLost = gamesLost,
+                        GamesWon = gamesWon,
+                        MatchesWon = matchesWon,
+                        MatchesLost = matchesLost,
+                    });
                 }
             }
 
+
             context.SaveChanges();
         }
-
-        private void createTournamentTeamStats() {
-            context.LolTournamentTeams.RemoveRange(context.LolTournamentTeams);
+        private void CreateLolTournamentTeamStats(IEnumerable<Tournament> tournaments) {
+            context.LolTournamentTeams.RemoveRange(context.LolTournamentTeams.Where(contextTournament => tournaments.Contains(contextTournament.Tournament)));
             context.SaveChanges();
-            foreach (var tournament in context.Tournaments.ToArray()) {
+            foreach (var tournament in tournaments) {
 
                 var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
 
@@ -207,14 +226,13 @@ namespace ErtsApiFetcher.RecurringJobs {
 
 
             context.SaveChanges();
-
         }
 
-        private void createTournamentPlayerStats() {
-            context.LolTournamentPlayers.RemoveRange(context.LolTournamentPlayers);
+        private void CreateLolTournamentPlayerStats(IEnumerable<Tournament> tournaments) {
+            context.LolTournamentPlayers.RemoveRange(context.LolTournamentPlayers.Where(contextTournament => tournaments.Contains(contextTournament.Tournament)));
             context.SaveChanges();
 
-            foreach (var tournament in context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == ErtsModel.Enums.GameType.lol).ToArray()) {
+            foreach (var tournament in tournaments) {
                 var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
                 foreach (var team in teams) {
                     foreach (var player in team.Players) {
@@ -276,6 +294,5 @@ namespace ErtsApiFetcher.RecurringJobs {
             }
             context.SaveChanges();
         }
-
     }
 }

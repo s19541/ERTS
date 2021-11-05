@@ -7,7 +7,7 @@ namespace ErtsApiFetcher.Services {
         private readonly PandaScoreProvider provider;
 
         public DataService(string token, string game) {
-            this.provider = new PandaScoreProvider(token, game);
+            provider = new PandaScoreProvider(token, game);
         }
 
         public T FetchAndCatch<T>(Func<PandaScoreProvider, T> fetch) {
@@ -15,7 +15,8 @@ namespace ErtsApiFetcher.Services {
                 return fetch(provider);
             } catch (HttpRequestException) {
                 throw;
-            } catch (AggregateException) {
+            } catch (AggregateException e) {
+                System.Console.WriteLine(e.ToString());
                 throw new NoAmmoException();
             } catch (Exception) {
                 throw;

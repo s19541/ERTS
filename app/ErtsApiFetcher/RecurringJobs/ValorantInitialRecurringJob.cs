@@ -5,12 +5,12 @@ using Hangfire;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(CsgoInitialRecurringJob), nameof(CsgoInitialRecurringJob), ErtsCron.Never)]
-    public class CsgoInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
-        private readonly CsgoDataFetcher csgoDataFetcher;
-        public CsgoInitialRecurringJob(ErtsContext context) {
+    [RecurringJobInfo(typeof(ValorantInitialRecurringJob), nameof(ValorantInitialRecurringJob), ErtsCron.Never)]
+    public class ValorantInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
+        private readonly ValorantDataFetcher valorantDataFetcher;
+        public ValorantInitialRecurringJob(ErtsContext context) {
             this.context = context;
-            this.csgoDataFetcher = new CsgoDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
+            valorantDataFetcher = new ValorantDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
         }
 
         [AutomaticRetry(Attempts = 0)]
@@ -19,13 +19,13 @@ namespace ErtsApiFetcher.RecurringJobs {
 
             FetchAndSaveMatches();
 
-            CreateTournamentTeamStats(ErtsModel.Enums.GameType.csgo);
+            CreateTournamentTeamStats(ErtsModel.Enums.GameType.valorant);
 
             context.Database.CommitTransaction();
         }
 
         private void FetchAndSaveMatches() {
-            var apiMatches = csgoDataFetcher.FetchMatches();
+            var apiMatches = valorantDataFetcher.FetchMatches();
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 

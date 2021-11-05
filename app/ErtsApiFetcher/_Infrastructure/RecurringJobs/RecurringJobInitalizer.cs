@@ -27,6 +27,12 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
             services.AddScoped<TestRecurringJob>();
             services.AddScoped<LolInitialRecurringJob>();
             services.AddScoped<CsgoInitialRecurringJob>();
+            services.AddScoped<ValorantInitialRecurringJob>();
+            services.AddScoped<OwInitialRecurringJob>();
+            services.AddScoped<Dota2InitialRecurringJob>();
+            services.AddScoped<RarelyChangedDataRecurringJob>();
+            services.AddScoped<DailyRecurringJob>();
+            services.AddScoped<WeeklyRecurringJob>();
         }
 
         static IEnumerable<RecurringJobInfoAttribute> GetRecurringJobInfoAttributes() {

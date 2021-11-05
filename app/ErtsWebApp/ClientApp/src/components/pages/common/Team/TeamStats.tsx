@@ -64,16 +64,16 @@ class TeamStats extends React.Component<IJoinedProps, IState> {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col md="auto">
                         <LastMatches lastMatches={this.state.team?.lastMatches} />
                     </Col>
-                    <Col>
+                    <Col md="auto">
                         <UpcomingMatches upcomingMatches={this.state.team?.upcomingMatches} />
                     </Col>
                 </Row>
 
 
-            </Container>
+            </Container >
         );
     }
 }

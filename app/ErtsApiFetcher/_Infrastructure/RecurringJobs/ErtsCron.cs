@@ -4,6 +4,10 @@
 
         public const string Every5Minute = "*/5 * * * *";
 
-        public const string OncePerWeek = "0 0 * * 0";
+        public const string Weekly = "0 0 * * 0";
+
+        public const string Never = "0 0 5 31 2 ?";
+
+        public const string Daily = "0 8 * * *";
     }
 }

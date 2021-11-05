@@ -5,12 +5,12 @@ using Hangfire;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(CsgoInitialRecurringJob), nameof(CsgoInitialRecurringJob), ErtsCron.Never)]
-    public class CsgoInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
-        private readonly CsgoDataFetcher csgoDataFetcher;
-        public CsgoInitialRecurringJob(ErtsContext context) {
+    [RecurringJobInfo(typeof(OwInitialRecurringJob), nameof(OwInitialRecurringJob), ErtsCron.Never)]
+    public class OwInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
+        private readonly OwDataFetcher owDataFetcher;
+        public OwInitialRecurringJob(ErtsContext context) {
             this.context = context;
-            this.csgoDataFetcher = new CsgoDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
+            owDataFetcher = new OwDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
         }
 
         [AutomaticRetry(Attempts = 0)]
@@ -19,13 +19,13 @@ namespace ErtsApiFetcher.RecurringJobs {
 
             FetchAndSaveMatches();
 
-            CreateTournamentTeamStats(ErtsModel.Enums.GameType.csgo);
+            CreateTournamentTeamStats(ErtsModel.Enums.GameType.overwatch);
 
             context.Database.CommitTransaction();
         }
 
         private void FetchAndSaveMatches() {
-            var apiMatches = csgoDataFetcher.FetchMatches();
+            var apiMatches = owDataFetcher.FetchMatches();
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 

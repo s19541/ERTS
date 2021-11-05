@@ -5,7 +5,7 @@ using PandaScoreNET.LoL;
 using System.Collections.Generic;
 
 namespace ErtsApiFetcher.Fetchers {
-    class LolDataFetcher : DataFetcherBase {
+    public class LolDataFetcher : DataFetcherBase {
         public LolDataFetcher(string token, ErtsContext context) : base(new DataService(token, "lol"), context) { }
 
         public IEnumerable<LolChampion> FetchChampions() {

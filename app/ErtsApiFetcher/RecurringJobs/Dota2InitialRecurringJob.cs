@@ -5,12 +5,12 @@ using Hangfire;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(CsgoInitialRecurringJob), nameof(CsgoInitialRecurringJob), ErtsCron.Never)]
-    public class CsgoInitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
-        private readonly CsgoDataFetcher csgoDataFetcher;
-        public CsgoInitialRecurringJob(ErtsContext context) {
+    [RecurringJobInfo(typeof(Dota2InitialRecurringJob), nameof(Dota2InitialRecurringJob), ErtsCron.Never)]
+    public class Dota2InitialRecurringJob : InitialRecurringJobBase, IRecurringJob {
+        private readonly Dota2DataFetcher dota2DataFetcher;
+        public Dota2InitialRecurringJob(ErtsContext context) {
             this.context = context;
-            this.csgoDataFetcher = new CsgoDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
+            this.dota2DataFetcher = new Dota2DataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
         }
 
         [AutomaticRetry(Attempts = 0)]
@@ -19,13 +19,13 @@ namespace ErtsApiFetcher.RecurringJobs {
 
             FetchAndSaveMatches();
 
-            CreateTournamentTeamStats(ErtsModel.Enums.GameType.csgo);
+            CreateTournamentTeamStats(ErtsModel.Enums.GameType.dota2);
 
             context.Database.CommitTransaction();
         }
 
         private void FetchAndSaveMatches() {
-            var apiMatches = csgoDataFetcher.FetchMatches();
+            var apiMatches = dota2DataFetcher.FetchMatches();
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 

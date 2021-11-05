@@ -1,20 +1,17 @@
 ﻿using ErtsModel;
 using ErtsModel.Enums;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    public abstract class RecurringJobBase {
+    public abstract class InitialRecurringJobBase {
         protected ErtsContext context;
-        public GameType gameType;
 
-        protected void CreateTournamentTeamStats() {
+        protected void CreateTournamentTeamStats(GameType gameType) {
             context.TournamentTeams.RemoveRange(context.TournamentTeams.Where(o => o.Tournament.Serie.League.GameType == gameType));
             context.SaveChanges();
 
-            foreach (var tournament in context.Tournaments.ToArray()) {
+            foreach (var tournament in context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == gameType).ToArray()) {
 
                 var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
 
@@ -43,7 +40,7 @@ namespace ErtsApiFetcher.RecurringJobs {
                         }
                     }
 
-                    context.TournamentTeams.Add(new ErtsModel.Entities.LolTournamentTeam() {
+                    context.TournamentTeams.Add(new ErtsModel.Entities.TournamentTeam() {
                         Tournament = tournament,
                         Team = team,
                         GamesLost = gamesLost,
