@@ -11,7 +11,10 @@ namespace ErtsApiFetcher.RecurringJobs {
             context.TournamentTeams.RemoveRange(context.TournamentTeams.Where(o => o.Tournament.Serie.League.GameType == gameType));
             context.SaveChanges();
 
-            foreach (var tournament in context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == gameType).ToArray()) {
+            var tournaments = context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == gameType).ToArray();
+            System.Console.WriteLine("========");
+            foreach (var tournament in tournaments) {
+                System.Console.WriteLine(tournament.Serie.League.GameType);
 
                 var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
 

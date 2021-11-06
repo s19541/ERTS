@@ -40,7 +40,7 @@ namespace ErtsApiFetcher.Fetchers {
 
         public IEnumerable<ErtsModel.Entities.Player> FetchPlayers() {
             var query = new PlayerQueryOptions();
-            var results = provider.FetchAndCatch(lolService => lolService.GetPlayers(query));
+            var results = provider.FetchAndCatch(service => service.GetPlayers(query));
 
             var players = new List<ErtsModel.Entities.Player>();
 
@@ -60,7 +60,7 @@ namespace ErtsApiFetcher.Fetchers {
 
         public IEnumerable<ErtsModel.Entities.League> FetchLeagues() {
             var query = new LeagueQueryOptions();
-            var results = provider.FetchAndCatch(lolService => lolService.GetLeagues(query));
+            var results = provider.FetchAndCatch(service => service.GetLeagues(query));
 
             var leagues = new List<ErtsModel.Entities.League>();
 
@@ -79,7 +79,7 @@ namespace ErtsApiFetcher.Fetchers {
 
         public IEnumerable<ErtsModel.Entities.Serie> FetchSeries() {
             var query = new SeriesQueryOptions();
-            var results = provider.FetchAndCatch(lolService => lolService.GetSeries(query));
+            var results = provider.FetchAndCatch(service => service.GetSeries(query));
 
             var series = new List<ErtsModel.Entities.Serie>();
 
@@ -119,7 +119,7 @@ namespace ErtsApiFetcher.Fetchers {
 
         public IEnumerable<ErtsModel.Entities.Tournament> FetchTournaments() {
             var query = new TournamentQueryOptions();
-            var results = provider.FetchAndCatch(lolService => lolService.GetTournaments(query));
+            var results = provider.FetchAndCatch(service => service.GetTournaments(query));
 
             var tournaments = new List<ErtsModel.Entities.Tournament>();
 
@@ -142,7 +142,7 @@ namespace ErtsApiFetcher.Fetchers {
             var query = new MatchQueryOptions();
             if (from != null)
                 query.ModifiedAt.Range(from.Value, DateTime.Now);
-            var results = provider.FetchAndCatch(lolService => lolService.GetMatches(query));
+            var results = provider.FetchAndCatch(service => service.GetMatches(query));
 
             var matches = new List<ErtsModel.Entities.Match>();
 

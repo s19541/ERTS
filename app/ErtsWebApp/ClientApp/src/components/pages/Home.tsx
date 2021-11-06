@@ -11,15 +11,24 @@ class Home extends React.Component<IProps> {
 
 	render() {
 		return (
-			<Container style={{ paddingTop: "20vh" }}>
+			<Container style={{ margin: "20vh" }} fluid>
 				<Row className="align-items-center">
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("r6")}
-							src="/images/r6-icon.png"
-							width={300}
-							height={300}
-							alt="r6Logo"
+							onClick={() => this.redirectToPage("valorant")}
+							src="/images/valorant-icon.png"
+							width={200}
+							height={200}
+							alt="valorantLogo"
+						/>
+					</Col>
+					<Col md="auto">
+						<img
+							onClick={() => this.redirectToPage("dota2")}
+							src="/images/dota2-icon.png"
+							width={325}
+							height={325}
+							alt="dota2Logo"
 						/>
 					</Col>
 					<Col md="auto">
@@ -38,6 +47,15 @@ class Home extends React.Component<IProps> {
 							width={300}
 							height={300}
 							alt="csgoLogo"
+						/>
+					</Col>
+					<Col md="auto">
+						<img
+							onClick={() => this.redirectToPage("overwatch")}
+							src="/images/overwatch-icon.png"
+							width={200}
+							height={200}
+							alt="r6Logo"
 						/>
 					</Col>
 				</Row>

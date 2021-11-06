@@ -19,15 +19,9 @@ namespace ErtsApiFetcher.RecurringJobs {
         [AutomaticRetry(Attempts = 0)]
         public void Job() {
             context.Database.BeginTransaction();
-            /*FetchAndSaveChampions();
-            FetchAndSaveItems();
-            FetchAndSaveSpells();
-            FetchAndSaveLeagues();
-            FetchAndSaveSeries();
-            FetchAndSaveTournaments();
-            FetchAndSavePlayers();
-            FetchAndSaveTeams();*/
+
             FetchAndSaveMatches();
+
             context.Database.CommitTransaction();
             createTournamentTeamStats();
             createTournamentPlayerStats();
@@ -121,7 +115,9 @@ namespace ErtsApiFetcher.RecurringJobs {
         private void createTournamentTeamStats() {
             context.LolTournamentTeams.RemoveRange(context.LolTournamentTeams);
             context.SaveChanges();
-            foreach (var tournament in context.Tournaments.ToArray()) {
+
+            var tournaments = context.Tournaments.Where(contextTournament => contextTournament.Serie.League.GameType == ErtsModel.Enums.GameType.lol).ToArray();
+            foreach (var tournament in tournaments) {
 
                 var teams = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team1).ToArray().Union(context.Matches.Where(contextMatch => contextMatch.Tournament == tournament).Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
 

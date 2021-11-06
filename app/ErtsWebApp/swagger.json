@@ -489,11 +489,17 @@
         "x-enumNames": [
           "lol",
           "csgo",
+          "valorant",
+          "overwatch",
+          "dota2",
           "r6"
         ],
         "enum": [
           "lol",
           "csgo",
+          "valorant",
+          "overwatch",
+          "dota2",
           "r6"
         ]
       },

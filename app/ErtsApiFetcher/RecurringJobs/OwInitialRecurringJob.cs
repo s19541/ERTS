@@ -18,10 +18,10 @@ namespace ErtsApiFetcher.RecurringJobs {
             context.Database.BeginTransaction();
 
             FetchAndSaveMatches();
-
             CreateTournamentTeamStats(ErtsModel.Enums.GameType.overwatch);
 
             context.Database.CommitTransaction();
+
         }
 
         private void FetchAndSaveMatches() {

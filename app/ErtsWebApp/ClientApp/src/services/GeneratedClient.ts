@@ -721,6 +721,9 @@ export interface ITeamDto {
 export enum GameType {
     Lol = "lol",
     Csgo = "csgo",
+    Valorant = "valorant",
+    Overwatch = "overwatch",
+    Dota2 = "dota2",
     R6 = "r6",
 }
 
