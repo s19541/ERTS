@@ -157,18 +157,18 @@ namespace ErtsApiFetcher.RecurringJobs {
                                 baronKilled += gameTeam.HeraldKilled;
                                 towerDestroyed += gameTeam.TurretDestroyed;
                             }
-                            gamesLost += matchGamesLost;
-                            gamesWon += matchGamesWon;
-                            if (matchGamesWon > matchGamesLost)
-                                matchesWon++;
-                            else if (matchGamesLost > matchGamesWon)
-                                matchesLost++;
                             foreach (var gamePlayer in context.LolGamePlayers.Where(contextGamePlayer => contextGamePlayer.Game == game && team.Players.Contains(contextGamePlayer.Player))) {
                                 kills += gamePlayer.Kills;
                                 assists += gamePlayer.Assists;
                                 deaths += gamePlayer.Deaths;
                             }
                         }
+                        gamesLost += matchGamesLost;
+                        gamesWon += matchGamesWon;
+                        if (matchGamesWon > matchGamesLost)
+                            matchesWon++;
+                        else if (matchGamesLost > matchGamesWon)
+                            matchesLost++;
                     }
                     var gamePlayers = context.LolGamePlayers.Where(contextGamePlayer => context.Matches.Where(contextMatch => contextMatch.Games.Contains(contextGamePlayer.Game)).FirstOrDefault().Tournament == tournament && team.Players.Contains(contextGamePlayer.Player)).ToArray();
                     var firstRecentChampion = gamePlayers.Select(o => o.Champion).GroupBy(o => o).Select(o => new { Champion = o.Key, Count = o.Count() }).OrderByDescending(o => o.Count).FirstOrDefault()?.Champion;

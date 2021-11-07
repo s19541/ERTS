@@ -70,10 +70,10 @@ class TournamentList extends React.Component<IJoinedProps, IState> {
 		return (
 			<Container style={{ paddingBottom: "10vh", paddingTop: "5vh" }}>
 				<Row className="align-items-center">
-					<Col md="auto">
-						<Image src={this.state.league?.imageUrl} rounded />
+					<Col md="2">
+						<Image src={this.state.league?.imageUrl} fluid />
 					</Col>
-					<Col md="auto">
+					<Col md="2">
 						<p className="h1 text-white">{this.state.league?.name}</p>
 						<p>
 							<a href={this.state.league?.url} className="h3 text-white">

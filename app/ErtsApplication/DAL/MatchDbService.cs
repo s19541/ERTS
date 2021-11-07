@@ -42,9 +42,12 @@ namespace ErtsApplication.DAL {
         }
 
         public ActionResult<MatchDto> GetMatch(int matchId) {
-            var team1 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team1).FirstOrDefault();
-            var team2 = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Team2).FirstOrDefault();
-            var games = Context.Matches.Where(p => p.Id == matchId).Select(p => p.Games).FirstOrDefault();
+            var match = Context.Matches.Where(contextMatch => contextMatch.Id == matchId).FirstOrDefault();
+            if (match == null || match.Tournament.Serie.League.GameType != ErtsModel.Enums.GameType.lol)
+                return null;
+            var team1 = match.Team1;
+            var team2 = match.Team2;
+            var games = match.Games;
             var team1GamesWon = 0;
             var team2GamesWon = 0;
             var gameStatsDtos = new List<LolGameShortStatsDto>();

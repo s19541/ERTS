@@ -33,14 +33,13 @@ namespace ErtsApiFetcher.RecurringJobs {
                                 matchGamesWon++;
                             else
                                 matchGamesLost++;
-
-                            gamesLost += matchGamesLost;
-                            gamesWon += matchGamesWon;
-                            if (matchGamesWon > matchGamesLost)
-                                matchesWon++;
-                            else if (matchGamesLost > matchGamesWon)
-                                matchesLost++;
                         }
+                        gamesLost += matchGamesLost;
+                        gamesWon += matchGamesWon;
+                        if (matchGamesWon > matchGamesLost)
+                            matchesWon++;
+                        else if (matchGamesLost > matchGamesWon)
+                            matchesLost++;
                     }
 
                     context.TournamentTeams.Add(new ErtsModel.Entities.TournamentTeam() {
