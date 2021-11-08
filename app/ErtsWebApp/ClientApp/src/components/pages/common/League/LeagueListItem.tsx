@@ -1,7 +1,8 @@
-import { Image } from "react-bootstrap";
+import { Card, CardGroup, Col, Container, Image, Row } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { LeagueImageDto } from "../../../../services/GeneratedClient";
 
-function LeagueListItem(props: { gameType: string; leagueImg: any; leagueId: number }) {
+function LeagueListItem(props: { gameType: string; leagueImageDto: LeagueImageDto }) {
 	let history = useHistory();
 
 	const redirectToPage = (page: string) => {
@@ -9,14 +10,20 @@ function LeagueListItem(props: { gameType: string; leagueImg: any; leagueId: num
 	}
 
 	var gameType = props.gameType;
-	var leagueImg = props.leagueImg;
-	var leagueId = props.leagueId;
+	var color = 'transparent'
+	var leagueImageDto = props.leagueImageDto;
 	return (
 
-		<Image src={leagueImg} rounded
-			width={150}
-			height={150}
-			onClick={() => redirectToPage(`${gameType}/${leagueId}`)} />
+		<Card className="align-items-center" bg={color} border='white' style={{ width: '10rem', color: "white", textAlign: "center" }}
+			onClick={() => redirectToPage(`${gameType}/${leagueImageDto.id}`)}
+
+		>
+			<Image src={leagueImageDto.imageUrl} rounded
+				width={150}
+				height={150} />
+
+			<h6>{leagueImageDto.leagueName}</h6>
+		</Card>
 
 	);
 }

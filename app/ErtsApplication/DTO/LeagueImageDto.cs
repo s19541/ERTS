@@ -9,5 +9,6 @@ namespace ErtsApplication.DTO
     {
         public int Id { get; set; }
         public string ImageUrl { get; set; }
+        public string LeagueName { get; set; }
     }
 }

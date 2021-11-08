@@ -597,6 +597,7 @@ export interface ILeagueDto {
 export class LeagueImageDto implements ILeagueImageDto {
     id!: number;
     imageUrl!: string | undefined;
+    leagueName!: string | undefined;
 
     constructor(data?: ILeagueImageDto) {
         if (data) {
@@ -611,6 +612,7 @@ export class LeagueImageDto implements ILeagueImageDto {
         if (_data) {
             this.id = _data["id"];
             this.imageUrl = _data["imageUrl"];
+            this.leagueName = _data["leagueName"];
         }
     }
 
@@ -625,6 +627,7 @@ export class LeagueImageDto implements ILeagueImageDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["imageUrl"] = this.imageUrl;
+        data["leagueName"] = this.leagueName;
         return data; 
     }
 }
@@ -632,6 +635,7 @@ export class LeagueImageDto implements ILeagueImageDto {
 export interface ILeagueImageDto {
     id: number;
     imageUrl: string | undefined;
+    leagueName: string | undefined;
 }
 
 export class TeamDto implements ITeamDto {

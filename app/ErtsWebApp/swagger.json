@@ -438,6 +438,10 @@
           "imageUrl": {
             "type": "string",
             "nullable": true
+          },
+          "leagueName": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, CardGroup } from "react-bootstrap";
 import {
 	LeagueClient,
 	LeagueImageDto,
@@ -51,15 +51,17 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh" }}>
-					{this.state.leagues.map((league, i) => (
-						<span style={{ padding: "2vh" }} key={league.id}>
-							<LeagueListItem
-								gameType={this.state.gameType}
-								leagueImg={league.imageUrl}
-								leagueId={league.id}
-							/>
-						</span>
-					))}
+					<CardGroup>
+						{this.state.leagues.map((league, i) => (
+							<span style={{ padding: "2vh" }} key={league.id}>
+
+								<LeagueListItem
+									gameType={this.state.gameType}
+									leagueImageDto={league}
+								/>
+							</span>
+						))}
+					</CardGroup>
 				</Container>
 			)
 		);

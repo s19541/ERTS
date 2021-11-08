@@ -36,7 +36,8 @@ namespace ErtsApplication.DAL
                 var leagueImageDto = new LeagueImageDto()
                 {
                     Id = leagueId,
-                    ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault()
+                    ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault(),
+                    LeagueName = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Name).FirstOrDefault()
                 };
                 leagueImageDtos.Add(leagueImageDto);
             }
