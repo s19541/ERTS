@@ -61,11 +61,15 @@ export class LeagueClient extends ClientBase {
         return Promise.resolve<LeagueDto | null>(<any>null);
     }
 
-    getLeagueImages(gameType: string | null, signal?: AbortSignal | undefined): Promise<LeagueImageDto[] | null> {
-        let url_ = this.baseUrl + "/api/League/GetLeagueImages/{gameType}";
+    getLeagueImages(gameType: string | null, fragment: string | null, signal?: AbortSignal | undefined): Promise<LeagueImageDto[] | null> {
+        let url_ = this.baseUrl + "/api/League/GetLeagueImages/{gameType}?";
         if (gameType === undefined || gameType === null)
             throw new Error("The parameter 'gameType' must be defined.");
         url_ = url_.replace("{gameType}", encodeURIComponent("" + gameType));
+        if (fragment === undefined)
+            throw new Error("The parameter 'fragment' must be defined.");
+        else if(fragment !== null)
+            url_ += "fragment=" + encodeURIComponent("" + fragment) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -155,6 +159,54 @@ export class TeamClient extends ClientBase {
             });
         }
         return Promise.resolve<TeamDto | null>(<any>null);
+    }
+
+    getTeamImages(gameType: string | null, fragment: string | null, signal?: AbortSignal | undefined): Promise<TeamImageDto[] | null> {
+        let url_ = this.baseUrl + "/api/Team/GetTeamImages/{gameType}?";
+        if (gameType === undefined || gameType === null)
+            throw new Error("The parameter 'gameType' must be defined.");
+        url_ = url_.replace("{gameType}", encodeURIComponent("" + gameType));
+        if (fragment === undefined)
+            throw new Error("The parameter 'fragment' must be defined.");
+        else if(fragment !== null)
+            url_ += "fragment=" + encodeURIComponent("" + fragment) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            signal,
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetTeamImages(_response));
+        });
+    }
+
+    protected processGetTeamImages(response: Response): Promise<TeamImageDto[] | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TeamImageDto.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<TeamImageDto[] | null>(<any>null);
     }
 }
 
@@ -597,7 +649,7 @@ export interface ILeagueDto {
 export class LeagueImageDto implements ILeagueImageDto {
     id!: number;
     imageUrl!: string | undefined;
-    leagueName!: string | undefined;
+    name!: string | undefined;
 
     constructor(data?: ILeagueImageDto) {
         if (data) {
@@ -612,7 +664,7 @@ export class LeagueImageDto implements ILeagueImageDto {
         if (_data) {
             this.id = _data["id"];
             this.imageUrl = _data["imageUrl"];
-            this.leagueName = _data["leagueName"];
+            this.name = _data["name"];
         }
     }
 
@@ -627,7 +679,7 @@ export class LeagueImageDto implements ILeagueImageDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["imageUrl"] = this.imageUrl;
-        data["leagueName"] = this.leagueName;
+        data["name"] = this.name;
         return data; 
     }
 }
@@ -635,7 +687,7 @@ export class LeagueImageDto implements ILeagueImageDto {
 export interface ILeagueImageDto {
     id: number;
     imageUrl: string | undefined;
-    leagueName: string | undefined;
+    name: string | undefined;
 }
 
 export class TeamDto implements ITeamDto {
@@ -913,6 +965,50 @@ export interface ITeamUpcomingMatchDto {
     team2Name: string | undefined;
     startTime: moment.Moment | undefined;
     leagueImageUrl: string | undefined;
+}
+
+export class TeamImageDto implements ITeamImageDto {
+    id!: number;
+    name!: string | undefined;
+    imageUrl!: string | undefined;
+
+    constructor(data?: ITeamImageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.imageUrl = _data["imageUrl"];
+        }
+    }
+
+    static fromJS(data: any): TeamImageDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TeamImageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["imageUrl"] = this.imageUrl;
+        return data; 
+    }
+}
+
+export interface ITeamImageDto {
+    id: number;
+    name: string | undefined;
+    imageUrl: string | undefined;
 }
 
 export class LolGameFullStatsDto implements ILolGameFullStatsDto {

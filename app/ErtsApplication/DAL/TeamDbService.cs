@@ -1,5 +1,6 @@
 ﻿using ErtsApplication.DTO;
 using ErtsModel;
+using ErtsModel.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,22 @@ namespace ErtsApplication.DAL {
                 LastMatches = lastMatchesDto,
                 UpcomingMatches = upcomingMatchesDto
             };
+        }
+
+        public ActionResult<IEnumerable<TeamImageDto>> GetTeamImages(GameType gameType, string fragment) {
+            List<TeamImageDto> teamImageDtos = new List<TeamImageDto>();
+            var teams = Context.Leagues.Where(contextTeam => contextTeam.GameType == gameType && fragment == null || contextTeam.Name.ToLower().Contains(fragment)).ToList();
+
+            foreach (var team in teams) {
+                var teamImageDto = new TeamImageDto() {
+                    Id = team.Id,
+                    ImageUrl = team.ImageUrl,
+                    Name = team.Name
+                };
+
+                teamImageDtos.Add(teamImageDto);
+            }
+            return teamImageDtos;
         }
     }
 }

@@ -5,7 +5,7 @@ class Navigation extends React.Component {
 	render() {
 		return (
 			<>
-				<Navbar bg="dark" variant="dark">
+				<Navbar bg="dark" variant="dark" sticky="top">
 					<Navbar.Brand href="/r6">
 						<img
 							alt=""

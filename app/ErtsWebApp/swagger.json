@@ -59,6 +59,16 @@
               "nullable": true
             },
             "x-position": 1
+          },
+          {
+            "name": "fragment",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
           }
         ],
         "responses": {
@@ -109,6 +119,52 @@
                       "$ref": "#/components/schemas/TeamDto"
                     }
                   ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Team/GetTeamImages/{gameType}": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "operationId": "Team_GetTeamImages",
+        "parameters": [
+          {
+            "name": "gameType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "fragment",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/TeamImageDto"
+                  }
                 }
               }
             }
@@ -433,13 +489,13 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "imageUrl": {
             "type": "string",
             "nullable": true
           },
-          "leagueName": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -610,6 +666,24 @@
             "nullable": true
           },
           "leagueImageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "TeamImageDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
             "type": "string",
             "nullable": true
           }

@@ -9,6 +9,6 @@ namespace ErtsApplication.DAL
     {
         ActionResult<LeagueDto> GetLeague(int leagueId);
 
-        ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType);
+        ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType, string fragment);
     }
 }

@@ -22,7 +22,7 @@ function LeagueListItem(props: { gameType: string; leagueImageDto: LeagueImageDt
 				width={150}
 				height={150} />
 
-			<h6>{leagueImageDto.leagueName}</h6>
+			<h6>{leagueImageDto.name}</h6>
 		</Card>
 
 	);

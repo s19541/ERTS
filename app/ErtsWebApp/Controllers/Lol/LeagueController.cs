@@ -22,8 +22,8 @@ namespace ErtsApplication.Controllers.Lol {
 
         [Route("[action]/{gameType}")]
         [HttpGet]
-        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(string gameType) {
-            return _dbService.GetLeagueImages((GameType)Enum.Parse(typeof(GameType), gameType));
+        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(string gameType, string fragment) {
+            return _dbService.GetLeagueImages((GameType)Enum.Parse(typeof(GameType), gameType), fragment);
         }
     }
 }

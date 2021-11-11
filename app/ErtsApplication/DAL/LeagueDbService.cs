@@ -5,39 +5,31 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ErtsApplication.DAL
-{
-    public class LeagueDbService : ILeagueDbService
-    {
+namespace ErtsApplication.DAL {
+    public class LeagueDbService : ILeagueDbService {
         public ErtsContext Context { get; set; }
-        public LeagueDbService(ErtsContext dbContext)
-        {
+        public LeagueDbService(ErtsContext dbContext) {
             Context = dbContext;
         }
 
-        public ActionResult<LeagueDto> GetLeague(int leagueId)
-        {
+        public ActionResult<LeagueDto> GetLeague(int leagueId) {
             var contextLeague = Context.Leagues.Where(p => p.Id == leagueId).FirstOrDefault();
-           return new LeagueDto()
-            {
+            return new LeagueDto() {
                 Name = contextLeague.Name,
                 ImageUrl = contextLeague.ImageUrl,
                 Url = contextLeague.Url
             };
         }
 
-        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType)
-        {
+        public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType, string fragment) {
             List<LeagueImageDto> leagueImageDtos = new List<LeagueImageDto>();
-            var leagueIds = Context.Leagues.Where(o => o.GameType == gameType).Select(o => o.Id).ToList();
+            var leagues = Context.Leagues.Where(contextLeague => contextLeague.GameType == gameType && fragment == null || contextLeague.Name.ToLower().Contains(fragment)).ToList();
 
-            foreach (int leagueId in leagueIds)
-            {
-                var leagueImageDto = new LeagueImageDto()
-                {
-                    Id = leagueId,
-                    ImageUrl = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.ImageUrl).FirstOrDefault(),
-                    LeagueName = Context.Leagues.Where(p => p.Id == leagueId).Select(p => p.Name).FirstOrDefault()
+            foreach (var league in leagues) {
+                var leagueImageDto = new LeagueImageDto() {
+                    Id = league.Id,
+                    ImageUrl = league.ImageUrl,
+                    Name = league.Name
                 };
                 leagueImageDtos.Add(leagueImageDto);
             }
