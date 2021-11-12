@@ -4,7 +4,7 @@ import Home from "./components/pages/Home";
 import Footer from "./components/fragments/Footer";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Resources from "./Resources";
-import LeagueList from "./components/pages/common/League/LeagueList";
+import LeagueList from "./components/pages/common/Game/League/LeagueList";
 import TournamentList from "./components/pages/common/Tournament/TournamentList";
 import SerieList from "./components/pages/common/Serie/SerieList";
 import LolTournamentScoreBoard from "./components/pages/common/Tournament/Teams/TournamentScoreBoard";

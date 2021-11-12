@@ -1,6 +1,6 @@
 import { Card, CardGroup, Col, Container, Image, Row } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { LeagueImageDto } from "../../../../services/GeneratedClient";
+import { LeagueImageDto } from "../../../../../services/GeneratedClient";
 
 function LeagueListItem(props: { gameType: string; leagueImageDto: LeagueImageDto }) {
 	let history = useHistory();

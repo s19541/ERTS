@@ -3,14 +3,14 @@ import { Container, Row, Col, Image, CardGroup, Form, Navbar, Nav, NavDropdown }
 import {
 	LeagueClient,
 	LeagueImageDto,
-} from "../../../../services/GeneratedClient";
+} from "../../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
-} from "../../../../_infrastructure/actions/SendAction";
+} from "../../../../../_infrastructure/actions/SendAction";
 import LeagueListItem from "./LeagueListItem";
 import { RouteComponentProps } from "react-router-dom";
-import "../../../../css/myStyle.css";
+import GameNav from "../GameNav";
 
 interface IProps { }
 
@@ -23,6 +23,7 @@ type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
 interface IState {
 	leagues: LeagueImageDto[] | null;
 	gameType: string;
+	key: string;
 }
 
 class LeagueList extends React.Component<IJoinedProps, IState> {
@@ -31,7 +32,8 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 
 		this.state = {
 			leagues: null,
-			gameType: props.match.params.gameType
+			gameType: props.match.params.gameType,
+			key: "Leagues"
 		};
 	}
 
@@ -44,7 +46,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 			action: () => new LeagueClient().getLeagueImages(this.state.gameType, fragment.toLowerCase()),
 			onSuccess: (response) => {
 				this.setState({
-					leagues: response,
+					leagues: response
 				});
 			},
 		};
@@ -55,27 +57,28 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "14vh" }}>
-					<Navbar variant="dark" bg="dark" expand="lg">
-						<Container fluid>
+					<GameNav activeKey={"Leagues"} gameType={this.state.gameType} onHandleEvent={this.getLeagueImages} />
 
-							<Navbar.Collapse>
+					<Navbar variant="dark" bg="dark">
+						<Container fluid>
+							<Navbar.Brand style={{ width: 800 }}>
 								<Form>
 									<Col md="auto">
 										<Form.Control type="text" placeholder="Enter fragment of league name" onChange={(event) => this.getLeagueImages(event.target.value)} />
 									</Col>
 								</Form>
-							</Navbar.Collapse>
-							<Navbar.Collapse>
-								<Nav>
+							</Navbar.Brand>
+							<Navbar.Brand>
+								<Nav activeKey={"Leagues"}>
 									<NavDropdown
 										id="nav-dropdown"
-										title="Dropdown"
+										title={this.state.key}
 									>
-										<NavDropdown.Item eventKey="Leagues" default>Leagues</NavDropdown.Item>
+										<NavDropdown.Item eventKey="Leagues" active>Leagues</NavDropdown.Item>
 										<NavDropdown.Item eventKey="Teams">Teams</NavDropdown.Item>
 									</NavDropdown>
 								</Nav>
-							</Navbar.Collapse>
+							</Navbar.Brand>
 						</Container>
 					</Navbar>
 
