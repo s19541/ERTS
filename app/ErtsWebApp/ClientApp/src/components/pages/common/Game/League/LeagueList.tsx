@@ -57,7 +57,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "14vh" }}>
-					<GameNav activeKey={"Leagues"} gameType={this.state.gameType} onHandleEvent={this.getLeagueImages} />
+					<GameNav activeKey={"Leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(fragment)} />
 
 					<Navbar variant="dark" bg="dark">
 						<Container fluid>
@@ -73,6 +73,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 									<NavDropdown
 										id="nav-dropdown"
 										title={this.state.key}
+										menuVariant="dark"
 									>
 										<NavDropdown.Item eventKey="Leagues" active>Leagues</NavDropdown.Item>
 										<NavDropdown.Item eventKey="Teams">Teams</NavDropdown.Item>
