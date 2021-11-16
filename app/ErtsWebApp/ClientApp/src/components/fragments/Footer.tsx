@@ -14,7 +14,7 @@ class Footer extends React.Component<RouteComponentProps> {
 				<Navbar bg="dark" variant="dark" fixed="bottom">
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/csgo")
+							this.redirectToPage("/csgo/leagues")
 						}>
 						<img
 							alt=""
@@ -26,7 +26,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/lol")
+							this.redirectToPage("/lol/leagues")
 						}>
 						<img
 							alt=""
@@ -38,7 +38,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/dota2")
+							this.redirectToPage("/dota2/leagues")
 						}
 					>
 						<img
@@ -51,7 +51,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/overwatch")
+							this.redirectToPage("/overwatch/leagues")
 						}
 					>
 						<img
@@ -64,7 +64,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/valorant")
+							this.redirectToPage("/valorant/leagues")
 						}
 					>
 						<img

@@ -1,7 +1,8 @@
 export default class Resources {
 	public static pageAdresses = {
 		home: "/",
-		leagues: "/:gameType",
+		gameLeagues: "/:gameType/leagues",
+		gameTeams: "/:gameType/teams",
 		series: "/:gameType/:leagueId",
 		tournaments: "/:gameType/:leagueId/:serieId",
 		lolTournamentScoreBoard: "/:gameType/:leagueId/:serieId/:tournamentId/scoreBoard",

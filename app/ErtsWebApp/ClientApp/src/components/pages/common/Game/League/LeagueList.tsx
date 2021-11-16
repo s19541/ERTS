@@ -38,7 +38,8 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 	}
 
 	componentDidMount() {
-		this.getLeagueImages("");
+		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
+		this.getLeagueImages(fragment);
 	}
 
 	getLeagueImages(fragment: string) {
@@ -56,32 +57,8 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 	render() {
 		return (
 			this.state.leagues && (
-				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "14vh" }}>
+				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "6vh", paddingLeft: "6vh" }}>
 					<GameNav activeKey={"Leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(fragment)} />
-
-					<Navbar variant="dark" bg="dark">
-						<Container fluid>
-							<Navbar.Brand style={{ width: 800 }}>
-								<Form>
-									<Col md="auto">
-										<Form.Control type="text" placeholder="Enter fragment of league name" onChange={(event) => this.getLeagueImages(event.target.value)} />
-									</Col>
-								</Form>
-							</Navbar.Brand>
-							<Navbar.Brand>
-								<Nav activeKey={"Leagues"}>
-									<NavDropdown
-										id="nav-dropdown"
-										title={this.state.key}
-										menuVariant="dark"
-									>
-										<NavDropdown.Item eventKey="Leagues" active>Leagues</NavDropdown.Item>
-										<NavDropdown.Item eventKey="Teams">Teams</NavDropdown.Item>
-									</NavDropdown>
-								</Nav>
-							</Navbar.Brand>
-						</Container>
-					</Navbar>
 
 					<CardGroup>
 						{this.state.leagues.map((league, i) => (

@@ -15,7 +15,7 @@ class Home extends React.Component<IProps> {
 				<Row className="align-items-center">
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("valorant")}
+							onClick={() => this.redirectToPage("valorant/leagues")}
 							src="/images/valorant-icon.png"
 							width={200}
 							height={200}
@@ -24,7 +24,7 @@ class Home extends React.Component<IProps> {
 					</Col>
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("dota2")}
+							onClick={() => this.redirectToPage("dota2/leagues")}
 							src="/images/dota2-icon.png"
 							width={325}
 							height={325}
@@ -33,7 +33,7 @@ class Home extends React.Component<IProps> {
 					</Col>
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("lol")}
+							onClick={() => this.redirectToPage("lol/leagues")}
 							src="/images/lol-icon.png"
 							width={400}
 							height={400}
@@ -42,7 +42,7 @@ class Home extends React.Component<IProps> {
 					</Col>
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("csgo")}
+							onClick={() => this.redirectToPage("csgo/leagues")}
 							src="/images/csgo-icon.png"
 							width={300}
 							height={300}
@@ -51,7 +51,7 @@ class Home extends React.Component<IProps> {
 					</Col>
 					<Col md="auto">
 						<img
-							onClick={() => this.redirectToPage("overwatch")}
+							onClick={() => this.redirectToPage("overwatch/leagues")}
 							src="/images/overwatch-icon.png"
 							width={200}
 							height={200}

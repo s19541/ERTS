@@ -66,7 +66,8 @@ namespace ErtsApplication.DAL {
 
         public ActionResult<IEnumerable<TeamImageDto>> GetTeamImages(GameType gameType, string fragment) {
             List<TeamImageDto> teamImageDtos = new List<TeamImageDto>();
-            var teams = Context.Leagues.Where(contextTeam => contextTeam.GameType == gameType && fragment == null || contextTeam.Name.ToLower().Contains(fragment)).ToList();
+            System.Console.WriteLine("testetateat");
+            var teams = Context.Teams.Where(contextTeam => contextTeam.GameType == gameType && fragment == null || contextTeam.Name.ToLower().Contains(fragment)).ToList();
 
             foreach (var team in teams) {
                 var teamImageDto = new TeamImageDto() {

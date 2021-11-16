@@ -1,4 +1,4 @@
-import { Container, Row, Col, AccordionCollapse, AccordionToggle } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient";
 
 function GamePlayerFullStatsItem(props: { playerStats: LolGamePlayerFullStatsDto | undefined }) {

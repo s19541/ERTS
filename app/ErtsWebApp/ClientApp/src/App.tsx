@@ -5,6 +5,7 @@ import Footer from "./components/fragments/Footer";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Resources from "./Resources";
 import LeagueList from "./components/pages/common/Game/League/LeagueList";
+import TeamList from "./components/pages/common/Game/Team/TeamList";
 import TournamentList from "./components/pages/common/Tournament/TournamentList";
 import SerieList from "./components/pages/common/Serie/SerieList";
 import LolTournamentScoreBoard from "./components/pages/common/Tournament/Teams/TournamentScoreBoard";
@@ -39,8 +40,13 @@ const App: React.FunctionComponent = () => {
 				/>
 				<Route
 					exact
-					path={Resources.pageAdresses.leagues}
+					path={Resources.pageAdresses.gameLeagues}
 					component={LeagueList}
+				/>
+				<Route
+					exact
+					path={Resources.pageAdresses.gameTeams}
+					component={TeamList}
 				/>
 				<Route
 					exact
