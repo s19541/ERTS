@@ -45,7 +45,7 @@ namespace ErtsApiFetcher.RecurringJobs {
             apiTeams = apiTeams.Union(valorantDataFetcher.FetchTeams());
             apiTeams = apiTeams.Union(owDataFetcher.FetchTeams());
             apiTeams = apiTeams.Union(dota2DataFetcher.FetchTeams());
-            var newTeams = apiTeams.Where(apiTeam => !context.Players.Any(contextTeam => contextTeam.ApiId == apiTeam.ApiId));
+            var newTeams = apiTeams.Where(apiTeam => !context.Teams.Any(contextTeam => contextTeam.ApiId == apiTeam.ApiId && contextTeam.GameType == apiTeam.GameType));
             context.Teams.AddRange(newTeams);
 
             context.SaveChanges();

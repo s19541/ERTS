@@ -1,8 +1,6 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { createAbsoluteUrl } from "../../Helpers/UrlHelper";
-import Resources from "../../Resources";
 
 class Footer extends React.Component<RouteComponentProps> {
 	private redirectToPage(page: string) {
@@ -12,7 +10,7 @@ class Footer extends React.Component<RouteComponentProps> {
 		return (
 			<>
 				<Navbar bg="dark" variant="dark" fixed="bottom">
-					<Navbar.Brand
+					<Navbar.Brand style={{ marginLeft: 10 }}
 						onClick={() =>
 							this.redirectToPage("/csgo/leagues")
 						}>

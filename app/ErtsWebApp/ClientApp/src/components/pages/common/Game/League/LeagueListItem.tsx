@@ -15,7 +15,7 @@ function LeagueListItem(props: { gameType: string; leagueImageDto: LeagueImageDt
 	return (
 
 		<Card className="align-items-center" bg={color} border='white' style={{ width: '10rem', color: "white", textAlign: "center" }}
-			onClick={() => redirectToPage(`${gameType}/${leagueImageDto.id}`)}
+			onClick={() => redirectToPage(`/${gameType}/${leagueImageDto.id}`)}
 
 		>
 			<Image src={leagueImageDto.imageUrl} rounded
