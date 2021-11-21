@@ -37,7 +37,7 @@ class TournamentScoreBoard extends React.Component<IJoinedProps, IState> {
 			gameType: props.match.params.gameType,
 			tournamentId: Number(props.match.params.tournamentId),
 			tournamentTeams: null,
-			key: "score-board",
+			key: "scoreboard",
 		};
 	}
 

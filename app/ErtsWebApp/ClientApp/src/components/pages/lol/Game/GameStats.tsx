@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../css/myStyle.css";
 import { GameClient, LolGameFullStatsDto } from "../../../../services/GeneratedClient";

@@ -1,21 +1,23 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { LolGameTeamFullStatsDto } from "../../../../services/GeneratedClient";
 import GameTeamExcludingStats from "./GameTeamExcludingStats";
+import { useTranslation } from "react-i18next";
 
 function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | undefined, redTeamStats: LolGameTeamFullStatsDto | undefined }) {
     const blueTeamStats = props.blueTeamStats;
     const redTeamStats = props.redTeamStats;
+    const { t } = useTranslation();
 
     return (
         <Container style={{ color: "white" }}>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.goldEarned}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>GOLD</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.gold")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.goldEarned}</h4></Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.kills}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>KILLS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.kills")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.kills}</h4></Col>
             </Row>
             <Row>
@@ -53,7 +55,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                         />
                     </h4>
                 </Col>
-                <Col style={{ textAlign: "center" }}><h4>BANS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.bans")}</h4></Col>
                 <Col style={{ textAlign: "left" }}>
                     <h4>
                         <img
@@ -127,7 +129,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                         {redTeamStats != null ? redTeamStats.infernalDrakeKilled + redTeamStats.oceanDrakeKilled + redTeamStats.mountainDrakeKilled + redTeamStats.cloudDrakeKilled : 0}
                     </h4>
                 </Col>
-                <Col style={{ textAlign: "center" }}><h4>DRAKES</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.dragons")}</h4></Col>
                 <Col style={{ textAlign: "left" }}>
                     <h4>
                         {redTeamStats != null ? redTeamStats.infernalDrakeKilled + redTeamStats.oceanDrakeKilled + redTeamStats.mountainDrakeKilled + redTeamStats.cloudDrakeKilled : 0}
@@ -168,34 +170,34 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.elderDrakeKilled}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>ELDERS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.elders")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.elderDrakeKilled}</h4></Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.baronKilled}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>BARONS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.barons")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.baronKilled}</h4></Col>
             </Row>
             <Row >
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.heraldKilled}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>HERALDS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.heralds")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.heraldKilled}</h4></Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.turretDestroyed}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>TURRETS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.turrets")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.turretDestroyed}</h4></Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }}><h4>{blueTeamStats?.inhibitorDestroyed}</h4></Col>
-                <Col style={{ textAlign: "center" }}><h4>INHIBITORS</h4></Col>
+                <Col style={{ textAlign: "center" }}><h4>{t("game.info.inhibitors")}</h4></Col>
                 <Col style={{ textAlign: "left" }}><h4>{redTeamStats?.inhibitorDestroyed}</h4></Col>
             </Row>
-            <GameTeamExcludingStats name="FIRST BLOOD" blueTeamBoolean={blueTeamStats?.firstBlood} redTeamBoolean={redTeamStats?.firstBlood} />
-            <GameTeamExcludingStats name="FIRST DRAGON" blueTeamBoolean={blueTeamStats?.firstDragon} redTeamBoolean={redTeamStats?.firstDragon} />
-            <GameTeamExcludingStats name="FIRST BARON" blueTeamBoolean={blueTeamStats?.firstBaron} redTeamBoolean={redTeamStats?.firstBaron} />
-            <GameTeamExcludingStats name="FIRST TURRET" blueTeamBoolean={blueTeamStats?.firstTurret} redTeamBoolean={redTeamStats?.firstTurret} />
-            <GameTeamExcludingStats name="FIRST INHIBITOR" blueTeamBoolean={blueTeamStats?.firstInhibitor} redTeamBoolean={redTeamStats?.firstInhibitor} />
+            <GameTeamExcludingStats name={t("game.info.first-blood")} blueTeamBoolean={blueTeamStats?.firstBlood} redTeamBoolean={redTeamStats?.firstBlood} />
+            <GameTeamExcludingStats name={t("game.info.first-dragon")} blueTeamBoolean={blueTeamStats?.firstDragon} redTeamBoolean={redTeamStats?.firstDragon} />
+            <GameTeamExcludingStats name={t("game.info.first-baron")} blueTeamBoolean={blueTeamStats?.firstBaron} redTeamBoolean={redTeamStats?.firstBaron} />
+            <GameTeamExcludingStats name={t("game.info.first-turret")} blueTeamBoolean={blueTeamStats?.firstTurret} redTeamBoolean={redTeamStats?.firstTurret} />
+            <GameTeamExcludingStats name={t("game.info.first-inhibitor")} blueTeamBoolean={blueTeamStats?.firstInhibitor} redTeamBoolean={redTeamStats?.firstInhibitor} />
         </Container>
     );
 }

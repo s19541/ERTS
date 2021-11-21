@@ -1,15 +1,17 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { LolGameTeamShortStatsDto } from "../../../../services/GeneratedClient";
+import { useTranslation } from "react-i18next";
 
 function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined }) {
 	const teamStats = props.teamStats;
+	const { t } = useTranslation();
 
 	return (
 		<Container>
 			<Row>
-				<Col md="auto">Gold: {teamStats?.goldEarned}</Col>
+				<Col md="auto">{t("match.gold")}: {teamStats?.goldEarned}</Col>
 				<Col md="auto">
-					Dragons:
+					{t("match.dragons")}:
 					{[...Array(teamStats?.oceanDrakeKilled)].map((x, i) => (
 						<img
 							src="/images/lol/ocean-drake-icon.png"
@@ -89,7 +91,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					:{teamStats?.inhibitorDestroyed}
 				</Col>
 				<Col md="auto">
-					Bans:
+					{t("match.bans")}:
 					<img
 						src={teamStats?.ban1ImageUrl}
 						className=""

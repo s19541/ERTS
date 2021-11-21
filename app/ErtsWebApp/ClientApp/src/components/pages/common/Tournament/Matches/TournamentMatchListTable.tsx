@@ -1,20 +1,22 @@
 import { Table } from "react-bootstrap";
 import { MatchDto } from "../../../../../services/GeneratedClient";
 import LolMatchListTableRow from "./TournamentMatchListTableRow";
+import { useTranslation } from "react-i18next";
 
 function TournamentMatchListTable(props: { matchList: MatchDto[] | null, gameType: string }) {
 	const matchList = props.matchList;
 	const gameType = props.gameType;
+	const { t } = useTranslation();
 
 	return (
 		<Table striped bordered hover variant="dark">
 			<thead>
 				<tr>
-					<th>Start Time</th>
-					<th style={{ textAlign: "right" }}>Blue Team</th>
-					<th style={{ width: "5vh", textAlign: "center" }}>Result</th>
-					<th>Red Team</th>
-					<th style={{ width: "5vh", textAlign: "center" }}>Mode</th>
+					<th>{t("tournament.matches.start-time")}</th>
+					<th style={{ textAlign: "right" }}>{t("tournament.matches.blue-team")}</th>
+					<th style={{ width: "5vh", textAlign: "center" }}>{t("tournament.matches.result")}</th>
+					<th>{t("tournament.matches.red-team")}</th>
+					<th style={{ width: "5vh", textAlign: "center" }}>{t("tournament.matches.mode")}</th>
 				</tr>
 			</thead>
 			<tbody>

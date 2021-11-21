@@ -33,7 +33,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		this.state = {
 			leagues: null,
 			gameType: props.match.params.gameType,
-			key: "Leagues"
+			key: "leagues"
 		};
 	}
 
@@ -58,7 +58,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "6vh", paddingLeft: "6vh" }}>
-					<GameNav activeKey={"Leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(fragment)} />
+					<GameNav activeKey={"leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(fragment)} />
 
 					<CardGroup>
 						{this.state.leagues.map((league, i) => (

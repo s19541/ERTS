@@ -1,11 +1,13 @@
 import { Table } from "react-bootstrap";
 import { LolGamePlayerShortStatsDto } from "../../../../services/GeneratedClient";
 import GamePlayerStatsTableRow from "./GamePlayerStatstableRow";
+import { useTranslation } from "react-i18next";
 
 function GamePlayerStatsTable(props: {
 	playerStatsList: LolGamePlayerShortStatsDto[] | undefined;
 }) {
 	const playerStatsList = props.playerStatsList;
+	const { t } = useTranslation();
 
 	return (
 		<Table striped bordered hover variant="dark">
@@ -21,7 +23,7 @@ function GamePlayerStatsTable(props: {
 							textAlign: "center",
 						}}
 					>
-						Nick
+						{t("match.nick")}
 					</th>
 					<th
 						style={{
@@ -42,14 +44,14 @@ function GamePlayerStatsTable(props: {
 							textAlign: "center",
 						}}
 					>
-						Gold
+						{t("match.gold")}
 					</th>
 					<th
 						style={{
 							textAlign: "center",
 						}}
 					>
-						Items
+						{t("match.items")}
 					</th>
 				</tr>
 			</thead>

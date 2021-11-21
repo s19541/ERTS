@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { SerieShortDto } from "../../../../services/GeneratedClient";
 import SerieListTableRow from "./SerieListTableRow";
+import { useTranslation } from "react-i18next";
 
 function SerieListTable(props: {
 	serieList: SerieShortDto[] | null;
@@ -8,14 +9,15 @@ function SerieListTable(props: {
 }) {
 	const series = props.serieList;
 	const leagueId = props.leagueId;
+	const { t } = useTranslation();
 
 	return (
 		<Table striped bordered hover variant="dark">
 			<thead>
 				<tr>
-					<th>Serie</th>
-					<th>Start Time</th>
-					<th>End Time</th>
+					<th>{t("serie.serie-name")}</th>
+					<th>{t("serie.start-time")}</th>
+					<th>{t("serie.end-time")}</th>
 				</tr>
 			</thead>
 			<tbody>

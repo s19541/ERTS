@@ -1,15 +1,17 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient";
 import GamePlayerFullStatsItem from "./GamePlayerFullStatsItem";
+import { useTranslation } from "react-i18next";
 
 function GamePlayerFullStats(props: { blueTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined, redTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined }) {
     const blueTeamPlayersStats = props.blueTeamPlayersStats;
     const redTeamPlayersStats = props.redTeamPlayersStats;
+    const { t } = useTranslation();
 
     return (
         <Container style={{ color: "white" }}>
             <Row style={{ textAlign: "center" }}>
-                <Col><h1>PLAYERS</h1></Col>
+                <Col><h1>{t("game.players")}</h1></Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "right" }} >

@@ -1,7 +1,7 @@
 import { Container, Row, Col, Table, Image } from "react-bootstrap";
 import { TeamUpcomingMatchDto } from "../../../../services/GeneratedClient";
-
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 
 function LastMatches(props: {
     upcomingMatches: TeamUpcomingMatchDto[] | undefined;
@@ -12,9 +12,11 @@ function LastMatches(props: {
     }
 
     var upcomingMatches = props.upcomingMatches;
+    const { t } = useTranslation();
+
     return (
         <Container style={{ textAlign: "right" }}>
-            <h1>Upcoming Matches</h1>
+            <h1>{t("team.upcoming-matches")}</h1>
             {upcomingMatches?.map((match, i) => (
                 <Row onClick={() => redirectToPage(`/lol/match/${match.matchId}`)} >
                     <Col md="auto">

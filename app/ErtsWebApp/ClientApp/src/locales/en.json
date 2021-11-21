@@ -1,0 +1,119 @@
+{
+    "game-type": {
+        "nav": {
+            "leagues": "Leagues",
+            "teams": "Teams",
+            "placeholder": "Enter fragment of name"
+        }
+    },
+    "serie": {
+        "serie-name": "Series",
+        "start-time": "Start time",
+        "end-time": "End time"
+    },
+    "tournament": {
+        "info": {
+            "tournament-name": "Tournament",
+            "start-time": "Start time",
+            "end-time": "End time"
+        },
+        "nav": {
+            "scoreboard": "Scoreboard",
+            "matches": "Matches",
+            "player-stats": "Player stats",
+            "team-stats": "Team stats"
+        },
+        "scoreboard": {
+            "team": "Team",
+            "matches": "Matches",
+            "games": "Games"
+        },
+        "matches": {
+            "start-time": "Start time",
+            "blue-team": "Blue team",
+            "red-team": "Red team",
+            "result": "Result",
+            "mode": "Mode"
+        },
+        "lol": {
+            "player-stats": {
+                "team": "Team",
+                "player": "Player",
+                "champs": "Champs"
+            },
+            "team-stats": {
+                "team": "Team",
+                "gold": "Gold",
+                "dragons": "Dragons",
+                "heralds": "Heralds",
+                "barons": "Barons",
+                "towers": "Towers",
+                "champs": "Champs"
+            }
+        }
+    },
+    "match": {
+        "game": "Game",
+        "start-time": "Start time",
+        "length": "Length",
+        "blue-team": "Blue team",
+        "red-team": "Red team",
+        "nick": "Nick",
+        "gold": "Gold",
+        "dragons": "Dragons",
+        "items": "Items",
+        "bans": "Bans",
+        "victory": "Victory",
+        "defeat": "Defeat"
+    },
+    "game": {
+        "info": {
+            "gold": "Gold",
+            "kills": "Kills",
+            "bans": "Bans",
+            "dragons": "Dragons",
+            "elders": "Elders",
+            "barons": "Barons",
+            "heralds": "Heralds",
+            "turrets": "Turrets",
+            "inhibitors": "Inhibitors",
+            "first-blood": "First blood",
+            "first-dragon": "First dragon",
+            "first-baron": "First baron",
+            "first-turret": "First turret",
+            "first-inhibitor": "First inhibitor"
+        },
+        "players": "Players",
+        "player": {
+            "level": "Level",
+            "kills": "Kills",
+            "gold-earned": "Gold earned",
+            "gold-spent": "Gold spent",
+            "damage-dealt": "Damage dealt",
+            "magic-damage-dealt": "Magic damage dealt",
+            "physical-damage-dealt": "Physical damage dealt",
+            "true-damage-dealt": "True damage dealt",
+            "damage-dealt-to-champions": "Damage dealt to champs",
+            "magic-damage-dealt-to-champions": "Magic damage dealt to champions",
+            "physical-damage-dealt-to-champions": "Physical damage dealt to champions",
+            "true-damage-dealt-to-champions": "True damage dealt to champs",
+            "towers-destroyed": "Towers destroyed",
+            "inhibitors-destroyed": "Inhibitor destroyed",
+            "wards-placed": "Wards placed",
+            "wards-destroyed": "Wards destroyed",
+            "total-time-crowd-control-dealt": "Total time crowd control dealt",
+            "total-heal": "Total heal",
+            "minions-killed": "Minions killed",
+            "neutral-minions-killed": "Neutral minions killed",
+            "enemy-neutral-minions-killed": "Enemy neutral minions killed",
+            "largest-critical-strike": "Largest critical strike",
+            "largest-killing-spree": "Largest killing spree",
+            "largest-multikill": "Largest multikill"
+        }
+    },
+    "team": {
+        "roster": "Roster",
+        "last-matches": "Last matches",
+        "upcoming-matches": "Upcoming matches"
+    }
+}

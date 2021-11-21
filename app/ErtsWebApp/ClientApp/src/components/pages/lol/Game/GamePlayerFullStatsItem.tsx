@@ -1,8 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient";
+import { useTranslation } from "react-i18next";
 
 function GamePlayerFullStatsItem(props: { playerStats: LolGamePlayerFullStatsDto | undefined }) {
     const playerStats = props.playerStats;
+    const { t } = useTranslation();
 
     return (
         <Container style={{ color: "white" }}>
@@ -37,122 +39,122 @@ function GamePlayerFullStatsItem(props: { playerStats: LolGamePlayerFullStatsDto
             </Row>
             <Row>
                 <Col>
-                    <h5>LEVEL: {playerStats?.level}</h5>
+                    <h5>{t("game.player.level")}: {playerStats?.level}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h4>KDA: {playerStats?.kills}/{playerStats?.deaths}/{playerStats?.assists}</h4>
+                    <h4>{t("game.player.kills")}: {playerStats?.kills}/{playerStats?.deaths}/{playerStats?.assists}</h4>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>GOLD EARNED: {playerStats?.goldEarned}</h5>
+                    <h5>{t("game.player.gold-earned")}: {playerStats?.goldEarned}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>GOLD SPENT: {playerStats?.goldSpent}</h5>
+                    <h5>{t("game.player.gold-spent")}: {playerStats?.goldSpent}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h4>DAMAGE DEALT: {playerStats?.damageDealt}</h4>
+                    <h4>{t("game.player.damage-dealt")}: {playerStats?.damageDealt}</h4>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>MAGIC DAMAGE DEALT: {playerStats?.magicDamageDealt}</h6>
+                    <h6>{t("game.player.magic-damage-dealt")}: {playerStats?.magicDamageDealt}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>PHYSICAL DAMAGE DEALT: {playerStats?.physicalDamageDealt}</h6>
+                    <h6>{t("game.player.physical-damage-dealt")}: {playerStats?.physicalDamageDealt}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>TRUE DAMAGE DEALT: {playerStats?.trueDamageDealt}</h6>
+                    <h6>{t("game.player.true-damage-dealt")}: {playerStats?.trueDamageDealt}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h4>DAMAGE DEALT TO CHAMPIONS: {playerStats?.damageDealtToChamps}</h4>
+                    <h4>{t("game.player.damage-dealt-to-champions")}: {playerStats?.damageDealtToChamps}</h4>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>MAGIC DAMAGE DEALT TO CHAMPIONS: {playerStats?.magicDamageDealtToChamps}</h6>
+                    <h6>{t("game.player.magic-damage-dealt-to-champions")}: {playerStats?.magicDamageDealtToChamps}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>PHYSICAL DAMAGE DEALT TO CHAMPIONS: {playerStats?.physicalDamageDealtToChamps}</h6>
+                    <h6>{t("game.player.physical-damage-dealt-to-champions")}: {playerStats?.physicalDamageDealtToChamps}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h6>TRUE DAMAGE DEALT TO CHAMPS: {playerStats?.trueDamageDealtToChamps}</h6>
+                    <h6>{t("game.player.true-damage-dealt-to-champions")}: {playerStats?.trueDamageDealtToChamps}</h6>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>TOWERS DESTROYED: {playerStats?.turretsDestroyed}</h5>
+                    <h5>{t("game.player.towers-destroyed")}: {playerStats?.turretsDestroyed}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>INHIBITORS DESTROYED: {playerStats?.inhibitorsDestroyed}</h5>
+                    <h5>{t("game.player.inhibitors-destroyed")}: {playerStats?.inhibitorsDestroyed}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>WARDS PLACED: {playerStats?.wardsPlaced}</h5>
+                    <h5>{t("game.player.wards-placed")}: {playerStats?.wardsPlaced}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>WARDS DESTROYED: {playerStats?.wardsDestroyed}</h5>
+                    <h5>{t("game.player.wards-destroyed")}: {playerStats?.wardsDestroyed}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>TOTAL TIME CROWD CONTROLL DEALT: {playerStats?.totalTimeCrowdControllDealt}</h5>
+                    <h5>{t("game.player.total-time-crowd-control-dealt")}: {playerStats?.totalTimeCrowdControllDealt}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>TOTAL HEAL: {playerStats?.totalHeal}</h5>
+                    <h5>{t("game.player.total-heal")}: {playerStats?.totalHeal}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>MINIONS KILLED: {playerStats?.cs}</h5>
+                    <h5>{t("game.player.minions-killed")}: {playerStats?.cs}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>NEUTRAL MINIONS KILLED: {playerStats?.neutralMinionsKilled}</h5>
+                    <h5>{t("game.player.neutral-minions-killed")}: {playerStats?.neutralMinionsKilled}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>ENEMY NEUTRAL MINIONS KILLED: {playerStats?.enemyNeutralMinionsKilled}</h5>
+                    <h5>{t("game.player.enemy-neutral-minions-killed")}: {playerStats?.enemyNeutralMinionsKilled}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>LARGEST CRITICAL STRIKE: {playerStats?.largestCriticalStrike}</h5>
+                    <h5>{t("game.player.largest-critical-strike")}: {playerStats?.largestCriticalStrike}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>LARGEST KILLING SPREE: {playerStats?.largestKillingSpree}</h5>
+                    <h5>{t("game.player.largest-killing-spree")}: {playerStats?.largestKillingSpree}</h5>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h5>LARGEST MULTI KILL: {playerStats?.largestMultiKill}</h5>
+                    <h5>{t("game.player.largest-multikill")}: {playerStats?.largestMultiKill}</h5>
                 </Col>
             </Row>
         </Container>

@@ -2,18 +2,20 @@ import React from "react";
 import { Table } from "react-bootstrap";
 import { LolTournamentPlayerStatsDto } from "../../../../services/GeneratedClient";
 import LolTournamentPlayerStatsListTableRow from "./LolTournamentPlayerStatsListTableRow";
+import { useTranslation } from "react-i18next";
 
 function LolTournamentPlayerStatsListTable(props: {
 	playerStatsList: LolTournamentPlayerStatsDto[] | null;
 }) {
 	const playerStatsList = props.playerStatsList;
+	const { t } = useTranslation();
 
 	return (
 		<Table striped bordered hover variant="dark">
 			<thead>
 				<tr>
-					<th style={{ width: "3vh", textAlign: "center" }}>Team</th>
-					<th style={{ width: "5vh", textAlign: "center" }}>Player</th>
+					<th style={{ width: "3vh", textAlign: "center" }}>{t("tournament.lol.player-stats.team")}</th>
+					<th style={{ width: "5vh", textAlign: "center" }}>{t("tournament.lol.player-stats.player")}</th>
 					<th style={{ width: "5vh", textAlign: "center" }}>K</th>
 					<th style={{ width: "5vh", textAlign: "center" }}>D</th>
 					<th style={{ width: "5vh", textAlign: "center" }}>A</th>
@@ -25,7 +27,7 @@ function LolTournamentPlayerStatsListTable(props: {
 					<th style={{ width: "5vh", textAlign: "center" }}>KP</th>
 					<th style={{ width: "5vh", textAlign: "center" }}>DMGS</th>
 					<th style={{ width: "5vh", textAlign: "center" }}>CP</th>
-					<th style={{ width: "15vh", textAlign: "center" }}>Champs</th>
+					<th style={{ width: "15vh", textAlign: "center" }}>{t("tournament.lol.player-stats.champs")}</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -1,7 +1,7 @@
-import React from "react";
 import { Table } from "react-bootstrap";
 import { TournamentShortDto } from "../../../../services/GeneratedClient";
 import TournamentListTableRow from "./TournamentListTableRow";
+import { useTranslation } from "react-i18next";
 
 function TournamentListTable(props: {
 	tournamentList: TournamentShortDto[] | null;
@@ -9,14 +9,15 @@ function TournamentListTable(props: {
 }) {
 	const tournaments = props.tournamentList;
 	const serieId = props.serieId;
+	const { t } = useTranslation();
 
 	return (
 		<Table striped bordered hover variant="dark">
 			<thead>
 				<tr>
-					<th>Tournament</th>
-					<th>Start Time</th>
-					<th>End Time</th>
+					<th>{t("tournament.info.tournament-name")}</th>
+					<th>{t("tournament.info.start-time")}</th>
+					<th>{t("tournament.info.end-time")}</th>
 				</tr>
 			</thead>
 			<tbody>

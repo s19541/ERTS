@@ -1,15 +1,16 @@
 import { Container, Row, Col, Table, Image } from "react-bootstrap";
 import { Player } from "../../../../services/GeneratedClient";
-
-import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 
 function PlayerList(props: {
     players: Player[] | undefined;
 }) {
     var players = props.players;
+    const { t } = useTranslation();
+
     return (
         <Container>
-            <h1>Roster</h1>
+            <h1>{t("team.roster")}</h1>
             {players?.map((player, i) => (
                 <Row>
                     <Col md="auto">

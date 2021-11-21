@@ -33,7 +33,7 @@ class TeamList extends React.Component<IJoinedProps, IState> {
         this.state = {
             teams: null,
             gameType: props.match.params.gameType,
-            key: "Teams"
+            key: "teams"
         };
     }
 
@@ -58,7 +58,7 @@ class TeamList extends React.Component<IJoinedProps, IState> {
         return (
             this.state.teams && (
                 <Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "18vh", paddingLeft: "17vh" }}>
-                    <GameNav activeKey={"Teams"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getTeamImages(fragment)} />
+                    <GameNav activeKey={"teams"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getTeamImages(fragment)} />
 
                     <CardGroup>
                         {this.state.teams.map((team, i) => (

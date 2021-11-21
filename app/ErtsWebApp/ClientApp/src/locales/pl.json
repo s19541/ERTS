@@ -1,0 +1,119 @@
+{
+    "game-type": {
+        "nav": {
+            "leagues": "Ligi",
+            "teams": "Drużyny",
+            "placeholder": "Wprowadź fragment nazwy"
+        }
+    },
+    "serie": {
+        "serie-name": "Seria",
+        "start-time": "Czas rozpoczęcia",
+        "end-time": "Czas zakończenia"
+    },
+    "tournament": {
+        "info": {
+            "tournament-name": "Turniej",
+            "start-time": "Czas rozpoczęcia",
+            "end-time": "Czas zakończenia"
+        },
+        "nav": {
+            "scoreboard": "Tabela wyników",
+            "matches": "Mecze",
+            "player-stats": "Statystyki zawodników",
+            "team-stats": "Statystyki drużyn"
+        },
+        "scoreboard": {
+            "team": "Drużyna",
+            "matches": "Mecze",
+            "games": "Gry"
+        },
+        "matches": {
+            "start-time": "Czas rozpoczęcia",
+            "blue-team": "Drużyna niebieska",
+            "red-team": "Drużyna czerwona",
+            "result": "Wynik",
+            "mode": "Tryb"
+        },
+        "lol": {
+            "player-stats": {
+                "team": "Drużyna",
+                "player": "Gracz",
+                "champs": "Postacie"
+            },
+            "team-stats": {
+                "team": "Drużyna",
+                "gold": "Złoto",
+                "dragons": "Smoki",
+                "heralds": "Heraldy",
+                "barons": "Barony",
+                "towers": "Wieże",
+                "champs": "Postacie"
+            }
+        }
+    },
+    "match": {
+        "game": "Gra",
+        "start-time": "Czas rozpoczęcia",
+        "length": "Długość",
+        "blue-team": "Drużyna niebieska",
+        "red-team": "Drużyna czerwona",
+        "nick": "Pseudonim",
+        "gold": "Złoto",
+        "dragons": "Smoki",
+        "items": "Przedmioty",
+        "bans": "Bany",
+        "victory": "Zwycięstwo",
+        "defeat": "Porażka"
+    },
+    "game": {
+        "info": {
+            "gold": "Złoto",
+            "kills": "Zabójstwa",
+            "bans": "Bany",
+            "dragons": "Smoki",
+            "elders": "Eldery",
+            "barons": "Barony",
+            "heralds": "Heraldy",
+            "turrets": "Wieże",
+            "inhibitors": "Inhibitory",
+            "first-blood": "Pierwsza krew",
+            "first-dragon": "Pierwszy smok",
+            "first-baron": "Pierwszy baron",
+            "first-turret": "Pierwsza wieża",
+            "first-inhibitor": "Pierwszy inhibitor"
+        },
+        "players": "Gracze",
+        "player": {
+            "level": "Poziom",
+            "kills": "Zabójstwa",
+            "gold-earned": "Zdobyte złoto",
+            "gold-spent": "Wydane złoto",
+            "damage-dealt": "Zadane obrażenia",
+            "magic-damage-dealt": "Zadane obrażenia magiczne",
+            "physical-damage-dealt": "Zadane obrażenia fizyczne",
+            "true-damage-dealt": "Zadane nieuchoronne obrażenia fizyczne",
+            "damage-dealt-to-champions": "Zadane obrażenia bohaterom",
+            "magic-damage-dealt-to-champions": "Zadane obrażenia magiczne bohaterom",
+            "physical-damage-dealt-to-champions": "Zadane obrażenia fizyczne bohaterom",
+            "true-damage-dealt-to-champions": "Zadane obrażenia nieuchronne bohaterom",
+            "towers-destroyed": "Zniszczone wieże",
+            "inhibitors-destroyed": "Zniszczone inhibitory",
+            "wards-placed": "Postawione totemy wizji",
+            "wards-destroyed": "Zniszczone totemy wizji",
+            "total-time-crowd-control-dealt": "Całkowity czas nałożenia kontroli tłumu",
+            "total-heal": "Całkowite leczenie",
+            "minions-killed": "Zabite stwory",
+            "neutral-minions-killed": "Zabite neutralne stwory",
+            "enemy-neutral-minions-killed": "Zabite neutralne stwory przeciwnika",
+            "largest-critical-strike": "Największe trafienie krytyczne",
+            "largest-killing-spree": "Największa seria zabójstw",
+            "largest-multikill": "Największe wielobójstwo"
+        }
+    },
+    "team": {
+        "roster": "Skład",
+        "last-matches": "Ostanie mecze",
+        "upcoming-matches": "Nadchodzące mecze"
+    }
+}

@@ -1,5 +1,6 @@
 import { Nav } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 
 function TournamentNav(props: { activeKey: string, gameType: string }) {
 	let history = useHistory();
@@ -8,27 +9,28 @@ function TournamentNav(props: { activeKey: string, gameType: string }) {
 	}
 	const key = props.activeKey;
 	const gameType = props.gameType;
+	const { t } = useTranslation();
 
 	return (
 		<Nav justify variant="tabs" activeKey={key} className="font-weight-bold">
 			<Nav.Item>
-				<Nav.Link eventKey="score-board" onClick={() => redirectToPage("./scoreboard")}>
-					SCOREBOARD
+				<Nav.Link eventKey="scoreboard" onClick={() => redirectToPage("./scoreboard")}>
+					{t("tournament.nav.scoreboard").toUpperCase()}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="matches" onClick={() => redirectToPage("./matches")}>
-					MATCHES
+					{t("tournament.nav.matches").toUpperCase()}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="player-stats" onClick={() => redirectToPage("./playerStats")} disabled={gameType != "lol"}>
-					PLAYER STATS
+					{t("tournament.nav.player-stats").toUpperCase()}
 				</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
 				<Nav.Link eventKey="team-stats" onClick={() => redirectToPage("./teamStats")} disabled={gameType != "lol"}>
-					TEAM STATS
+					{t("tournament.nav.team-stats").toUpperCase()}
 				</Nav.Link>
 			</Nav.Item>
 		</Nav>

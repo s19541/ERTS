@@ -1,12 +1,14 @@
-import { Container, Row, Col, Table, Image } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { TeamPastMatchDto } from "../../../../services/GeneratedClient";
 
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 
 function LastMatches(props: {
     lastMatches: TeamPastMatchDto[] | undefined;
 }) {
     let history = useHistory();
+    const { t } = useTranslation();
     const redirectToPage = (page: string) => {
         history.push(page);
     }
@@ -14,7 +16,7 @@ function LastMatches(props: {
     var lastMatches = props.lastMatches;
     return (
         <Container>
-            <h1>Last Matches</h1>
+            <h1>{t("team.last-matches")}</h1>
             {lastMatches?.map((match, i) => (
                 <Row onClick={() => redirectToPage(`/lol/match/${match.matchId}`)}>
                     <Col md="auto">
