@@ -115,5 +115,9 @@
         "roster": "Roster",
         "last-matches": "Last matches",
         "upcoming-matches": "Upcoming matches"
+    },
+    "languages": {
+        "pl": "Polish",
+        "us": "English"
     }
 }

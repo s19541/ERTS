@@ -33,7 +33,6 @@ const GameNav = (props: { activeKey: string, gameType: string, onHandleEvent: (f
 
         <Navbar variant="dark" bg="dark">
             <Container fluid>
-
                 <Navbar.Brand style={{ width: "100%" }}>
                     <Form>
                         <Col md="auto">

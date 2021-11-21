@@ -115,5 +115,9 @@
         "roster": "Skład",
         "last-matches": "Ostanie mecze",
         "upcoming-matches": "Nadchodzące mecze"
+    },
+    "languages": {
+        "pl": "Polski",
+        "us": "Angielski"
     }
 }
