@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import translationEnglish from './locales/us';
 import translationPolish from './locales/pl';
+import translationItalian from './locales/it';
 
 const resources = {
     us: {
@@ -9,6 +10,9 @@ const resources = {
     },
     pl: {
         translation: translationPolish
+    },
+    it: {
+        translation: translationItalian
     }
 };
 

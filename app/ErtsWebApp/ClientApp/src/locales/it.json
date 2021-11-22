@@ -1,0 +1,124 @@
+{
+    "game-type": {
+        "nav": {
+            "leagues": "Leghe",
+            "teams": "Squadre",
+            "placeholder": "Inserisci frammento di nome"
+        }
+    },
+    "serie": {
+        "serie-name": "Serie",
+        "start-time": "Ora di inizio",
+        "end-time": "Tempo scaduto"
+    },
+    "tournament": {
+        "info": {
+            "tournament-name": "Torneo",
+            "start-time": "Ora di inizio",
+            "end-time": "Tempo scaduto"
+        },
+        "nav": {
+            "scoreboard": "Tabellone segnapunti",
+            "matches": "Partite",
+            "player-stats": "Statistiche del giocatore",
+            "team-stats": "Statistiche della squadra"
+        },
+        "scoreboard": {
+            "team": "Squadre",
+            "matches": "Partite",
+            "games": "Giochi"
+        },
+        "matches": {
+            "start-time": "Ora di inizio",
+            "blue-team": "Squadra blu",
+            "red-team": "Squadra rossa",
+            "result": "Risultato",
+            "mode": "Modalità"
+        },
+        "lol": {
+            "player-stats": {
+                "team": "Squadre",
+                "player": "Giocatore",
+                "champs": "Campioni"
+            },
+            "team-stats": {
+                "team": "Squadre",
+                "gold": "Oro",
+                "dragons": "Draghi",
+                "heralds": "Heraldi",
+                "barons": "Baroni",
+                "towers": "Torri",
+                "champs": "Campioni"
+            }
+        }
+    },
+    "match": {
+        "game": "Gioco",
+        "start-time": "Ora di inizio",
+        "length": "Lunghezza",
+        "blue-team": "Squadra blu",
+        "red-team": "Squadra rossa",
+        "nick": "Nick",
+        "gold": "Oro",
+        "dragons": "Draghi",
+        "items": "Elementi",
+        "bans": "Divieti",
+        "victory": "Vittoria",
+        "defeat": "La sconfitta"
+    },
+    "game": {
+        "info": {
+            "gold": "Oro",
+            "kills": "Uccide",
+            "bans": "Divieti",
+            "dragons": "Draghi",
+            "elders": "Elderi",
+            "barons": "Baroni",
+            "heralds": "Heraldi",
+            "turrets": "Torrette",
+            "inhibitors": "Inhibitori",
+            "first-blood": "Primo sangue",
+            "first-dragon": "Primo drago",
+            "first-baron": "Primo barone",
+            "first-turret": "prima Torretta",
+            "first-inhibitor": "Primo inhibitor"
+        },
+        "players": "Giocatori",
+        "player": {
+            "level": "Livello",
+            "kills": "Uccide",
+            "gold-earned": "Oro guadagnato",
+            "gold-spent": "Oro speso",
+            "damage-dealt": "Danno inflitto",
+            "magic-damage-dealt": "Danni magici inflitti",
+            "physical-damage-dealt": "Physical damage dealt",
+            "true-damage-dealt": "Danni fisici inflitti",
+            "damage-dealt-to-champions": "Danni inflitti ai campioni",
+            "magic-damage-dealt-to-champions": "Danni magici inflitti ai campioni",
+            "physical-damage-dealt-to-champions": "Physical damage dealt to champions",
+            "true-damage-dealt-to-champions": "Danni fisici inflitti ai campioni",
+            "towers-destroyed": "Torri distrutte",
+            "inhibitors-destroyed": "Inibitore distrutto",
+            "wards-placed": "Reparti piazzati",
+            "wards-destroyed": "Reparti distrutti",
+            "total-time-crowd-control-dealt": "Tempo totale di controllo della folla trattato",
+            "total-heal": "Guarigione totale",
+            "minions-killed": "Serventi uccisi",
+            "neutral-minions-killed": "Servi neutrali uccisi",
+            "enemy-neutral-minions-killed": "Minion neutrali nemici uccisi",
+            "largest-critical-strike": "Colpo critico più grande",
+            "largest-killing-spree": "La più grande serie di omicidi",
+            "largest-multikill": "Multikill più grande"
+        }
+    },
+    "team": {
+        "roster": "Elenco",
+        "last-matches": "Ultime partite",
+        "upcoming-matches": "Prossime partite"
+    },
+    "languages": {
+        "pl": "Polacco",
+        "us": "Inglese",
+        "it": "Italiano"
+    }
+}

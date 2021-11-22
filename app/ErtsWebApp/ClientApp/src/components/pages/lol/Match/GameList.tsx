@@ -21,7 +21,7 @@ function GameList(props: {
 				<div className="h1 text-white">
 					<h1 onClick={() => redirectToPage(`/lol/game/${game.id}`)}>{t("match.game")} {i + 1}</h1>
 					<div className="h5 text-white">
-						{t("match.start-time")}: {game.startTime.format("HH:mm DD-MM-YYYY")} Length:{" "}
+						{t("match.start-time")}: {game.startTime.format("HH:mm DD-MM-YYYY")} {t("match.length")} :{" "}
 						{game.gameLength}
 						<br></br>{t("match.blue-team")}{" "}
 						{game.blueTeamStats?.teamId == game.winnerTeamId ? (
@@ -35,7 +35,7 @@ function GameList(props: {
 						{game.redTeamStats?.teamId == game.winnerTeamId ? (
 							<a style={{ color: "#145DA0" }}>{t("match.victory")}</a>
 						) : (
-							<a style={{ color: "red" }}>{t("match.start-defeat")}</a>
+							<a style={{ color: "red" }}>{t("match.defeat")}</a>
 						)}
 						<GameTeamStats teamStats={game.redTeamStats} />
 						<GamePlayerStatsTable playerStatsList={game.redTeamPlayersStats} />

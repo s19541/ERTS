@@ -75,6 +75,14 @@ class Navigation extends React.Component<RouteComponentProps, IState> {
 											height={25} />
 										{" "}{t("languages.pl")}
 									</NavDropdown.Item>
+									<NavDropdown.Item onClick={() => {
+										this.handleLanguageChange("it");
+									}}>
+										<Image src={`/images/flags/IT.png`}
+											width={25}
+											height={25} />
+										{" "}{t("languages.it")}
+									</NavDropdown.Item>
 								</NavDropdown>
 							</Nav>
 						</Navbar.Collapse>
