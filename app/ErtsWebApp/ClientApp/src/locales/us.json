@@ -98,7 +98,7 @@
             "physical-damage-dealt-to-champions": "Physical damage dealt to champions",
             "true-damage-dealt-to-champions": "True damage dealt to champs",
             "towers-destroyed": "Towers destroyed",
-            "inhibitors-destroyed": "Inhibitor destroyed",
+            "inhibitors-destroyed": "Inhibitors destroyed",
             "wards-placed": "Wards placed",
             "wards-destroyed": "Wards destroyed",
             "total-time-crowd-control-dealt": "Total time crowd control dealt",
@@ -119,6 +119,7 @@
     "languages": {
         "pl": "Polish",
         "us": "English",
-        "it": "Italian"
+        "it": "Italian",
+        "cn": "Chinese"
     }
 }

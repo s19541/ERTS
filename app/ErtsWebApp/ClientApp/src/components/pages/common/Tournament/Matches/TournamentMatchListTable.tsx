@@ -14,9 +14,9 @@ function TournamentMatchListTable(props: { matchList: MatchDto[] | null, gameTyp
 				<tr>
 					<th>{t("tournament.matches.start-time")}</th>
 					<th style={{ textAlign: "right" }}>{t("tournament.matches.blue-team")}</th>
-					<th style={{ width: "5vh", textAlign: "center" }}>{t("tournament.matches.result")}</th>
+					<th style={{ textAlign: "center" }}>{t("tournament.matches.result")}</th>
 					<th>{t("tournament.matches.red-team")}</th>
-					<th style={{ width: "5vh", textAlign: "center" }}>{t("tournament.matches.mode")}</th>
+					<th style={{ textAlign: "center" }}>{t("tournament.matches.mode")}</th>
 				</tr>
 			</thead>
 			<tbody>

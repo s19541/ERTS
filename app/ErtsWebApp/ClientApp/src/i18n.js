@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import translationEnglish from './locales/us';
 import translationPolish from './locales/pl';
 import translationItalian from './locales/it';
+import translationChinese from './locales/cn'
 
 const resources = {
     us: {
@@ -13,6 +14,9 @@ const resources = {
     },
     it: {
         translation: translationItalian
+    },
+    cn: {
+        translation: translationChinese
     }
 };
 

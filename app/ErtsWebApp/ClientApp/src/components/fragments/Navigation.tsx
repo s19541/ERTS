@@ -48,7 +48,7 @@ class Navigation extends React.Component<RouteComponentProps, IState> {
 							/>{" "}
 						</Navbar.Brand>
 						<Navbar.Collapse id="navbar-dark-example" className="justify-content-end">
-							<Nav>
+							<Nav activeKey={this.state.language}>
 								<NavDropdown
 									id="nav-dropdown"
 									title={
@@ -59,29 +59,45 @@ class Navigation extends React.Component<RouteComponentProps, IState> {
 									align="end"
 									menuVariant="dark"
 								>
-									<NavDropdown.Item onClick={() => {
-										this.handleLanguageChange("us");
-									}}>
+									<NavDropdown.Item
+										eventKey="us"
+										onClick={() => {
+											this.handleLanguageChange("us");
+										}}>
 										<Image src={`/images/flags/US.png`}
 											width={25}
 											height={25} />
 										{" "}{t("languages.us")}
 									</NavDropdown.Item>
-									<NavDropdown.Item onClick={() => {
-										this.handleLanguageChange("pl");
-									}}>
+									<NavDropdown.Item
+										eventKey="pl"
+										onClick={() => {
+											this.handleLanguageChange("pl");
+										}}>
 										<Image src={`/images/flags/PL.png`}
 											width={25}
 											height={25} />
 										{" "}{t("languages.pl")}
 									</NavDropdown.Item>
-									<NavDropdown.Item onClick={() => {
-										this.handleLanguageChange("it");
-									}}>
+									<NavDropdown.Item
+										eventKey="it"
+										onClick={() => {
+											this.handleLanguageChange("it");
+										}}>
 										<Image src={`/images/flags/IT.png`}
 											width={25}
 											height={25} />
 										{" "}{t("languages.it")}
+									</NavDropdown.Item>
+									<NavDropdown.Item
+										eventKey="cn"
+										onClick={() => {
+											this.handleLanguageChange("cn");
+										}}>
+										<Image src={`/images/flags/CN.png`}
+											width={25}
+											height={25} />
+										{" "}{t("languages.cn")}
 									</NavDropdown.Item>
 								</NavDropdown>
 							</Nav>

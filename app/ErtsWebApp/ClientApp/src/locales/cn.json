@@ -1,0 +1,125 @@
+{
+    "game-type": {
+        "nav": {
+            "leagues": "联赛",
+            "teams": "团队",
+            "placeholder": "输入名称片段"
+        }
+    },
+    "serie": {
+        "serie-name": "系列",
+        "start-time": "开始时间",
+        "end-time": "时间结束"
+    },
+    "tournament": {
+        "info": {
+            "tournament-name": "比赛",
+            "start-time": "开始时间",
+            "end-time": "时间结束"
+        },
+        "nav": {
+            "scoreboard": "记分牌",
+            "matches": "火柴",
+            "player-stats": "球员数据",
+            "team-stats": "球队数据"
+        },
+        "scoreboard": {
+            "team": "团队",
+            "matches": "火柴",
+            "games": "游戏"
+        },
+        "matches": {
+            "start-time": "开始时间",
+            "blue-team": "蓝队",
+            "red-team": "红队",
+            "result": "结果",
+            "mode": "模式"
+        },
+        "lol": {
+            "player-stats": {
+                "team": "团队",
+                "player": "播放器",
+                "champs": "冠军"
+            },
+            "team-stats": {
+                "team": "团队",
+                "gold": "金子",
+                "dragons": "龙",
+                "heralds": "先驱报",
+                "barons": "男爵",
+                "towers": "塔",
+                "champs": "冠军"
+            }
+        }
+    },
+    "match": {
+        "game": "游戏",
+        "start-time": "开始时间",
+        "length": "长度",
+        "blue-team": "蓝队",
+        "red-team": "红队",
+        "nick": "缺口",
+        "gold": "金子",
+        "dragons": "龙",
+        "items": "项目",
+        "bans": "禁令",
+        "victory": "胜利",
+        "defeat": "打败"
+    },
+    "game": {
+        "info": {
+            "gold": "金子",
+            "kills": "击杀",
+            "bans": "禁令",
+            "dragons": "龙",
+            "elders": "长老",
+            "barons": "男爵",
+            "heralds": "先驱报",
+            "turrets": "炮塔",
+            "inhibitors": "抑制剂",
+            "first-blood": "第一滴血",
+            "first-dragon": "第一龙",
+            "first-baron": "第一男爵",
+            "first-turret": "第一炮塔",
+            "first-inhibitor": "第一抑制剂"
+        },
+        "players": "球员",
+        "player": {
+            "level": "等级",
+            "kills": "击杀",
+            "gold-earned": "获得的金币",
+            "gold-spent": "金花",
+            "damage-dealt": "造成的伤害",
+            "magic-damage-dealt": "造成的魔法伤害",
+            "physical-damage-dealt": "造成的物理伤害",
+            "true-damage-dealt": "造成的真实伤害",
+            "damage-dealt-to-champions": "对英雄造成的伤害",
+            "magic-damage-dealt-to-champions": "对英雄造成的魔法伤害",
+            "physical-damage-dealt-to-champions": "对英雄造成物理伤害",
+            "true-damage-dealt-to-champions": "对英雄造成的真实伤害",
+            "towers-destroyed": "塔被毁",
+            "inhibitors-destroyed": "抑制剂被破坏",
+            "wards-placed": "放置的病房",
+            "wards-destroyed": "病房被摧毁",
+            "total-time-crowd-control-dealt": "处理人群控制的总时间",
+            "total-heal": "完全治愈",
+            "minions-killed": "小兵被杀",
+            "neutral-minions-killed": "中立小兵被杀",
+            "enemy-neutral-minions-killed": "敌方中立随从被杀死",
+            "largest-critical-strike": "最大的暴击",
+            "largest-killing-spree": "最大规模的杀戮",
+            "largest-multikill": "最大的多杀"
+        }
+    },
+    "team": {
+        "roster": "名册",
+        "last-matches": "最后一场比赛",
+        "upcoming-matches": "即将到来的比赛"
+    },
+    "languages": {
+        "pl": "抛光",
+        "us": "英语",
+        "it": "意大利语",
+        "cn": "中国人"
+    }
+}
