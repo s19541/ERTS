@@ -14,11 +14,13 @@ interface IProps { }
 
 interface IPassedProps {
 	matchId: string;
+	gameType: string;
 }
 
 interface IState {
 	matchId: number;
 	match: MatchDto | null;
+	gameType: string
 }
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
@@ -30,6 +32,7 @@ class MatchStats extends React.Component<IJoinedProps, IState> {
 		this.state = {
 			matchId: Number(props.match.params.matchId),
 			match: null,
+			gameType: props.match.params.gameType
 		};
 	}
 
@@ -54,7 +57,7 @@ class MatchStats extends React.Component<IJoinedProps, IState> {
 					paddingTop: "5vh",
 				}}
 			>
-				<MatchInfo match={this.state.match} />
+				<MatchInfo match={this.state.match} gameType={this.state.gameType} />
 				<GameList gameList={this.state.match?.games} />
 			</Container>
 		);

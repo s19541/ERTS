@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 
 type IProps = RouteComponentProps;
@@ -14,7 +14,7 @@ class Home extends React.Component<IProps> {
 			<Container style={{ margin: "20vh" }} fluid>
 				<Row className="align-items-center">
 					<Col md="auto">
-						<img
+						<Image
 							onClick={() => this.redirectToPage("valorant/leagues")}
 							src="/images/valorant-icon.png"
 							width={200}
@@ -23,7 +23,7 @@ class Home extends React.Component<IProps> {
 						/>
 					</Col>
 					<Col md="auto">
-						<img
+						<Image
 							onClick={() => this.redirectToPage("dota2/leagues")}
 							src="/images/dota2-icon.png"
 							width={325}
@@ -32,7 +32,7 @@ class Home extends React.Component<IProps> {
 						/>
 					</Col>
 					<Col md="auto">
-						<img
+						<Image
 							onClick={() => this.redirectToPage("lol/leagues")}
 							src="/images/lol-icon.png"
 							width={400}
@@ -41,7 +41,7 @@ class Home extends React.Component<IProps> {
 						/>
 					</Col>
 					<Col md="auto">
-						<img
+						<Image
 							onClick={() => this.redirectToPage("csgo/leagues")}
 							src="/images/csgo-icon.png"
 							width={300}
@@ -50,7 +50,7 @@ class Home extends React.Component<IProps> {
 						/>
 					</Col>
 					<Col md="auto">
-						<img
+						<Image
 							onClick={() => this.redirectToPage("overwatch/leagues")}
 							src="/images/overwatch-icon.png"
 							width={200}

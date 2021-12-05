@@ -58,23 +58,5 @@ namespace ErtsApiFetcher.Fetchers {
             return lolSpells;
         }
 
-        /*
-        public IEnumerable<ErtsModel.Entities.Match> FetchMatchesFromTournament(int tournamentId) {
-            var query = new MatchQueryOptions();
-            query.TournamentId.Filter(tournamentId);
-            var results = provider.FetchAndCatch(lolService => lolService.GetMatches(query));
-
-            var matches = new List<ErtsModel.Entities.Match>();
-
-            foreach (var result in results) {
-                matches.Add(new ErtsModel.Entities.Match() {
-                    Id = result.Id,
-                    StreamUrl = result.LiveUrl
-                });
-            }
-
-            return matches;
-        }*/
-
     }
 }

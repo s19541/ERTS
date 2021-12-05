@@ -1,21 +1,30 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { MatchDto } from "../../../../services/GeneratedClient";
+import { useHistory } from "react-router";
 
-function MatchInfo(props: { match: MatchDto | null }) {
+function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
 	var match = props.match;
+	var gameType = props.gameType;
+
+	let history = useHistory();
+	const redirectToPage = (page: string) => {
+		history.push(page);
+	}
+
 	return (
-		<Container>
+		<Container className="text-white">
 			<Row className="align-items-center">
 				<Col style={{ textAlign: "right" }}>
-					<img
+					<Image
 						src={match?.team1ImageUrl}
 						className=""
 						width={100}
 						height={100}
+						onClick={() => redirectToPage(`/${gameType}/team/${match?.team1Id}`)}
 					/>
 				</Col>
 				<Col style={{ textAlign: "left" }}>
-					<div className="h4 text-white">{match?.team1Name}</div>
+					<h4>{match?.team1Name}</h4>
 				</Col>
 				<Col
 					style={{
@@ -23,27 +32,28 @@ function MatchInfo(props: { match: MatchDto | null }) {
 						textAlign: "center",
 					}}
 				>
-					<div className="h1 text-white">
+					<h1>
 						{match?.team1GamesWon}:{match?.team2GamesWon}
-					</div>
+					</h1>
 				</Col>
 				<Col style={{ textAlign: "right" }}>
 					<div className="h4 text-white">{match?.team2Name}</div>
 				</Col>
 				<Col style={{ textAlign: "left" }}>
-					<img
+					<Image
 						src={match?.team2ImageUrl}
 						className=""
 						width={100}
 						height={100}
+						onClick={() => redirectToPage(`/${gameType}/team/${match?.team2Id}`)}
 					/>
 				</Col>
 			</Row>
 			<Row>
 				<Col style={{ textAlign: "center" }}>
-					<div className="h4 text-white">
+					<h4>
 						{match?.startTime?.format("HH:mm DD-MM-YYYY")}
-					</div>
+					</h4>
 				</Col>
 			</Row>
 			<Row>

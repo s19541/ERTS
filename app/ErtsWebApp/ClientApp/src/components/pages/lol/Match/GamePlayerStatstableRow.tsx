@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Image } from "react-bootstrap";
 import { LolGamePlayerShortStatsDto } from "../../../../services/GeneratedClient";
 
 function GamePlayerStatsTableRow(props: {
@@ -16,7 +16,7 @@ function GamePlayerStatsTableRow(props: {
 			>
 				<Row>
 					<Col md="5" style={{ textAlign: "right" }}>
-						<img
+						<Image
 							src={playerStats?.championImageUrl}
 							className=""
 							width={60}
@@ -26,7 +26,7 @@ function GamePlayerStatsTableRow(props: {
 					<Col md="auto" style={{ textAlign: "center" }}>
 						<Row>
 							<Col md="auto" style={{ textAlign: "center" }}>
-								<img
+								<Image
 									src={playerStats?.spell1ImageUrl}
 									className=""
 									width={29}
@@ -40,7 +40,7 @@ function GamePlayerStatsTableRow(props: {
 								md="auto"
 								style={{ textAlign: "center", verticalAlign: "middle" }}
 							>
-								<img
+								<Image
 									src={playerStats?.spell2ImageUrl}
 									className=""
 									width={29}
@@ -91,7 +91,7 @@ function GamePlayerStatsTableRow(props: {
 				}}
 			>
 				{playerStats.itemImages?.map((itemImage, i) => (
-					<img src={itemImage} className="" width={35} height={35} />
+					<Image src={itemImage} className="" width={35} height={35} />
 				))}
 			</td>
 		</tr>

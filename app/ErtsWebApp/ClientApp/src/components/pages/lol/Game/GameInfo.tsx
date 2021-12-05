@@ -1,21 +1,30 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { LolGameFullStatsDto } from "../../../../services/GeneratedClient";
+import { useHistory } from "react-router";
 
-function MatchInfo(props: { game: LolGameFullStatsDto | null }) {
+function MatchInfo(props: { game: LolGameFullStatsDto | null, gameType: string }) {
     var game = props.game;
+    var gameType = props.gameType;
+
+    let history = useHistory();
+    const redirectToPage = (page: string) => {
+        history.push(page);
+    }
+
     return (
-        <Container>
+        <Container className="h4 text-white">
             <Row className="align-items-center">
                 <Col style={{ textAlign: "right" }}>
-                    <img
+                    <Image
                         src={game?.blueTeamStats?.teamImageUrl}
                         className=""
                         width={100}
                         height={100}
+                        onClick={() => redirectToPage(`/${gameType}/team/${game?.blueTeamStats?.teamId}`)}
                     />
                 </Col>
                 <Col style={{ textAlign: "left" }}>
-                    <div className="h4 text-white">{game?.blueTeamStats?.teamName}</div>
+                    {game?.blueTeamStats?.teamName}
                 </Col>
                 <Col
                     style={{
@@ -23,34 +32,31 @@ function MatchInfo(props: { game: LolGameFullStatsDto | null }) {
                         textAlign: "center",
                     }}
                 >
-                    <div className="h1 text-white">
+                    <h1>
                         {game?.winnerTeamId == game?.blueTeamStats?.teamId ? 1 : 0}:{game?.winnerTeamId == game?.redTeamStats?.teamId ? 1 : 0}
-                    </div>
+                    </h1>
                 </Col>
                 <Col style={{ textAlign: "right" }}>
-                    <div className="h4 text-white">{game?.redTeamStats?.teamName}</div>
+                    {game?.redTeamStats?.teamName}
                 </Col>
                 <Col style={{ textAlign: "left" }}>
-                    <img
+                    <Image
                         src={game?.redTeamStats?.teamImageUrl}
                         className=""
                         width={100}
                         height={100}
+                        onClick={() => redirectToPage(`/${gameType}/team/${game?.redTeamStats?.teamId}`)}
                     />
                 </Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "center" }}>
-                    <div className="h4 text-white">
-                        {game?.gameLength}
-                    </div>
+                    {game?.gameLength}
                 </Col>
             </Row>
             <Row>
                 <Col style={{ textAlign: "center" }}>
-                    <div className="h4 text-white">
-                        {game?.startTime?.format("HH:mm DD-MM-YYYY")}
-                    </div>
+                    {game?.startTime?.format("HH:mm DD-MM-YYYY")}
                 </Col>
             </Row>
         </Container>

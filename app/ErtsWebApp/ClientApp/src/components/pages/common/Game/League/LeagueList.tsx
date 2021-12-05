@@ -12,13 +12,7 @@ import LeagueListItem from "./LeagueListItem";
 import { RouteComponentProps } from "react-router-dom";
 import GameNav from "../GameNav";
 
-interface IProps { }
-
-interface IPassedProps {
-	gameType: string;
-}
-
-type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
+type IJoinedProps = RouteComponentProps<{ gameType?: string }>;
 
 interface IState {
 	leagues: LeagueImageDto[] | null;
@@ -32,19 +26,29 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 
 		this.state = {
 			leagues: null,
-			gameType: props.match.params.gameType,
+			gameType: props.match.params.gameType ?? "lol",
 			key: "leagues"
 		};
 	}
 
-	componentDidMount() {
-		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
-		this.getLeagueImages(fragment);
+	public onGameChanged() {
+		const gameType = this.props.match.params.gameType!;
+		if (this.state.gameType == gameType)
+			return;
+		this.setState({
+			gameType
+		})
+		this.getLeagueImages(gameType);
 	}
 
-	getLeagueImages(fragment: string) {
+	componentDidMount() {
+		this.getLeagueImages(this.state.gameType);
+	}
+
+	getLeagueImages(gameType: string) {
+		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
 		let actionParameters: IActionParameters<LeagueImageDto[] | null> = {
-			action: () => new LeagueClient().getLeagueImages(this.state.gameType, fragment.toLowerCase()),
+			action: () => new LeagueClient().getLeagueImages(gameType, fragment.toLowerCase()),
 			onSuccess: (response) => {
 				this.setState({
 					leagues: response
@@ -58,7 +62,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "6vh", paddingLeft: "6vh" }}>
-					<GameNav activeKey={"leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(fragment)} />
+					<GameNav activeKey={"leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(this.state.gameType)} />
 
 					<CardGroup>
 						{this.state.leagues.map((league, i) => (

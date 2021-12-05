@@ -15,11 +15,13 @@ interface IProps { }
 
 interface IPassedProps {
     gameId: string;
+    gameType: string
 }
 
 interface IState {
     gameId: number;
     game: LolGameFullStatsDto | null;
+    gameType: string;
 }
 
 type IJoinedProps = IProps & RouteComponentProps<IPassedProps>;
@@ -31,6 +33,7 @@ class GameStats extends React.Component<IJoinedProps, IState> {
         this.state = {
             gameId: Number(props.match.params.gameId),
             game: null,
+            gameType: props.match.params.gameType
         };
     }
 
@@ -55,7 +58,7 @@ class GameStats extends React.Component<IJoinedProps, IState> {
                     paddingTop: "5vh",
                 }}
             >
-                <GameInfo game={this.state.game} />
+                <GameInfo game={this.state.game} gameType={this.state.gameType} />
 
                 <GameTeamFullStats blueTeamStats={this.state.game?.blueTeamStats} redTeamStats={this.state.game?.redTeamStats} />
 

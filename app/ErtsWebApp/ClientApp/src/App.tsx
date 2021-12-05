@@ -41,7 +41,7 @@ const App: React.FunctionComponent = () => {
 				<Route
 					exact
 					path={Resources.pageAdresses.gameLeagues}
-					component={LeagueList}
+					render={(props) => <LeagueList {...props} ref={r => r?.onGameChanged()} />}
 				/>
 				<Route
 					exact

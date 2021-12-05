@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
 function GameTeamExcludingStats(props: { name: string, blueTeamBoolean: boolean | undefined, redTeamBoolean: boolean | undefined }) {
     var name = props.name;
     var blueTeamBoolean = props.blueTeamBoolean;
@@ -8,14 +8,14 @@ function GameTeamExcludingStats(props: { name: string, blueTeamBoolean: boolean 
             <Col style={{ textAlign: "right" }}>
                 <h4>
                     {blueTeamBoolean ?
-                        <img
+                        <Image
                             src="/images/accept.png"
                             width={29}
                             height={29}
                             alt="cloudDrake"
                         />
                         :
-                        <img
+                        <Image
                             src="/images/xmark.png"
                             width={29}
                             height={29}
@@ -27,14 +27,14 @@ function GameTeamExcludingStats(props: { name: string, blueTeamBoolean: boolean 
             <Col style={{ textAlign: "left" }}>
                 <h4>
                     {redTeamBoolean ?
-                        <img
+                        <Image
                             src="/images/accept.png"
                             width={29}
                             height={29}
                             alt="true"
                         />
                         :
-                        <img
+                        <Image
                             src="/images/xmark.png"
                             width={29}
                             height={29}

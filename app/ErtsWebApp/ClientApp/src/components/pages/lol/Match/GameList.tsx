@@ -18,9 +18,9 @@ function GameList(props: {
 	return (
 		<Container>
 			{gameList?.map((game, i) => (
-				<div className="h1 text-white">
+				<Container className="h1 text-white">
 					<h1 onClick={() => redirectToPage(`/lol/game/${game.id}`)}>{t("match.game")} {i + 1}</h1>
-					<div className="h5 text-white">
+					<h5>
 						{t("match.start-time")}: {game.startTime.format("HH:mm DD-MM-YYYY")} {t("match.length")} :{" "}
 						{game.gameLength}
 						<br></br>{t("match.blue-team")}{" "}
@@ -39,8 +39,8 @@ function GameList(props: {
 						)}
 						<GameTeamStats teamStats={game.redTeamStats} />
 						<GamePlayerStatsTable playerStatsList={game.redTeamPlayersStats} />
-					</div>
-				</div>
+					</h5>
+				</Container>
 			))}
 		</Container>
 	);

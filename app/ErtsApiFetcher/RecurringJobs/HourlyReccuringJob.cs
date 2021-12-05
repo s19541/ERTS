@@ -1,23 +1,24 @@
 ﻿using ErtsApiFetcher._Infrastructure.RecurringJobs;
+using ErtsApiFetcher.Configurations;
 using ErtsApiFetcher.Fetchers;
 using ErtsModel;
 using Hangfire;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(RarelyChangedDataRecurringJob), nameof(RarelyChangedDataRecurringJob), ErtsCron.Never)]
-    public class RarelyChangedDataRecurringJob : IRecurringJob {
+    [RecurringJobInfo(typeof(HourlyRecurringJob), nameof(HourlyRecurringJob), ErtsCron.Hourly)]
+    public class HourlyRecurringJob : IRecurringJob {
         private readonly CsgoDataFetcher csgoDataFetcher;
         private readonly LolDataFetcher lolDataFetcher;
         private readonly ValorantDataFetcher valorantDataFetcher;
         private readonly OwDataFetcher owDataFetcher;
         private readonly Dota2DataFetcher dota2DataFetcher;
         private readonly ErtsContext context;
-        public RarelyChangedDataRecurringJob(ErtsContext context) {
+        public HourlyRecurringJob(ErtsContext context, AppConfig appConfig) {
             this.context = context;
-            var token = "YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM";
-            csgoDataFetcher = new CsgoDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
-            lolDataFetcher = new LolDataFetcher("YCqH-LZuSLFrILAk1bDq2KlXdG85FuTlE4grbo-eqyqZcRVflcM", context);
+            var token = appConfig.PandaScoreApiToken;
+            csgoDataFetcher = new CsgoDataFetcher(token, context);
+            lolDataFetcher = new LolDataFetcher(token, context);
             valorantDataFetcher = new ValorantDataFetcher(token, context);
             owDataFetcher = new OwDataFetcher(token, context);
             dota2DataFetcher = new Dota2DataFetcher(token, context);
@@ -123,4 +124,3 @@ namespace ErtsApiFetcher.RecurringJobs {
         }
     }
 }
-

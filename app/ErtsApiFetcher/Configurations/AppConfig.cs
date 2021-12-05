@@ -1,13 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ErtsApiFetcher.Configurations
-{
-    public class AppConfig
-    {
+namespace ErtsApiFetcher.Configurations {
+    public class AppConfig {
         private readonly IConfiguration configuration;
 
-        public AppConfig(IConfiguration configuration)
-        {
+        public AppConfig(IConfiguration configuration) {
             this.configuration = configuration;
         }
 
@@ -15,5 +12,7 @@ namespace ErtsApiFetcher.Configurations
         public string ErtsDbConnectionString => configuration.GetConnectionString(nameof(ErtsDbConnectionString));
 
         public string ErtsHangfireSchemaName => configuration.GetSection("Hangfire")[nameof(ErtsHangfireSchemaName)];
+
+        public string PandaScoreApiToken => configuration.GetSection("PandaScore")[nameof(PandaScoreApiToken)];
     }
 }

@@ -9,5 +9,8 @@
         public const string Never = "0 0 5 31 2 ?";
 
         public const string Daily = "0 8 * * *";
+
+        public const string Hourly = "5 * * * *";
+
     }
 }

@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { LolGameTeamFullStatsDto } from "../../../../services/GeneratedClient";
 import GameTeamExcludingStats from "./GameTeamExcludingStats";
 import { useTranslation } from "react-i18next";
@@ -23,31 +23,31 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
             <Row>
                 <Col style={{ textAlign: "right" }}>
                     <h4>
-                        <img
+                        <Image
                             src={blueTeamStats?.ban1ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={blueTeamStats?.ban2ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={blueTeamStats?.ban3ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={blueTeamStats?.ban4ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={blueTeamStats?.ban5ImageUrl}
                             className=""
                             width={29}
@@ -58,31 +58,31 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                 <Col style={{ textAlign: "center" }}><h4>{t("game.info.bans")}</h4></Col>
                 <Col style={{ textAlign: "left" }}>
                     <h4>
-                        <img
+                        <Image
                             src={redTeamStats?.ban1ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={redTeamStats?.ban2ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={redTeamStats?.ban3ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={redTeamStats?.ban4ImageUrl}
                             className=""
                             width={29}
                             height={29}
                         />
-                        <img
+                        <Image
                             src={redTeamStats?.ban5ImageUrl}
                             className=""
                             width={29}
@@ -95,7 +95,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                 <Col style={{ textAlign: "right" }}>
                     <h4>
                         {[...Array(blueTeamStats?.oceanDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/ocean-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -103,7 +103,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(blueTeamStats?.infernalDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/infernal-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -111,7 +111,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(blueTeamStats?.mountainDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/mountain-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -119,7 +119,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(blueTeamStats?.cloudDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/cloud-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -134,7 +134,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                     <h4>
                         {redTeamStats != null ? redTeamStats.infernalDrakeKilled + redTeamStats.oceanDrakeKilled + redTeamStats.mountainDrakeKilled + redTeamStats.cloudDrakeKilled : 0}
                         {[...Array(redTeamStats?.oceanDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/ocean-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -142,7 +142,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(redTeamStats?.infernalDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/infernal-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -150,7 +150,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(redTeamStats?.mountainDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/mountain-drake-icon.png"
                                 width={29}
                                 height={29}
@@ -158,7 +158,7 @@ function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | und
                             />
                         ))}
                         {[...Array(redTeamStats?.cloudDrakeKilled)].map((x, i) => (
-                            <img
+                            <Image
                                 src="/images/lol/cloud-drake-icon.png"
                                 width={29}
                                 height={29}

@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { LolGameTeamShortStatsDto } from "../../../../services/GeneratedClient";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +13,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 				<Col md="auto">
 					{t("match.dragons")}:
 					{[...Array(teamStats?.oceanDrakeKilled)].map((x, i) => (
-						<img
+						<Image
 							src="/images/lol/ocean-drake-icon.png"
 							width={29}
 							height={29}
@@ -21,7 +21,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 						/>
 					))}
 					{[...Array(teamStats?.infernalDrakeKilled)].map((x, i) => (
-						<img
+						<Image
 							src="/images/lol/infernal-drake-icon.png"
 							width={29}
 							height={29}
@@ -29,7 +29,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 						/>
 					))}
 					{[...Array(teamStats?.mountainDrakeKilled)].map((x, i) => (
-						<img
+						<Image
 							src="/images/lol/mountain-drake-icon.png"
 							width={29}
 							height={29}
@@ -37,7 +37,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 						/>
 					))}
 					{[...Array(teamStats?.cloudDrakeKilled)].map((x, i) => (
-						<img
+						<Image
 							src="/images/lol/cloud-drake-icon.png"
 							width={29}
 							height={29}
@@ -46,7 +46,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					))}
 				</Col>
 				<Col>
-					<img
+					<Image
 						src="/images/lol/elder-drake-icon.png"
 						width={29}
 						height={29}
@@ -55,7 +55,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					:{teamStats?.elderDrakeKilled}
 				</Col>
 				<Col>
-					<img
+					<Image
 						src="/images/lol/herald-icon.png"
 						width={29}
 						height={29}
@@ -64,7 +64,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					:{teamStats?.heraldKilled}
 				</Col>
 				<Col>
-					<img
+					<Image
 						src="/images/lol/baron-icon.png"
 						width={29}
 						height={29}
@@ -73,7 +73,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					:{teamStats?.baronKilled}
 				</Col>
 				<Col>
-					<img
+					<Image
 						src="/images/lol/tower-icon.png"
 						width={29}
 						height={29}
@@ -82,7 +82,7 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 					:{teamStats?.turretDestroyed}
 				</Col>
 				<Col>
-					<img
+					<Image
 						src="/images/lol/inhibitor-icon.png"
 						width={29}
 						height={29}
@@ -92,31 +92,31 @@ function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined 
 				</Col>
 				<Col md="auto">
 					{t("match.bans")}:
-					<img
+					<Image
 						src={teamStats?.ban1ImageUrl}
 						className=""
 						width={29}
 						height={29}
 					/>
-					<img
+					<Image
 						src={teamStats?.ban2ImageUrl}
 						className=""
 						width={29}
 						height={29}
 					/>
-					<img
+					<Image
 						src={teamStats?.ban3ImageUrl}
 						className=""
 						width={29}
 						height={29}
 					/>
-					<img
+					<Image
 						src={teamStats?.ban4ImageUrl}
 						className=""
 						width={29}
 						height={29}
 					/>
-					<img
+					<Image
 						src={teamStats?.ban5ImageUrl}
 						className=""
 						width={29}

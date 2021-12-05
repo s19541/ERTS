@@ -1,5 +1,6 @@
 import { LolTournamentTeamStatsDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
+import { Image } from "react-bootstrap"
 
 function LolTournamentTeamStatsListTableRow(props: {
     teamStats: LolTournamentTeamStatsDto;
@@ -19,7 +20,7 @@ function LolTournamentTeamStatsListTableRow(props: {
                     verticalAlign: "middle",
                 }}
             >
-                <img
+                <Image
                     src={teamStats.teamImageUrl}
                     className=""
                     width={35}
@@ -96,31 +97,31 @@ function LolTournamentTeamStatsListTableRow(props: {
                     textAlign: "center",
                 }}
             >
-                <img
+                <Image
                     src={teamStats.firstRecentChampionImageUrl}
                     className=""
                     width={35}
                     height={35}
                 />
-                <img
+                <Image
                     src={teamStats.secondRecentChampionImageUrl}
                     className=""
                     width={35}
                     height={35}
                 />
-                <img
+                <Image
                     src={teamStats.thirdRecentChampionImageUrl}
                     className=""
                     width={35}
                     height={35}
                 />
-                <img
+                <Image
                     src={teamStats.fourthRecentChampionImageUrl}
                     className=""
                     width={35}
                     height={35}
                 />
-                <img
+                <Image
                     src={teamStats.fivethRecentChampionImageUrl}
                     className=""
                     width={35}

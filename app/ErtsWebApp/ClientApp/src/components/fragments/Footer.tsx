@@ -2,9 +2,14 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-class Footer extends React.Component<RouteComponentProps> {
-	private redirectToPage(page: string) {
+interface IProps {
+	//onGameChanged: (gameType: string) => void;
+}
+
+class Footer extends React.Component<IProps & RouteComponentProps> {
+	private redirectToPage(gameType: string, page: string) {
 		this.props.history.push(page);
+		//this.props.onGameChanged(gameType)
 	}
 	render() {
 		return (
@@ -12,7 +17,7 @@ class Footer extends React.Component<RouteComponentProps> {
 				<Navbar bg="dark" variant="dark" fixed="bottom">
 					<Navbar.Brand style={{ marginLeft: 10 }}
 						onClick={() =>
-							this.redirectToPage("/csgo/leagues")
+							this.redirectToPage("csgo", "/csgo/leagues")
 						}>
 						<img
 							alt=""
@@ -24,7 +29,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/lol/leagues")
+							this.redirectToPage("lol", "/lol/leagues")
 						}>
 						<img
 							alt=""
@@ -36,7 +41,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/dota2/leagues")
+							this.redirectToPage("dota2", "/dota2/leagues")
 						}
 					>
 						<img
@@ -49,7 +54,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/overwatch/leagues")
+							this.redirectToPage("overwatch", "/overwatch/leagues")
 						}
 					>
 						<img
@@ -62,7 +67,7 @@ class Footer extends React.Component<RouteComponentProps> {
 					</Navbar.Brand>
 					<Navbar.Brand
 						onClick={() =>
-							this.redirectToPage("/valorant/leagues")
+							this.redirectToPage("valorant", "/valorant/leagues")
 						}
 					>
 						<img

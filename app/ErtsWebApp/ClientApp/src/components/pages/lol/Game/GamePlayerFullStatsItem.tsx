@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient";
 import { useTranslation } from "react-i18next";
 

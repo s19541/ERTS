@@ -15,7 +15,7 @@ function LastMatches(props: {
     const { t } = useTranslation();
 
     return (
-        <Container style={{ textAlign: "right" }}>
+        <Container>
             <h1>{t("team.upcoming-matches")}</h1>
             {upcomingMatches?.map((match, i) => (
                 <Row onClick={() => redirectToPage(`/lol/match/${match.matchId}`)} >
