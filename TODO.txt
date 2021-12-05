@@ -1,4 +1,0 @@
-1. Zmienić controler tournament players by pobieral dane z modelu tournament players 
-2. Uporządkować strukture plików we frontendzie
-3. Zrobić statystyki danego meczu
-4. Zrobić statystyki drużyny na turnieju
