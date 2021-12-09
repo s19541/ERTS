@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace ErtsWebApp {
     public class Startup {
@@ -81,14 +82,14 @@ namespace ErtsWebApp {
         private void InitializeDb(string connectionString) {
             try {
                 using (var context = new ErtsContext(connectionString)) {
-                    //  if (context.Database.GetPendingMigrations()?.Any() == true)
-                    //   {
-                    context.Database.Migrate();
+                    if (context.Database.GetPendingMigrations()?.Any() == true) {
+                        context.Database.Migrate();
+                        context.SaveChanges();
+                    }
                     //   }
                     //  else
                     // {
                     //    new ErtsFakeSeeder().SeedFakeData(context);
-                    context.SaveChanges();
                     // }
                 }
             } catch (Exception ex) {

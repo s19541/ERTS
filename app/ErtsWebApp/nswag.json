@@ -92,7 +92,7 @@
       "useLeafType": false,
       "classTypes": [],
       "extendedClasses": [],
-      "extensionCode": "api-client.extensions.ts",
+      "extensionCode": "api-client.extensions.ext",
       "generateDefaultValues": false,
       "excludedTypeNames": [],
       "excludedParameterNames": [],

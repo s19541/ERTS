@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  ertsapifetcher:
+    container_name: ertsapifetcher
+    hostname: ertsapifetcher
+    image: ${DOCKER_REGISTRY-}ertsapifetcher
+    build:
+      context: .
+      dockerfile: ErtsApiFetcher/Dockerfile
+    depends_on:
+    - ertsdb
+
+  ertswebapp:
+    container_name: ertswebapp
+    hostname: ertswebapp
+    image: ${DOCKER_REGISTRY-}ertswebapp
+    build:
+      context: .
+      dockerfile: ErtsWebApp/Dockerfile
+    depends_on:
+    - ertsdb
+
+  ertsdb:
+    container_name: ertsdb
+    hostname: ertsdb
+    image: postgres:13.4
+    command: postgres -c 'max_connections=500'
+    environment:
+        POSTGRES_DB: pgdb
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+    restart: always
+    ports:
+        - 5433:5432/tcp
