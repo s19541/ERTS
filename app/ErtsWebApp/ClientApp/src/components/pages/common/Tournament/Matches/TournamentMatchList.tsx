@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../../css/myStyle.css";
-import { MatchClient, MatchDto } from "../../../../../services/GeneratedClient";
+import { MatchClient, MatchDto, MatchShortDto } from "../../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,
@@ -20,7 +20,7 @@ interface IPassedProps {
 interface IState {
 	gameType: string;
 	tournamentId: number;
-	matchList: MatchDto[] | null;
+	matchList: MatchShortDto[] | null;
 	key: string;
 }
 
@@ -39,7 +39,7 @@ class TournamentMatchList extends React.Component<IJoinedProps, IState> {
 	}
 
 	componentDidMount() {
-		let actionParameters: IActionParameters<MatchDto[] | null> = {
+		let actionParameters: IActionParameters<MatchShortDto[] | null> = {
 			action: () => new MatchClient().getMatches(this.state.tournamentId),
 			onSuccess: (response) => {
 				this.setState({

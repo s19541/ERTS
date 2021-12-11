@@ -35,7 +35,7 @@ namespace ErtsApiFetcher.Fetchers {
                 lolItems.Add(new LolItem() {
                     Name = result.Name,
                     ImageUrl = result.ImageUrl,
-                    IsTrinket = result.IsTrinket == null ? false : result.IsTrinket
+                    IsTrinket = result.IsTrinket == null ? false : result.IsTrinket.Value
                 });
             }
 

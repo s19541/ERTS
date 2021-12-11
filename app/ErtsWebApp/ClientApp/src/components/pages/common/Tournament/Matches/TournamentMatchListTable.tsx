@@ -1,9 +1,9 @@
 import { Table } from "react-bootstrap";
-import { MatchDto } from "../../../../../services/GeneratedClient";
+import { MatchDto, MatchShortDto } from "../../../../../services/GeneratedClient";
 import LolMatchListTableRow from "./TournamentMatchListTableRow";
 import { useTranslation } from "react-i18next";
 
-function TournamentMatchListTable(props: { matchList: MatchDto[] | null, gameType: string }) {
+function TournamentMatchListTable(props: { matchList: MatchShortDto[] | null, gameType: string }) {
 	const matchList = props.matchList;
 	const gameType = props.gameType;
 	const { t } = useTranslation();

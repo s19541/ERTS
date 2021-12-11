@@ -6,7 +6,7 @@ using Hangfire;
 using System.Linq;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(HourlyRecurringJob), nameof(HourlyRecurringJob), ErtsCron.Hourly)]
+    [RecurringJobInfo(typeof(HourlyRecurringJob), nameof(HourlyRecurringJob), ErtsCron.Never)]
     public class HourlyRecurringJob : IRecurringJob {
         private readonly CsgoDataFetcher csgoDataFetcher;
         private readonly LolDataFetcher lolDataFetcher;

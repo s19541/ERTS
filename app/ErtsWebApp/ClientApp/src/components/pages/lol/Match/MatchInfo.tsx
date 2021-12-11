@@ -16,7 +16,7 @@ function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
 			<Row className="align-items-center">
 				<Col style={{ textAlign: "right" }}>
 					<Image
-						src={match?.team1ImageUrl}
+						src={match?.matchShortDto?.team1ImageUrl}
 						className=""
 						width={100}
 						height={100}
@@ -33,7 +33,7 @@ function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
 					}}
 				>
 					<h1>
-						{match?.team1GamesWon}:{match?.team2GamesWon}
+						{match?.matchShortDto?.team1GamesWon}:{match?.matchShortDto?.team2GamesWon}
 					</h1>
 				</Col>
 				<Col style={{ textAlign: "right" }}>
@@ -41,7 +41,7 @@ function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
 				</Col>
 				<Col style={{ textAlign: "left" }}>
 					<Image
-						src={match?.team2ImageUrl}
+						src={match?.matchShortDto?.team2ImageUrl}
 						className=""
 						width={100}
 						height={100}
@@ -52,7 +52,7 @@ function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
 			<Row>
 				<Col style={{ textAlign: "center" }}>
 					<h4>
-						{match?.startTime?.format("HH:mm DD-MM-YYYY")}
+						{match?.matchShortDto?.startTime?.format("HH:mm DD-MM-YYYY")}
 					</h4>
 				</Col>
 			</Row>

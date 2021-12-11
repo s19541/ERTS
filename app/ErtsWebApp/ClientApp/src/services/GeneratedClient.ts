@@ -273,7 +273,7 @@ export class MatchClient extends ClientBase {
         this.baseUrl = this.getBaseUrl("", baseUrl);
     }
 
-    getMatches(tournamentId: number, signal?: AbortSignal | undefined): Promise<MatchDto[] | null> {
+    getMatches(tournamentId: number, signal?: AbortSignal | undefined): Promise<MatchShortDto[] | null> {
         let url_ = this.baseUrl + "/api/Match/GetMatches/{tournamentId}";
         if (tournamentId === undefined || tournamentId === null)
             throw new Error("The parameter 'tournamentId' must be defined.");
@@ -295,7 +295,7 @@ export class MatchClient extends ClientBase {
         });
     }
 
-    protected processGetMatches(response: Response): Promise<MatchDto[] | null> {
+    protected processGetMatches(response: Response): Promise<MatchShortDto[] | null> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -305,7 +305,7 @@ export class MatchClient extends ClientBase {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(MatchDto.fromJS(item));
+                    result200!.push(MatchShortDto.fromJS(item));
             }
             return result200;
             });
@@ -314,7 +314,7 @@ export class MatchClient extends ClientBase {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<MatchDto[] | null>(<any>null);
+        return Promise.resolve<MatchShortDto[] | null>(<any>null);
     }
 
     getMatch(matchId: number, signal?: AbortSignal | undefined): Promise<MatchDto | null> {
@@ -1412,21 +1412,85 @@ export enum LolRole {
     Sub = "sub",
 }
 
-export class MatchDto implements IMatchDto {
+export class MatchShortDto implements IMatchShortDto {
     id!: number;
-    team1Id!: number;
-    team2Id!: number;
     team1ImageUrl!: string | undefined;
     team2ImageUrl!: string | undefined;
     team1Acronym!: string | undefined;
     team2Acronym!: string | undefined;
-    team1Name!: string | undefined;
-    team2Name!: string | undefined;
-    startTime!: moment.Moment | undefined;
-    endTime!: moment.Moment | undefined;
     team1GamesWon!: number;
     team2GamesWon!: number;
+    startTime!: moment.Moment | undefined;
+    endTime!: moment.Moment | undefined;
+    numberOfGames!: number;
+
+    constructor(data?: IMatchShortDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.team1ImageUrl = _data["team1ImageUrl"];
+            this.team2ImageUrl = _data["team2ImageUrl"];
+            this.team1Acronym = _data["team1Acronym"];
+            this.team2Acronym = _data["team2Acronym"];
+            this.team1GamesWon = _data["team1GamesWon"];
+            this.team2GamesWon = _data["team2GamesWon"];
+            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
+            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
+            this.numberOfGames = _data["numberOfGames"];
+        }
+    }
+
+    static fromJS(data: any): MatchShortDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MatchShortDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["team1ImageUrl"] = this.team1ImageUrl;
+        data["team2ImageUrl"] = this.team2ImageUrl;
+        data["team1Acronym"] = this.team1Acronym;
+        data["team2Acronym"] = this.team2Acronym;
+        data["team1GamesWon"] = this.team1GamesWon;
+        data["team2GamesWon"] = this.team2GamesWon;
+        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
+        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
+        data["numberOfGames"] = this.numberOfGames;
+        return data; 
+    }
+}
+
+export interface IMatchShortDto {
+    id: number;
+    team1ImageUrl: string | undefined;
+    team2ImageUrl: string | undefined;
+    team1Acronym: string | undefined;
+    team2Acronym: string | undefined;
+    team1GamesWon: number;
+    team2GamesWon: number;
+    startTime: moment.Moment | undefined;
+    endTime: moment.Moment | undefined;
+    numberOfGames: number;
+}
+
+export class MatchDto implements IMatchDto {
+    team1Id!: number;
+    team2Id!: number;
+    team1Name!: string | undefined;
+    team2Name!: string | undefined;
     streamUrl!: string | undefined;
+    matchShortDto!: MatchShortDto | undefined;
     games!: LolGameShortStatsDto[] | undefined;
 
     constructor(data?: IMatchDto) {
@@ -1440,20 +1504,12 @@ export class MatchDto implements IMatchDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
             this.team1Id = _data["team1Id"];
             this.team2Id = _data["team2Id"];
-            this.team1ImageUrl = _data["team1ImageUrl"];
-            this.team2ImageUrl = _data["team2ImageUrl"];
-            this.team1Acronym = _data["team1Acronym"];
-            this.team2Acronym = _data["team2Acronym"];
             this.team1Name = _data["team1Name"];
             this.team2Name = _data["team2Name"];
-            this.startTime = _data["startTime"] ? moment(_data["startTime"].toString()) : <any>undefined;
-            this.endTime = _data["endTime"] ? moment(_data["endTime"].toString()) : <any>undefined;
-            this.team1GamesWon = _data["team1GamesWon"];
-            this.team2GamesWon = _data["team2GamesWon"];
             this.streamUrl = _data["streamUrl"];
+            this.matchShortDto = _data["matchShortDto"] ? MatchShortDto.fromJS(_data["matchShortDto"]) : <any>undefined;
             if (Array.isArray(_data["games"])) {
                 this.games = [] as any;
                 for (let item of _data["games"])
@@ -1471,20 +1527,12 @@ export class MatchDto implements IMatchDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["team1Id"] = this.team1Id;
         data["team2Id"] = this.team2Id;
-        data["team1ImageUrl"] = this.team1ImageUrl;
-        data["team2ImageUrl"] = this.team2ImageUrl;
-        data["team1Acronym"] = this.team1Acronym;
-        data["team2Acronym"] = this.team2Acronym;
         data["team1Name"] = this.team1Name;
         data["team2Name"] = this.team2Name;
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : <any>undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : <any>undefined;
-        data["team1GamesWon"] = this.team1GamesWon;
-        data["team2GamesWon"] = this.team2GamesWon;
         data["streamUrl"] = this.streamUrl;
+        data["matchShortDto"] = this.matchShortDto ? this.matchShortDto.toJSON() : <any>undefined;
         if (Array.isArray(this.games)) {
             data["games"] = [];
             for (let item of this.games)
@@ -1495,20 +1543,12 @@ export class MatchDto implements IMatchDto {
 }
 
 export interface IMatchDto {
-    id: number;
     team1Id: number;
     team2Id: number;
-    team1ImageUrl: string | undefined;
-    team2ImageUrl: string | undefined;
-    team1Acronym: string | undefined;
-    team2Acronym: string | undefined;
     team1Name: string | undefined;
     team2Name: string | undefined;
-    startTime: moment.Moment | undefined;
-    endTime: moment.Moment | undefined;
-    team1GamesWon: number;
-    team2GamesWon: number;
     streamUrl: string | undefined;
+    matchShortDto: MatchShortDto | undefined;
     games: LolGameShortStatsDto[] | undefined;
 }
 

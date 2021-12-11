@@ -10,8 +10,8 @@ namespace ErtsApplication.DAL {
         public MatchDbService(ErtsContext dbContext) {
             Context = dbContext;
         }
-        public ActionResult<IEnumerable<MatchDto>> GetMatches(int tournamentId) {
-            List<MatchDto> tournamentMatchesDtos = new List<MatchDto>();
+        public ActionResult<IEnumerable<MatchShortDto>> GetMatches(int tournamentId) {
+            List<MatchShortDto> tournamentMatchesDtos = new List<MatchShortDto>();
             var matches = Context.Matches.Where(o => o.Tournament.Id == tournamentId).ToList();
             foreach (var match in matches) {
 
@@ -23,7 +23,7 @@ namespace ErtsApplication.DAL {
                     else
                         team2GamesWon++;
                 }
-                var tournamentMatchDto = new MatchDto() {
+                var tournamentMatchDto = new MatchShortDto() {
                     Id = match.Id,
                     StartTime = match.StartTime,
                     EndTime = match.EndTime,
@@ -33,7 +33,7 @@ namespace ErtsApplication.DAL {
                     Team2Acronym = match.Team2.Acronym,
                     Team1GamesWon = team1GamesWon,
                     Team2GamesWon = team2GamesWon,
-                    StreamUrl = match.StreamUrl
+                    NumberOfGames = match.NumberOfGames
                 };
                 tournamentMatchesDtos.Add(tournamentMatchDto);
             }
@@ -145,19 +145,22 @@ namespace ErtsApplication.DAL {
 
 
             return new MatchDto() {
-                Id = matchId,
-                StartTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StartTime).FirstOrDefault(),
-                EndTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.EndTime).FirstOrDefault(),
+
                 Team1Id = team1.Id,
                 Team2Id = team2.Id,
-                Team1ImageUrl = team1.ImageUrl,
-                Team2ImageUrl = team2.ImageUrl,
-                Team1Acronym = team1.Acronym,
-                Team2Acronym = team2.Acronym,
                 Team1Name = team1.Name,
                 Team2Name = team2.Name,
-                Team1GamesWon = team1GamesWon,
-                Team2GamesWon = team2GamesWon,
+                MatchShortDto = new MatchShortDto() {
+                    Id = matchId,
+                    StartTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StartTime).FirstOrDefault(),
+                    EndTime = Context.Matches.Where(p => p.Id == matchId).Select(p => p.EndTime).FirstOrDefault(),
+                    Team1ImageUrl = team1.ImageUrl,
+                    Team2ImageUrl = team2.ImageUrl,
+                    Team1Acronym = team1.Acronym,
+                    Team2Acronym = team2.Acronym,
+                    Team1GamesWon = team1GamesWon,
+                    Team2GamesWon = team2GamesWon
+                },
                 StreamUrl = Context.Matches.Where(p => p.Id == matchId).Select(p => p.StreamUrl).FirstOrDefault(),
                 Games = gameStatsDtos
             };

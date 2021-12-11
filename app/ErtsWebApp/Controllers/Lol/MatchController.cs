@@ -13,7 +13,7 @@ namespace ErtsWebApp.Controllers.Lol {
         }
         [Route("[action]/{tournamentId}")]
         [HttpGet]
-        public ActionResult<IEnumerable<MatchDto>> GetMatches(int tournamentId) {
+        public ActionResult<IEnumerable<MatchShortDto>> GetMatches(int tournamentId) {
             return _dbService.GetMatches(tournamentId);
         }
         [Route("[action]/{matchId}")]

@@ -236,7 +236,7 @@
                   "type": "array",
                   "nullable": true,
                   "items": {
-                    "$ref": "#/components/schemas/MatchDto"
+                    "$ref": "#/components/schemas/MatchShortDto"
                   }
                 }
               }
@@ -1008,19 +1008,11 @@
           "sub"
         ]
       },
-      "MatchDto": {
+      "MatchShortDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "team1Id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "team2Id": {
             "type": "integer",
             "format": "int64"
           },
@@ -1040,13 +1032,13 @@
             "type": "string",
             "nullable": true
           },
-          "team1Name": {
-            "type": "string",
-            "nullable": true
+          "team1GamesWon": {
+            "type": "integer",
+            "format": "int32"
           },
-          "team2Name": {
-            "type": "string",
-            "nullable": true
+          "team2GamesWon": {
+            "type": "integer",
+            "format": "int32"
           },
           "startTime": {
             "type": "string",
@@ -1058,17 +1050,43 @@
             "format": "date-time",
             "nullable": true
           },
-          "team1GamesWon": {
+          "numberOfGames": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "MatchDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "team1Id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "team2GamesWon": {
+          "team2Id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
+          },
+          "team1Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "team2Name": {
+            "type": "string",
+            "nullable": true
           },
           "streamUrl": {
             "type": "string",
             "nullable": true
+          },
+          "matchShortDto": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MatchShortDto"
+              }
+            ]
           },
           "games": {
             "type": "array",

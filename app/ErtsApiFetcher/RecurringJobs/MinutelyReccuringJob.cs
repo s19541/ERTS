@@ -4,7 +4,7 @@ using ErtsModel;
 using Hangfire;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(MinutelyRecurringJob), nameof(MinutelyRecurringJob), ErtsCron.Minutely)]
+    [RecurringJobInfo(typeof(MinutelyRecurringJob), nameof(MinutelyRecurringJob), ErtsCron.Never)]
     public class MinutelyRecurringJob : RecurringJobBase, IRecurringJob {
         public MinutelyRecurringJob(ErtsContext context, AppConfig appConfig) : base(context, appConfig) { }
 

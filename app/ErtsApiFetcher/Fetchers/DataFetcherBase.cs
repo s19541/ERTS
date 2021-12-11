@@ -14,13 +14,27 @@ namespace ErtsApiFetcher.Fetchers {
             this.provider = provider;
             this.context = context;
         }
-        public IEnumerable<ErtsModel.Entities.Team> FetchTeams() {
+        public IEnumerable<ErtsModel.Entities.Team> FetchTeams(DateTime? from = null) {
             var query = new TeamQueryOptions();
+            if (from != null)
+                query.ModifiedAt.Range(from.Value, DateTime.Now);
             var results = provider.FetchAndCatch(service => service.GetTeams(query));
 
             var teams = new List<ErtsModel.Entities.Team>();
 
             foreach (var result in results) {
+
+                foreach (var player in result.Players.Where(player => !context.Players.Select(o => o.ApiId).Contains(player.Id)).ToList()) {
+                    context.Add(new ErtsModel.Entities.Player() {
+                        Nick = player.Name,
+                        FirstName = player.FirstName,
+                        LastName = player.LastName,
+                        Nationality = player.Nationality,
+                        ApiId = player.Id
+                    });
+                    context.SaveChanges();
+                }
+
                 var teamPlayers = context.Players.Where(player => result.Players.Select(o => o.Id).Contains(player.ApiId)).ToList();
 
 
@@ -58,8 +72,10 @@ namespace ErtsApiFetcher.Fetchers {
             return players;
         }
 
-        public IEnumerable<ErtsModel.Entities.League> FetchLeagues() {
+        public IEnumerable<ErtsModel.Entities.League> FetchLeagues(DateTime? from = null) {
             var query = new LeagueQueryOptions();
+            if (from != null)
+                query.ModifiedAt.Range(from.Value, DateTime.Now);
             var results = provider.FetchAndCatch(service => service.GetLeagues(query));
 
             var leagues = new List<ErtsModel.Entities.League>();
@@ -77,8 +93,10 @@ namespace ErtsApiFetcher.Fetchers {
             return leagues;
         }
 
-        public IEnumerable<ErtsModel.Entities.Serie> FetchSeries() {
+        public IEnumerable<ErtsModel.Entities.Serie> FetchSeries(DateTime? from = null) {
             var query = new SeriesQueryOptions();
+            if (from != null)
+                query.ModifiedAt.Range(from.Value, DateTime.Now);
             var results = provider.FetchAndCatch(service => service.GetSeries(query));
 
             var series = new List<ErtsModel.Entities.Serie>();
@@ -117,8 +135,10 @@ namespace ErtsApiFetcher.Fetchers {
             return series;
         }
 
-        public IEnumerable<ErtsModel.Entities.Tournament> FetchTournaments() {
+        public IEnumerable<ErtsModel.Entities.Tournament> FetchTournaments(DateTime? from = null) {
             var query = new TournamentQueryOptions();
+            if (from != null)
+                query.ModifiedAt.Range(from.Value, DateTime.Now);
             var results = provider.FetchAndCatch(service => service.GetTournaments(query));
 
             var tournaments = new List<ErtsModel.Entities.Tournament>();
@@ -175,7 +195,8 @@ namespace ErtsApiFetcher.Fetchers {
                             Tournament = tournament,
                             Team1 = team1,
                             Team2 = team2,
-                            Games = games
+                            Games = games,
+                            NumberOfGames = result.NumberOfGames
 
                         });
 

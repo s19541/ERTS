@@ -2,15 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class MatchConfiguration : IEntityTypeConfiguration<Match>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class MatchConfiguration : IEntityTypeConfiguration<Match> {
         private const string _Team1Id = "Team1Id";
         private const string _Team2Id = "Team2Id";
         private const string _tournamentId = "tournamentId";
-        public void Configure(EntityTypeBuilder<Match> builder)
-        {
+        public void Configure(EntityTypeBuilder<Match> builder) {
             builder.HasComment("Lol game stats");
 
             builder.HasKey(x => x.Id);
@@ -34,6 +31,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasMany(a => a.Games)
                 .WithOne()
                 .HasForeignKey(GameConfiguration.MatchId);
+            builder.Property(b => b.NumberOfGames).HasComment("Number of games");
             builder.Property(b => b.ApiId).HasComment("ApiId");
         }
     }

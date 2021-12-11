@@ -1,7 +1,7 @@
-import { MatchDto } from "../../../../../services/GeneratedClient";
+import { MatchDto, MatchShortDto } from "../../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function TournamentMatchListTableRow(props: { match: MatchDto, gameType: string }) {
+function TournamentMatchListTableRow(props: { match: MatchShortDto, gameType: string }) {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		if (gameType == "lol")
@@ -11,12 +11,10 @@ function TournamentMatchListTableRow(props: { match: MatchDto, gameType: string 
 	const gameType = props.gameType;
 	const startTime = match.startTime?.format("HH:mm DD-MM-YYYY");
 	var result = match.team1GamesWon + ":" + match.team2GamesWon;
-	if (match.endTime == null) result = "vs";
-	const winner = match.team1GamesWon > match.team2GamesWon ? "Blue" : "Red";
-	const mode =
-		winner == "Blue"
-			? "BO" + (match.team1GamesWon * 2 - 1)
-			: "BO" + (match.team2GamesWon * 2 - 1);
+	if (match.endTime == null)
+		result = "vs";
+
+	const mode = "BO" + match.numberOfGames;
 
 	return (
 		<tr onClick={() => redirectToPage(`/lol/match/${match.id}`)}>
