@@ -23,7 +23,7 @@ namespace ErtsApplication.DAL {
                 };
                 serieShortDtos.Add(serieShortDto);
             }
-            return serieShortDtos;
+            return serieShortDtos.OrderByDescending(x => x.StartTime).ToList();
         }
     }
 }

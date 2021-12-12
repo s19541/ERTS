@@ -7,7 +7,7 @@ namespace ErtsApiFetcher.ApiDataProcessors.Leagues {
         public DateTime? FromTime { get; }
         public DataFetcherBase DataFetcher { get; }
 
-        public LeagueApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime fromTime) {
+        public LeagueApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime? fromTime) {
             FromTime = fromTime;
             DataFetcher = dataFetcher;
         }

@@ -15,14 +15,8 @@ namespace ErtsApplication.DAL {
             var matches = Context.Matches.Where(o => o.Tournament.Id == tournamentId).ToList();
             foreach (var match in matches) {
 
-                var team1GamesWon = 0;
-                var team2GamesWon = 0;
-                foreach (var game in match.Games) {
-                    if (game.Winner == match.Team1)
-                        team1GamesWon++;
-                    else
-                        team2GamesWon++;
-                }
+                var team1GamesWon = match.Games.Where(game => game.Winner == match.Team1).Count();
+                var team2GamesWon = match.Games.Where(game => game.Winner == match.Team2).Count();
                 var tournamentMatchDto = new MatchShortDto() {
                     Id = match.Id,
                     StartTime = match.StartTime,

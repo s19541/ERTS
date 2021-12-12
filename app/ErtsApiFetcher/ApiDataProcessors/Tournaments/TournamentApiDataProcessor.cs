@@ -9,6 +9,12 @@ namespace ErtsApiFetcher.ApiDataProcessors.Tournaments {
             var apiTournaments = parameter.DataFetcher.FetchTournaments(parameter.FromTime);
             var newTournaments = apiTournaments.Where(apiTournament => !context.Tournaments.Any(contextTournament => contextTournament.ApiId == apiTournament.ApiId));
             context.Tournaments.AddRange(newTournaments);
+
+            var updatedTournaments = apiTournaments.Where(apiTournament => context.Tournaments.Any(contextTournament => contextTournament.ApiId == apiTournament.ApiId));
+            foreach (var updatedTournament in updatedTournaments) {
+                var contextTournament = context.Tournaments.Where(contextTournament => contextTournament.ApiId == updatedTournament.ApiId).FirstOrDefault();
+                contextTournament.Update(updatedTournament.Name, updatedTournament.StartTime, updatedTournament.EndTime, updatedTournament.Serie);
+            }
         }
     }
 }

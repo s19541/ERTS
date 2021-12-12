@@ -24,7 +24,7 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
 
         public abstract void Job();
 
-        public void FetchAll(DataFetcherBase dataFetcher, DateTime fromTime) {
+        public void FetchAll(DataFetcherBase dataFetcher, DateTime? fromTime) {
             executor.Execute(new TeamApiDataProcessorParameter(dataFetcher, fromTime));
             executor.Execute(new LeagueApiDataProcessorParameter(dataFetcher, fromTime));
             executor.Execute(new SerieApiDataProcessorParameter(dataFetcher, fromTime));
@@ -34,7 +34,7 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
 
         public void FetchAll(DataFetcherBase dataFetcher) {
             executor.Execute(new PlayerApiDataProcessorParameter(dataFetcher));
-            FetchAll(dataFetcher);
+            FetchAll(dataFetcher, null);
         }
     }
 }

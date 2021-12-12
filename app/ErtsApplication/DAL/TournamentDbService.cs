@@ -23,7 +23,7 @@ namespace ErtsApplication.DAL {
                 };
                 tournamentShortDtos.Add(tournamentShortDto);
             }
-            return tournamentShortDtos;
+            return tournamentShortDtos.OrderByDescending(x => x.StartTime).ToList();
         }
 
         public ActionResult<IEnumerable<TournamentTeamShortDto>> GetTournamentTeamsShort(int tournamentId) {

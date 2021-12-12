@@ -19,28 +19,13 @@ namespace ErtsApiFetcher.ApiDataProcessors.TournamentTeamStats {
                 var teams = GetAllTeamsFromTournament(tournament);
 
                 foreach (var team in teams) {
-                    var gamesLost = 0;
-                    var gamesWon = 0;
-                    var matchesWon = 0;
-                    var matchesLost = 0;
 
-                    var matches = context.Matches.Where(contextMatch => contextMatch.Tournament == tournament && contextMatch.EndTime != null && (contextMatch.Team1 == team || contextMatch.Team2 == team)).ToArray();
-                    foreach (var match in matches) {
-                        var matchGamesWon = 0;
-                        var matchGamesLost = 0;
-                        foreach (var game in match.Games) {
-                            if (game.Winner == team)
-                                matchGamesWon++;
-                            else
-                                matchGamesLost++;
-                        }
-                        gamesLost += matchGamesLost;
-                        gamesWon += matchGamesWon;
-                        if (matchGamesWon > matchGamesLost)
-                            matchesWon++;
-                        else if (matchGamesLost > matchGamesWon)
-                            matchesLost++;
-                    }
+                    var matches = GetAllMatchesOfTeamInTournament(team, tournament);
+                    var matchesWon = matches.Where(match => match.Games.Where(game => game.Winner == team).Count() > match.Games.Where(game => game.Winner != team && game.Winner != null).Count()).Count();
+                    var matchesLost = matches.Count() - matchesWon;
+
+                    var gamesWon = matches.Sum(match => match.Games.Where(game => game.Winner == team).Count());
+                    var gamesLost = matches.Sum(match => match.Games.Where(game => game.Winner != team && game.Winner != null).Count());
 
                     context.TournamentTeams.Add(new TournamentTeam() {
                         Tournament = tournament,
@@ -59,13 +44,16 @@ namespace ErtsApiFetcher.ApiDataProcessors.TournamentTeamStats {
 
         private IEnumerable<Team> GetAllTeamsFromTournament(Tournament tournament) {
             return context.Matches
-                .Where(contextMatch => contextMatch.Tournament == tournament)
-                .Select(contextMatch => contextMatch.Team1)
-                .ToArray()
-                .Union(context.Matches
-                .Where(contextMatch => contextMatch.Tournament == tournament)
-                .Select(contextMatch => contextMatch.Team2)
-                .ToArray()).Distinct();
+                 .Where(contextMatch => contextMatch.Tournament == tournament)
+                 .Select(contextMatch => contextMatch.Team1).ToArray()
+                 .Union(context.Matches
+                 .Where(contextMatch => contextMatch.Tournament == tournament)
+                 .Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
+        }
+
+        private IEnumerable<Match> GetAllMatchesOfTeamInTournament(Team team, Tournament tournament) {
+            return context.Matches
+                .Where(contextMatch => contextMatch.Tournament == tournament && contextMatch.EndTime != null && (contextMatch.Team1 == team || contextMatch.Team2 == team)).ToArray();
         }
     }
 }

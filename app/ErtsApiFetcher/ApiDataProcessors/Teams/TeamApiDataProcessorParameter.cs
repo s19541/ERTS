@@ -7,7 +7,7 @@ namespace ErtsApiFetcher.ApiDataProcessors.Teams {
         public DateTime? FromTime { get; }
         public DataFetcherBase DataFetcher { get; }
 
-        public TeamApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime fromTime) {
+        public TeamApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime? fromTime) {
             FromTime = fromTime;
             DataFetcher = dataFetcher;
         }

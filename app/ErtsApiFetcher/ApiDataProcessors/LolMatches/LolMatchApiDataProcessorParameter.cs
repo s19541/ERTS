@@ -7,7 +7,7 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolMatches {
         public DateTime? FromTime { get; }
         public DataFetcherBase DataFetcher { get; }
 
-        public LolMatchApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime fromTime) {
+        public LolMatchApiDataProcessorParameter(DataFetcherBase dataFetcher, DateTime? fromTime) {
             FromTime = fromTime;
             DataFetcher = dataFetcher;
         }

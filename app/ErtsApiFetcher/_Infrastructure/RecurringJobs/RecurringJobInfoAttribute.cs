@@ -1,11 +1,8 @@
 ﻿using System;
 
-namespace ErtsApiFetcher._Infrastructure.RecurringJobs
-{
-    public class RecurringJobInfoAttribute : Attribute
-    {
-        public RecurringJobInfoAttribute(Type jobType, string jobName, string cronTime)
-        {
+namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
+    public class RecurringJobInfoAttribute : Attribute {
+        public RecurringJobInfoAttribute(Type jobType, string jobName, string cronTime) {
             JobType = jobType;
             JobName = jobName;
             CronTime = cronTime;

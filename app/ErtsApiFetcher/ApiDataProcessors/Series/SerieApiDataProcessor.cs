@@ -9,6 +9,12 @@ namespace ErtsApiFetcher.ApiDataProcessors.Series {
             var apiSeries = parameter.DataFetcher.FetchSeries(parameter.FromTime);
             var newSeries = apiSeries.Where(apiSerie => !context.Series.Any(contextSerie => contextSerie.ApiId == apiSerie.ApiId));
             context.Series.AddRange(newSeries);
+
+            var updatedSeries = apiSeries.Where(apiSerie => context.Series.Any(contextSerie => contextSerie.ApiId == apiSerie.ApiId));
+            foreach (var updatedSerie in updatedSeries) {
+                var contextSerie = context.Series.Where(contextSerie => contextSerie.ApiId == updatedSerie.ApiId).FirstOrDefault();
+                contextSerie.Update(updatedSerie.Name, updatedSerie.StartTime, updatedSerie.EndTime, updatedSerie.League);
+            }
         }
     }
 }

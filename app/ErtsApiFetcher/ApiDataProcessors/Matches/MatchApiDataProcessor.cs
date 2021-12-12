@@ -14,11 +14,17 @@ namespace ErtsApiFetcher.ApiDataProcessors.Matches {
 
         protected override void ProcessInternal(MatchApiDataProcessorParameter parameter) {
             var apiMatches = parameter.DataFetcher.FetchMatches(parameter.FromTime);
-            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId)).ToArray();
+            var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId));
             context.Matches.AddRange(newMatches);
 
+            var updatedMatches = apiMatches.Where(apiMatch => context.Matches.Any(contextMatch => contextMatch.ApiId == apiMatch.ApiId));
+            foreach (var updatedMatch in updatedMatches) {
+                var contextMatch = context.Matches.Where(contextMatch => contextMatch.ApiId == updatedMatch.ApiId).FirstOrDefault();
+                contextMatch.Update(updatedMatch.StartTime, updatedMatch.EndTime, updatedMatch.Team1, updatedMatch.Team2, updatedMatch.Tournament, updatedMatch.StreamUrl,  updatedMatch.Games, updatedMatch.NumberOfGames);
+            }
+
             context.SaveChanges();
-            executor.Execute(new TournamentTeamStatsApiDataProcessorParameter(GetTournamentsFromMatches(newMatches)));
+            executor.Execute(new TournamentTeamStatsApiDataProcessorParameter(GetTournamentsFromMatches(apiMatches)));
         }
 
         private IEnumerable<Tournament> GetTournamentsFromMatches(IEnumerable<Match> matches) {

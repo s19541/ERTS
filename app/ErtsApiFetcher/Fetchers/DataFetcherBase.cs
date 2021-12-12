@@ -177,15 +177,14 @@ namespace ErtsApiFetcher.Fetchers {
                         var games = new List<ErtsModel.Entities.Game>();
 
                         foreach (var newGame in result.Games) {
-                            if (newGame.BeginAt != null && newGame.EndAt != null)
+                            if (newGame.BeginAt != null && newGame.EndAt != null && !context.Games.Any(contextGame => contextGame.ApiId == newGame.Id)) {
                                 games.Add(new ErtsModel.Entities.Game() {
                                     StartTime = (DateTime)newGame.BeginAt,
                                     EndTime = (DateTime)newGame.EndAt,
                                     Winner = context.Teams.Where(contextTeam => contextTeam.ApiId == newGame.Winner.ID).FirstOrDefault(),
                                     ApiId = newGame.Id,
                                 });
-                            var newGames = games.Where(apiGame => !context.Games.Any(contextGame => contextGame.ApiId == apiGame.ApiId));
-                            context.Games.AddRange(newGames);
+                            }
                         }
                         matches.Add(new ErtsModel.Entities.Match() {
                             ApiId = result.Id,
