@@ -1,20 +1,21 @@
-﻿using ErtsApiFetcher._Infrastructure.RecurringJobs;
+﻿using ErtsApiFetcher._Infrastructure.ApiDataProcessors;
+using ErtsApiFetcher._Infrastructure.RecurringJobs;
 using ErtsApiFetcher.Configurations;
 using ErtsApiFetcher.Fetchers;
 using ErtsModel;
-using Hangfire;
 
 namespace ErtsApiFetcher.RecurringJobs {
     [RecurringJobInfo(typeof(OwInitialRecurringJob), nameof(OwInitialRecurringJob), ErtsCron.Never)]
-    public class OwInitialRecurringJob : RecurringJobBase, IRecurringJob {
-        private readonly OwDataFetcher owDataFetcher;
-        public OwInitialRecurringJob(ErtsContext context, AppConfig appConfig) : base(context, appConfig) { }
+    public class OwInitialRecurringJob : RecurringJobBase {
 
-        [AutomaticRetry(Attempts = 0)]
-        public void Job() {
+        public OwInitialRecurringJob(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) : base(context, appConfig, executor) {
+        }
+
+        public override void Job() {
             context.Database.BeginTransaction();
-            FetchAndSaveOwMatches();
+            FetchAll(new OwDataFetcher(appConfig.PandaScoreApiToken, context));
             context.Database.CommitTransaction();
+
         }
     }
 }

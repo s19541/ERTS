@@ -4,12 +4,9 @@ using ErtsModel.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class TeamConfiguration : IEntityTypeConfiguration<Team>
-    {
-        public void Configure(EntityTypeBuilder<Team> builder)
-        {
+namespace ErtsModel.Configuration.Entities {
+    class TeamConfiguration : IEntityTypeConfiguration<Team> {
+        public void Configure(EntityTypeBuilder<Team> builder) {
             builder.HasComment("Team");
 
             builder.HasKey(x => x.Id);
@@ -23,6 +20,7 @@ namespace ErtsModel.Configuration.Entities
             builder.HasMany(a => a.Players)
                 .WithOne()
                 .HasForeignKey(PlayerConfiguration.TeamId);
+
             builder.Property(b => b.ApiId).HasComment("ApiId");
         }
     }

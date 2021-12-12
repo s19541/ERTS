@@ -68,7 +68,7 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers {
         }
 
         public void AddRecurringJob(RecurringJobInfoAttribute recurringJobInfo) {
-            RecurringJob.AddOrUpdate<RecurringJobActivator>(recurringJobInfo.JobName, (jobActivator) => jobActivator.CreateScopeAndActivate(recurringJobInfo.JobType), recurringJobInfo.CronTime);
+            Hangfire.RecurringJob.AddOrUpdate<RecurringJobActivator>(recurringJobInfo.JobName, (jobActivator) => jobActivator.CreateScopeAndActivate(recurringJobInfo.JobType), recurringJobInfo.CronTime);
         }
     }
 }

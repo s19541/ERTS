@@ -1,20 +1,21 @@
-﻿using ErtsApiFetcher._Infrastructure.RecurringJobs;
+﻿using ErtsApiFetcher._Infrastructure.ApiDataProcessors;
+using ErtsApiFetcher._Infrastructure.RecurringJobs;
 using ErtsApiFetcher.Configurations;
 using ErtsApiFetcher.Fetchers;
 using ErtsModel;
-using Hangfire;
 
 namespace ErtsApiFetcher.RecurringJobs {
     [RecurringJobInfo(typeof(Dota2InitialRecurringJob), nameof(Dota2InitialRecurringJob), ErtsCron.Never)]
-    public class Dota2InitialRecurringJob : RecurringJobBase, IRecurringJob {
-        private readonly Dota2DataFetcher dota2DataFetcher;
-        public Dota2InitialRecurringJob(ErtsContext context, AppConfig appConfig) : base(context, appConfig) { }
+    public class Dota2InitialRecurringJob : RecurringJobBase {
 
-        [AutomaticRetry(Attempts = 0)]
-        public void Job() {
+        public Dota2InitialRecurringJob(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) : base(context, appConfig, executor) {
+        }
+
+        public override void Job() {
             context.Database.BeginTransaction();
-            FetchAndSaveDota2Matches();
+            FetchAll(new Dota2DataFetcher(appConfig.PandaScoreApiToken, context));
             context.Database.CommitTransaction();
+
         }
     }
 }

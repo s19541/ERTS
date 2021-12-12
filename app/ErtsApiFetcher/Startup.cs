@@ -1,3 +1,4 @@
+using ErtsApiFetcher._Infrastructure.ApiDataProcessors;
 using ErtsApiFetcher._Infrastructure.Enqueuers;
 using ErtsApiFetcher._Infrastructure.RecurringJobs;
 using ErtsApiFetcher.Configurations;
@@ -45,6 +46,7 @@ namespace ErtsApiFetcher {
             services.AddSingleton(AppConfig);
 
             RecurringJobInitalizer.RegisterRecurringJobs(services);
+            services.AddApiDataProcessors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

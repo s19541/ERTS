@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
@@ -9,6 +10,7 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
             this.serviceProvider = serviceProvider;
         }
 
+        [AutomaticRetry(Attempts = 0)]
         public void CreateScopeAndActivate(Type jobType) {
             using (var scope = serviceProvider.CreateScope()) {
                 ((IRecurringJob)scope.ServiceProvider.GetService(jobType)).Job();

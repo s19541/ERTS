@@ -1,20 +1,21 @@
-﻿using ErtsApiFetcher._Infrastructure.RecurringJobs;
+﻿using ErtsApiFetcher._Infrastructure.ApiDataProcessors;
+using ErtsApiFetcher._Infrastructure.RecurringJobs;
 using ErtsApiFetcher.Configurations;
 using ErtsApiFetcher.Fetchers;
 using ErtsModel;
-using Hangfire;
 
 namespace ErtsApiFetcher.RecurringJobs {
     [RecurringJobInfo(typeof(ValorantInitialRecurringJob), nameof(ValorantInitialRecurringJob), ErtsCron.Never)]
-    public class ValorantInitialRecurringJob : RecurringJobBase, IRecurringJob {
-        private readonly ValorantDataFetcher valorantDataFetcher;
-        public ValorantInitialRecurringJob(ErtsContext context, AppConfig appConfig) : base(context, appConfig) { }
+    public class ValorantInitialRecurringJob : RecurringJobBase {
 
-        [AutomaticRetry(Attempts = 0)]
-        public void Job() {
+        public ValorantInitialRecurringJob(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) : base(context, appConfig, executor) {
+        }
+
+        public override void Job() {
             context.Database.BeginTransaction();
-            FetchAndSaveValorantMatches();
+            FetchAll(new ValorantDataFetcher(appConfig.PandaScoreApiToken, context));
             context.Database.CommitTransaction();
+
         }
     }
 }
