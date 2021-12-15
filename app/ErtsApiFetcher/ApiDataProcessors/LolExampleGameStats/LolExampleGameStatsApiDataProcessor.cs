@@ -1,5 +1,7 @@
 ﻿using ErtsModel;
+using ErtsModel.Entities;
 using ErtsModel.Entities.Lol;
+using ErtsModel.Enums;
 using System;
 using System.Linq;
 
@@ -12,80 +14,86 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolExampleGameStats {
 
         protected override void ProcessInternal(LolExampleGameStatsApiDataProcessorParameter parameter) {
             var random = new Random();
-            var champions = context.LolChampions.ToArray();
-            var spells = context.LolSpells.ToArray();
-            var items = context.LolItems.Where(item => !item.IsTrinket).ToArray();
-            var trinkets = context.LolItems.Where(item => item.IsTrinket).ToArray();
+            var champions = context.LolChampions.ToList();
+            context.SaveChanges();
 
             foreach (var newMatch in parameter.Matches) {
-                var newGames = newMatch.Games.Where(apiGame => !context.Games.Any(contextGame => contextGame.ApiId == apiGame.ApiId));
+                var newGames = newMatch.Games.Where(apiGame => !context.LolGameTeams.Any(contextGame => contextGame.Game == apiGame) && apiGame.EndTime != default);
 
                 foreach (var newGame in newGames) {
-                    if (newGame.EndTime != null) {
-                        context.LolGameTeams.Add(new LolGameTeam() {
-                            Team = newMatch.Team1,
-                            Game = newGame,
-                            Color = ErtsModel.Enums.LolColor.blue,
-                            Ban1 = champions[random.Next(champions.Count())],
-                            Ban2 = champions[random.Next(champions.Count())],
-                            Ban3 = champions[random.Next(champions.Count())],
-                            Ban4 = champions[random.Next(champions.Count())],
-                            Ban5 = champions[random.Next(champions.Count())]
-                        });
-
-                        context.LolGameTeams.Add(new LolGameTeam() {
-                            Team = newMatch.Team2,
-                            Game = newGame,
-                            Color = ErtsModel.Enums.LolColor.red,
-                            Ban1 = champions[random.Next(champions.Count())],
-                            Ban2 = champions[random.Next(champions.Count())],
-                            Ban3 = champions[random.Next(champions.Count())],
-                            Ban4 = champions[random.Next(champions.Count())],
-                            Ban5 = champions[random.Next(champions.Count())]
-                        });
-                        ErtsModel.Enums.LolRole[] rolesT1 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
-
-                        ErtsModel.Enums.LolRole[] rolesT2 = { ErtsModel.Enums.LolRole.top, ErtsModel.Enums.LolRole.jun, ErtsModel.Enums.LolRole.mid, ErtsModel.Enums.LolRole.adc, ErtsModel.Enums.LolRole.sup };
-
-
-                        foreach (var player in newMatch.Team1.Players.Union(newMatch.Team2.Players)) {
-                            var role = ErtsModel.Enums.LolRole.sub;
-                            if (newMatch.Team1.Players.Contains(player)) {
-                                if (rolesT1.Length != 0) {
-                                    role = rolesT1[random.Next(rolesT1.Count())];
-                                    rolesT1 = rolesT1.Where(e => e != role).ToArray();
-                                }
-                            } else {
-                                if (rolesT2.Length != 0) {
-                                    role = rolesT2[random.Next(rolesT2.Count())];
-                                    rolesT2 = rolesT2.Where(e => e != role).ToArray();
-                                }
-                            }
-
-                            var lolGamePlayer = new LolGamePlayer() {
-                                Player = player,
-                                Game = newGame,
-                                Role = role,
-                                Champion = champions[random.Next(champions.Count())],
-                                Spell1 = spells[random.Next(spells.Count())],
-                                Spell2 = spells[random.Next(spells.Count())]
-                            };
-                            context.LolGamePlayers.Add(lolGamePlayer);
-
-                            context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
-                                GamePlayer = lolGamePlayer,
-                                Item = trinkets[random.Next(trinkets.Count())]
-                            });
-                            for (int i = 0; i < random.Next(7); i++) {
-                                context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
-                                    GamePlayer = lolGamePlayer,
-                                    Item = items[random.Next(items.Count())]
-                                });
-                            }
-                        }
-                    }
-
+                    CreateGameTeamStats(newGame, newMatch.Team1, LolColor.blue);
+                    CreateGameTeamStats(newGame, newMatch.Team2, LolColor.red);
+                    CreateGameTeamPlayersStats(newGame, newMatch.Team1);
+                    CreateGameTeamPlayersStats(newGame, newMatch.Team2);
                 }
+            }
+        }
+
+        private void CreateGameTeamStats(Game newGame, Team team, LolColor color) {
+            var random = new Random();
+            var champions = context.LolChampions.ToList();
+
+            context.LolGameTeams.Add(new LolGameTeam() {
+                Team = team,
+                Game = newGame,
+                Color = color,
+                CloudDrakeKilled = 1,
+                ElderDrakeKilled = 2,
+                TurretDestroyed = 3,
+                Ban1 = champions[random.Next(champions.Count)],
+                Ban2 = champions[random.Next(champions.Count)],
+                Ban3 = champions[random.Next(champions.Count)],
+                Ban4 = champions[random.Next(champions.Count)],
+                Ban5 = champions[random.Next(champions.Count)]
+            });
+        }
+
+        private void CreateGameTeamPlayersStats(Game newGame, Team team) {
+            var random = new Random();
+            var champions = context.LolChampions.ToList();
+            var spells = context.LolSpells.ToList();
+
+            LolRole[] availableRoles = { LolRole.top, LolRole.jun, LolRole.mid, LolRole.adc, LolRole.sup };
+
+            foreach (var player in team.Players) {
+                var role = LolRole.sub;
+
+                if (availableRoles.Length != 0) {
+                    role = availableRoles[random.Next(availableRoles.Length)];
+                    availableRoles = availableRoles.Where(e => e != role).ToArray();
+                }
+
+                var gamePlayer = new LolGamePlayer() {
+                    Player = player,
+                    Game = newGame,
+                    Role = role,
+                    Kills = 2,
+                    Deaths = 3,
+                    DamageDealtToChamps = 65,
+                    Champion = champions[random.Next(champions.Count)],
+                    Spell1 = spells[random.Next(spells.Count)],
+                    Spell2 = spells[random.Next(spells.Count)]
+                };
+                context.LolGamePlayers.Add(gamePlayer);
+
+                GenerateGamePlayerItems(gamePlayer);
+            }
+        }
+
+        private void GenerateGamePlayerItems(LolGamePlayer gamePlayer) {
+            var random = new Random();
+            var items = context.LolItems.Where(item => !item.IsTrinket).ToList();
+            var trinkets = context.LolItems.Where(item => item.IsTrinket).ToList();
+            context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
+                GamePlayer = gamePlayer,
+                Item = trinkets[random.Next(trinkets.Count)]
+            });
+
+            for (var i = 0; i < random.Next(7); i++) {
+                context.LolGamePlayerItems.Add(new LolGamePlayerItem() {
+                    GamePlayer = gamePlayer,
+                    Item = items[random.Next(items.Count)]
+                });
             }
         }
     }

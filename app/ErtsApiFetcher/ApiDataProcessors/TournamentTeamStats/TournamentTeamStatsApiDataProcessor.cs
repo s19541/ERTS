@@ -13,19 +13,16 @@ namespace ErtsApiFetcher.ApiDataProcessors.TournamentTeamStats {
 
         protected override void ProcessInternal(TournamentTeamStatsApiDataProcessorParameter parameter) {
             context.TournamentTeams.RemoveRange(context.TournamentTeams.Where(o => parameter.Tournaments.Contains(o.Tournament)));
-            context.SaveChanges();
 
             foreach (var tournament in parameter.Tournaments) {
-                var teams = GetAllTeamsFromTournament(tournament);
-
-                foreach (var team in teams) {
+                foreach (var team in GetAllTeamsFromTournament(tournament)) {
 
                     var matches = GetAllMatchesOfTeamInTournament(team, tournament);
-                    var matchesWon = matches.Where(match => match.Games.Where(game => game.Winner == team).Count() > match.Games.Where(game => game.Winner != team && game.Winner != null).Count()).Count();
-                    var matchesLost = matches.Count() - matchesWon;
+                    var matchesWon = matches.Count(match => match.Games.Count(game => game.Winner == team) > match.Games.Count(game => game.Winner != team && game.Winner != null));
+                    var matchesLost = matches.Count - matchesWon;
 
-                    var gamesWon = matches.Sum(match => match.Games.Where(game => game.Winner == team).Count());
-                    var gamesLost = matches.Sum(match => match.Games.Where(game => game.Winner != team && game.Winner != null).Count());
+                    var gamesWon = matches.Sum(match => match.Games.Count(game => game.Winner == team));
+                    var gamesLost = matches.Sum(match => match.Games.Count(game => game.Winner != team && game.Winner != null));
 
                     context.TournamentTeams.Add(new TournamentTeam() {
                         Tournament = tournament,
@@ -37,23 +34,20 @@ namespace ErtsApiFetcher.ApiDataProcessors.TournamentTeamStats {
                     });
                 }
             }
-
-
-            context.SaveChanges();
         }
 
-        private IEnumerable<Team> GetAllTeamsFromTournament(Tournament tournament) {
+        private List<Team> GetAllTeamsFromTournament(Tournament tournament) {
             return context.Matches
                  .Where(contextMatch => contextMatch.Tournament == tournament)
-                 .Select(contextMatch => contextMatch.Team1).ToArray()
+                 .Select(contextMatch => contextMatch.Team1).ToList()
                  .Union(context.Matches
                  .Where(contextMatch => contextMatch.Tournament == tournament)
-                 .Select(contextMatch => contextMatch.Team2).ToArray()).Distinct();
+                 .Select(contextMatch => contextMatch.Team2)).ToList();
         }
 
-        private IEnumerable<Match> GetAllMatchesOfTeamInTournament(Team team, Tournament tournament) {
+        private List<Match> GetAllMatchesOfTeamInTournament(Team team, Tournament tournament) {
             return context.Matches
-                .Where(contextMatch => contextMatch.Tournament == tournament && contextMatch.EndTime != null && (contextMatch.Team1 == team || contextMatch.Team2 == team)).ToArray();
+                .Where(contextMatch => contextMatch.Tournament == tournament && contextMatch.EndTime != null && (contextMatch.Team1 == team || contextMatch.Team2 == team)).ToList();
         }
     }
 }

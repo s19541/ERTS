@@ -22,14 +22,16 @@ namespace ErtsApiFetcher.RecurringJobs {
         public override void Job() {
             context.Database.BeginTransaction();
             var lolDataFetcher = new LolDataFetcher(appConfig.PandaScoreApiToken, context);
+
+            executor.Execute(new LolItemApiDataProcessorParameter(lolDataFetcher));
+            executor.Execute(new LolChampionApiDataProcessorParameter(lolDataFetcher));
+            executor.Execute(new LolSpellApiDataProcessorParameter(lolDataFetcher));
             executor.Execute(new TeamApiDataProcessorParameter(lolDataFetcher));
             executor.Execute(new LeagueApiDataProcessorParameter(lolDataFetcher));
             executor.Execute(new SerieApiDataProcessorParameter(lolDataFetcher));
             executor.Execute(new TournamentApiDataProcessorParameter(lolDataFetcher));
             executor.Execute(new LolMatchApiDataProcessorParameter(lolDataFetcher));
-            executor.Execute(new LolItemApiDataProcessorParameter(lolDataFetcher));
-            executor.Execute(new LolChampionApiDataProcessorParameter(lolDataFetcher));
-            executor.Execute(new LolSpellApiDataProcessorParameter(lolDataFetcher));
+
             context.Database.CommitTransaction();
         }
     }

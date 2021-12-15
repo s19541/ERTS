@@ -19,10 +19,16 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolMatches {
             var newMatches = apiMatches.Where(apiMatches => !context.Matches.Any(contextMatche => contextMatche.ApiId == apiMatches.ApiId)).ToArray();
             context.Matches.AddRange(newMatches);
 
+            var updatedMatches = apiMatches.Where(apiMatch => context.Matches.Any(contextMatch => contextMatch.ApiId == apiMatch.ApiId));
+            foreach (var updatedMatch in updatedMatches) {
+                var contextMatch = context.Matches.Where(contextMatch => contextMatch.ApiId == updatedMatch.ApiId).FirstOrDefault();
+                contextMatch.Update(updatedMatch.StartTime, updatedMatch.EndTime, updatedMatch.Team1, updatedMatch.Team2, updatedMatch.Tournament, updatedMatch.StreamUrl, updatedMatch.Games, updatedMatch.NumberOfGames);
+            }
+
             context.SaveChanges();
-            executor.Execute(new LolExampleGameStatsApiDataProcessorParameter(newMatches));
-            executor.Execute(new LolTournamentTeamStatsApiDataProcessorParameter(GetTournamentsFromMatches(newMatches)));
-            executor.Execute(new LolTournamentPlayerStatsApiDataProcessorParameter(GetTournamentsFromMatches(newMatches)));
+            executor.Execute(new LolExampleGameStatsApiDataProcessorParameter(apiMatches));
+            executor.Execute(new LolTournamentTeamStatsApiDataProcessorParameter(GetTournamentsFromMatches(apiMatches)));
+            executor.Execute(new LolTournamentPlayerStatsApiDataProcessorParameter(GetTournamentsFromMatches(apiMatches)));
         }
 
         private IEnumerable<Tournament> GetTournamentsFromMatches(IEnumerable<Match> matches) {
