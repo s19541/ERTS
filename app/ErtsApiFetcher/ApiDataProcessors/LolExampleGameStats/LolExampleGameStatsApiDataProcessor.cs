@@ -3,6 +3,7 @@ using ErtsModel.Entities;
 using ErtsModel.Entities.Lol;
 using ErtsModel.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ErtsApiFetcher.ApiDataProcessors.LolExampleGameStats {
@@ -17,15 +18,13 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolExampleGameStats {
             var champions = context.LolChampions.ToList();
             context.SaveChanges();
 
-            foreach (var newMatch in parameter.Matches) {
-                var newGames = newMatch.Games.Where(apiGame => !context.LolGameTeams.Any(contextGame => contextGame.Game == apiGame) && apiGame.EndTime != default);
-
-                foreach (var newGame in newGames) {
-                    CreateGameTeamStats(newGame, newMatch.Team1, LolColor.blue);
-                    CreateGameTeamStats(newGame, newMatch.Team2, LolColor.red);
-                    CreateGameTeamPlayersStats(newGame, newMatch.Team1);
-                    CreateGameTeamPlayersStats(newGame, newMatch.Team2);
-                }
+            foreach (var newGame in GetNewGames(parameter.Matches)) {
+                var team1 = parameter.Matches.Where(match => match.Games.Contains(newGame)).Select(match => match.Team1).FirstOrDefault();
+                var team2 = parameter.Matches.Where(match => match.Games.Contains(newGame)).Select(match => match.Team2).FirstOrDefault();
+                CreateGameTeamStats(newGame, team1, LolColor.blue);
+                CreateGameTeamStats(newGame, team2, LolColor.red);
+                CreateGameTeamPlayersStats(newGame, team1);
+                CreateGameTeamPlayersStats(newGame, team2);
             }
         }
 
@@ -40,12 +39,17 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolExampleGameStats {
                 CloudDrakeKilled = 1,
                 ElderDrakeKilled = 2,
                 TurretDestroyed = 3,
+                GoldEarned = 10000,
                 Ban1 = champions[random.Next(champions.Count)],
                 Ban2 = champions[random.Next(champions.Count)],
                 Ban3 = champions[random.Next(champions.Count)],
                 Ban4 = champions[random.Next(champions.Count)],
                 Ban5 = champions[random.Next(champions.Count)]
             });
+        }
+
+        private IEnumerable<Game> GetNewGames(IEnumerable<Match> matches) {
+            return matches.SelectMany(match => match.Games.Where(apiGame => !context.LolGameTeams.Any(contextGame => contextGame.Game == apiGame) && apiGame.EndTime != default));
         }
 
         private void CreateGameTeamPlayersStats(Game newGame, Team team) {
@@ -63,20 +67,24 @@ namespace ErtsApiFetcher.ApiDataProcessors.LolExampleGameStats {
                     availableRoles = availableRoles.Where(e => e != role).ToArray();
                 }
 
-                var gamePlayer = new LolGamePlayer() {
-                    Player = player,
-                    Game = newGame,
-                    Role = role,
-                    Kills = 2,
-                    Deaths = 3,
-                    DamageDealtToChamps = 65,
-                    Champion = champions[random.Next(champions.Count)],
-                    Spell1 = spells[random.Next(spells.Count)],
-                    Spell2 = spells[random.Next(spells.Count)]
-                };
-                context.LolGamePlayers.Add(gamePlayer);
+                if (role != LolRole.sub) {
+                    var gamePlayer = new LolGamePlayer() {
+                        Player = player,
+                        Game = newGame,
+                        Role = role,
+                        Kills = 2,
+                        Deaths = 3,
+                        MinionsKilled = 100,
+                        GoldEarned = 444,
+                        DamageDealtToChamps = 65,
+                        Champion = champions[random.Next(champions.Count)],
+                        Spell1 = spells[random.Next(spells.Count)],
+                        Spell2 = spells[random.Next(spells.Count)]
+                    };
+                    context.LolGamePlayers.Add(gamePlayer);
 
-                GenerateGamePlayerItems(gamePlayer);
+                    GenerateGamePlayerItems(gamePlayer);
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using ErtsApplication.DTO;
 using ErtsModel;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,7 +60,7 @@ namespace ErtsApplication.DAL {
                     Kills = tournamentPlayer.AverageKills,
                     Deaths = tournamentPlayer.AverageDeaths,
                     Assists = tournamentPlayer.AverageAssists,
-                    Kda = tournamentPlayer.AverageDeaths == null ? null : tournamentPlayer.AverageDeaths != 0 ? ((tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) / tournamentPlayer.AverageDeaths).ToString() : (tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) == 0 ? "0" : "Perfect",
+                    Kda = tournamentPlayer.AverageDeaths == null ? null : tournamentPlayer.AverageDeaths != 0 ? (Math.Round((float)((tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) / tournamentPlayer.AverageDeaths), 2)).ToString() : (tournamentPlayer.AverageKills + tournamentPlayer.AverageAssists) == 0 ? "0" : "Perfect",
                     Cs = tournamentPlayer.AverageMinionsKilled,
                     CsPerMinute = tournamentPlayer.MinionsPerMinute,
                     Gold = tournamentPlayer.AverageGoldEarned,

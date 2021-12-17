@@ -13,7 +13,6 @@ namespace ErtsApplication.DAL {
 
         public ActionResult<LolGameFullStatsDto> GetLolGameStats(int gameId) {
 
-            System.Console.WriteLine(gameId);
             var game = Context.Games.Where(o => o.Id == gameId && o.Winner != null && o.Winner.GameType == ErtsModel.Enums.GameType.lol).FirstOrDefault();
 
             if (game == null) {
