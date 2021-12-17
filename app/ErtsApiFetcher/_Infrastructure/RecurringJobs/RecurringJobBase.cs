@@ -16,7 +16,7 @@ namespace ErtsApiFetcher._Infrastructure.RecurringJobs {
         protected readonly ErtsContext context;
         protected readonly AppConfig appConfig;
 
-        public RecurringJobBase(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) {
+        protected RecurringJobBase(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) {
             this.context = context;
             this.appConfig = appConfig;
             this.executor = executor;

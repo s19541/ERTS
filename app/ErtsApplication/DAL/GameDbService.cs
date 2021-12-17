@@ -22,7 +22,12 @@ namespace ErtsApplication.DAL {
 
             var ts = game.EndTime != null ? (game.EndTime - game.StartTime) : System.TimeSpan.Zero;
             var minutes = ts.TotalMinutes != 0 ? ((int)ts.TotalMinutes).ToString() : "00";
+            if (minutes.Length == 1)
+                minutes = "0" + minutes;
             var seconds = ts.TotalSeconds % 60 != 0 ? (ts.TotalSeconds % 60).ToString() : "00";
+            if (seconds.Length == 1)
+                seconds = "0" + seconds;
+
             var gameLength = minutes + ":" + seconds;
 
             var blueTeamStats = Context.LolGameTeams.Where(o => o.Game == game && o.Color == ErtsModel.Enums.LolColor.blue).FirstOrDefault();

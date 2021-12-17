@@ -74,6 +74,7 @@ namespace ErtsApiFetcher {
                     EnableTransactionScopeEnlistment = true,
                     TransactionSynchronisationTimeout =
                         TimeSpan.FromSeconds(hangfireTransactionSynchronisationTimeoutInSeconds),
+                    InvisibilityTimeout = TimeSpan.FromMinutes(720)
                 });
 
             return jobStorage;

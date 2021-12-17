@@ -1,7 +1,7 @@
 ﻿using ErtsApiFetcher.Services;
 using ErtsModel;
 using ErtsModel.Enums;
-using PandaScoreNET.LoL;
+using PandaScore.NET.Entities.QueryOptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

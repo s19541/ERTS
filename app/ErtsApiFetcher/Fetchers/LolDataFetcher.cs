@@ -1,7 +1,7 @@
 ﻿using ErtsApiFetcher.Services;
 using ErtsModel;
 using ErtsModel.Entities.Lol;
-using PandaScoreNET.LoL;
+using PandaScore.NET.Entities.QueryOptions;
 using System.Collections.Generic;
 
 namespace ErtsApiFetcher.Fetchers {
