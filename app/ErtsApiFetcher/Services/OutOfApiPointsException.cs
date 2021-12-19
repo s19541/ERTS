@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace ErtsApiFetcher.Services {
-    public class NoAmmoException : Exception {
+    public class OutOfApiPointsException : Exception {
 
     }
 }

@@ -17,7 +17,9 @@ namespace ErtsApiFetcher.Services {
                 throw;
             } catch (AggregateException e) {
                 System.Console.WriteLine(e.ToString());
-                throw new NoAmmoException();
+                if (e.ToString().Contains("The given header was not found") || e.ToString().Contains("TooManyRequests"))
+                    throw new OutOfApiPointsException();
+                throw;
             } catch (Exception) {
                 throw;
             }

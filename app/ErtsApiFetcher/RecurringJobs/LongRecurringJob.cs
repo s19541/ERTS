@@ -14,11 +14,11 @@ using ErtsModel;
 using System;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(MinutelyRecurringJob), nameof(MinutelyRecurringJob), ErtsCron.Never)]
-    public class MinutelyRecurringJob : RecurringJobBase {
-        private readonly DateTime from = DateTime.Now.AddMinutes(-3);
+    [RecurringJobInfo(typeof(LongRecurringJob), nameof(LongRecurringJob), ErtsCron.Every10Minutes)]
+    public class LongRecurringJob : RecurringJobBase {
+        private readonly DateTime from = DateTime.Now.AddMinutes(-10);
 
-        public MinutelyRecurringJob(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) : base(context, appConfig, executor) {
+        public LongRecurringJob(ErtsContext context, AppConfig appConfig, ApiDataProcessorExecutor executor) : base(context, appConfig, executor) {
         }
 
         public override void Job() {

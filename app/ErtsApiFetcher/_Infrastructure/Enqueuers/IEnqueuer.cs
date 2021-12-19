@@ -7,16 +7,6 @@ namespace ErtsApiFetcher._Infrastructure.Enqueuers
 {
     public interface IEnqueuer
     {
-        string Enqueue(Expression<Func<Task>> func);
-
-        string Enqueue<T>(Expression<Func<T, Task>> func);
-
-        string Enqueue<T>(Expression<Action<T>> func);
-
-        string Schedule(Expression<Func<Task>> func, DateTime executionTime);
-
-        public void AddRecurringJob(RecurringJobInfoAttribute recurringJobInfo);
-
-        void DeleteScheduledJob(string jobId);
+       public void AddRecurringJob(RecurringJobInfoAttribute recurringJobInfo);
     }
 }
