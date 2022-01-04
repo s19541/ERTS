@@ -55,7 +55,7 @@ class TournamentList extends React.Component<IJoinedProps, IState> {
 		SendActionWithResponse(actionParameters);
 
 		let actionParameters2: IActionParameters<LeagueDto | null> = {
-			action: () => new LeagueClient().get(this.state.leagueId),
+			action: () => new LeagueClient().getLeague(this.state.leagueId),
 			onSuccess: (response) => {
 				this.setState({
 					league: response,
@@ -74,7 +74,7 @@ class TournamentList extends React.Component<IJoinedProps, IState> {
 						<Image src={this.state.league?.imageUrl} fluid />
 					</Col>
 					<Col md="2">
-						<p className="h1 text-white">{this.state.league?.name}</p>
+						<p className="h1 text-white">{this.state.league?.name} </p>
 						<p>
 							<a href={this.state.league?.url} className="h3 text-white">
 								{this.state.league?.url}

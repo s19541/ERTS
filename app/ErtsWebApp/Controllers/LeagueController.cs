@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsApplication.Controllers.Lol {
+namespace ErtsWebApp.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class LeagueController : ControllerBase {
@@ -16,7 +16,7 @@ namespace ErtsApplication.Controllers.Lol {
 
         [Route("[action]/{leagueId}")]
         [HttpGet]
-        public ActionResult<LeagueDto> Get(int leagueId) {
+        public ActionResult<LeagueDto> GetLeague(int leagueId) {
             return _dbService.GetLeague(leagueId);
         }
 

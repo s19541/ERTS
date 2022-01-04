@@ -52,7 +52,7 @@ class SerieList extends React.Component<IJoinedProps, IState> {
 		SendActionWithResponse(actionParameters);
 
 		let actionParameters2: IActionParameters<LeagueDto | null> = {
-			action: () => new LeagueClient().get(this.state.leagueId),
+			action: () => new LeagueClient().getLeague(this.state.leagueId),
 			onSuccess: (response) => {
 				this.setState({
 					league: response,

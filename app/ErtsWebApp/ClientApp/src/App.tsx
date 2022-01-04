@@ -1,5 +1,5 @@
 import React from "react";
-import Navigation from "./components/fragments/Navigation";
+import Heading from "./components/fragments/Heading";
 import Home from "./components/pages/Home";
 import Footer from "./components/fragments/Footer";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
@@ -20,7 +20,7 @@ const App: React.FunctionComponent = () => {
 	document.body.style.backgroundColor = "#778899";
 	return (
 		<BrowserRouter>
-			<Navigation />
+			<Heading />
 			<Switch>
 				<Route path={Resources.pageAdresses.home} exact component={Home} />
 				<Route

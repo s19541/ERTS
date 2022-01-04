@@ -1,16 +1,12 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Image } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-interface IProps {
-	//onGameChanged: (gameType: string) => void;
-}
-
-class Footer extends React.Component<IProps & RouteComponentProps> {
+class Footer extends React.Component<RouteComponentProps> {
 	private redirectToPage(gameType: string, page: string) {
 		this.props.history.push(page);
-		//this.props.onGameChanged(gameType)
 	}
+
 	render() {
 		return (
 			<>
@@ -19,7 +15,7 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 						onClick={() =>
 							this.redirectToPage("csgo", "/csgo/leagues")
 						}>
-						<img
+						<Image
 							alt=""
 							src="/images/csgo-logo.png"
 							width="100"
@@ -31,7 +27,7 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 						onClick={() =>
 							this.redirectToPage("lol", "/lol/leagues")
 						}>
-						<img
+						<Image
 							alt=""
 							src="/images/lol-logo.png"
 							width="100"
@@ -44,7 +40,7 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 							this.redirectToPage("dota2", "/dota2/leagues")
 						}
 					>
-						<img
+						<Image
 							alt=""
 							src="/images/dota2-logo.png"
 							width="100"
@@ -57,7 +53,7 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 							this.redirectToPage("overwatch", "/overwatch/leagues")
 						}
 					>
-						<img
+						<Image
 							alt=""
 							src="/images/overwatch-logo.png"
 							width="100"
@@ -70,7 +66,7 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 							this.redirectToPage("valorant", "/valorant/leagues")
 						}
 					>
-						<img
+						<Image
 							alt=""
 							src="/images/valorant-logo.png"
 							width="100"
@@ -78,7 +74,6 @@ class Footer extends React.Component<IProps & RouteComponentProps> {
 							className="d-inline-block align-top"
 						/>{" "}
 					</Navbar.Brand>
-					<div className="ml-auto">miejsce na sociale</div>
 				</Navbar>
 			</>
 		);

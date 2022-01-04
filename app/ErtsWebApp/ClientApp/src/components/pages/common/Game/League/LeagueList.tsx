@@ -38,15 +38,16 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		this.setState({
 			gameType
 		})
-		this.getLeagueImages(gameType);
+		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
+		this.getLeagueImages(gameType, fragment);
 	}
 
 	componentDidMount() {
-		this.getLeagueImages(this.state.gameType);
+		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
+		this.getLeagueImages(this.state.gameType, fragment);
 	}
 
-	getLeagueImages(gameType: string) {
-		var fragment = new URLSearchParams(this.props.location.search).get("fragment")?.toString() ?? "";
+	getLeagueImages(gameType: string, fragment: string) {
 		let actionParameters: IActionParameters<LeagueImageDto[] | null> = {
 			action: () => new LeagueClient().getLeagueImages(gameType, fragment.toLowerCase()),
 			onSuccess: (response) => {
@@ -62,7 +63,7 @@ class LeagueList extends React.Component<IJoinedProps, IState> {
 		return (
 			this.state.leagues && (
 				<Container style={{ paddingBottom: "10vh", paddingTop: "5vh", paddingRight: "6vh", paddingLeft: "6vh" }}>
-					<GameNav activeKey={"leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(this.state.gameType)} />
+					<GameNav activeKey={"leagues"} gameType={this.state.gameType} onHandleEvent={(fragment) => this.getLeagueImages(this.state.gameType, fragment)} />
 
 					<CardGroup>
 						{this.state.leagues.map((league, i) => (

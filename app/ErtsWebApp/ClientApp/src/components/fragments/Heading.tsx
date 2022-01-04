@@ -8,7 +8,7 @@ interface IState {
 	language: string;
 }
 
-class Navigation extends React.Component<RouteComponentProps, IState> {
+class Heading extends React.Component<RouteComponentProps, IState> {
 
 	constructor(props: RouteComponentProps) {
 		super(props);
@@ -38,7 +38,7 @@ class Navigation extends React.Component<RouteComponentProps, IState> {
 				<Navbar bg="dark" variant="dark" sticky="top">
 					<Container fluid>
 						<Navbar.Brand>
-							<img
+							<Image
 								onClick={() => this.redirectToPage("/")}
 								alt=""
 								src="/images/erts-logo-simple.png"
@@ -108,4 +108,4 @@ class Navigation extends React.Component<RouteComponentProps, IState> {
 		);
 	}
 }
-export default withTranslation()(withRouter(Navigation));
+export default withTranslation()(withRouter(Heading));

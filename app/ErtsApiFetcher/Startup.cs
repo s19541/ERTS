@@ -29,7 +29,7 @@ namespace ErtsApiFetcher {
 
             InitializeDb(AppConfig.ErtsDbConnectionString);
 
-            var hangfireJobStorage = GetJobStorage(AppConfig.ErtsHangfireConnectionString, AppConfig.ErtsHangfireSchemaName, true, 60);
+            var hangfireJobStorage = GetJobStorage(AppConfig.ErtsHangfireConnectionString, AppConfig.ErtsHangfireSchemaName, true, 60, 120);
             var enqueuer = GetInstance(hangfireJobStorage);
 
             services.AddHangfire(configuration => configuration
@@ -65,7 +65,7 @@ namespace ErtsApiFetcher {
             recurringJobInitalizer.ScheduleRecurringJobs();
         }
 
-        public JobStorage GetJobStorage(string connectionString, string schemaName, bool prepareSchemaIfNecessary, int hangfireTransactionSynchronisationTimeoutInSeconds) {
+        public JobStorage GetJobStorage(string connectionString, string schemaName, bool prepareSchemaIfNecessary, int hangfireTransactionSynchronisationTimeoutInSeconds, int hangfireInvisibilityTimeoutInMinutes) {
             var jobStorage = new PostgreSqlStorage(connectionString,
                 new PostgreSqlStorageOptions() {
                     SchemaName = schemaName,
@@ -73,7 +73,7 @@ namespace ErtsApiFetcher {
                     EnableTransactionScopeEnlistment = true,
                     TransactionSynchronisationTimeout =
                         TimeSpan.FromSeconds(hangfireTransactionSynchronisationTimeoutInSeconds),
-                    InvisibilityTimeout = TimeSpan.FromMinutes(720)
+                    InvisibilityTimeout = TimeSpan.FromMinutes(hangfireInvisibilityTimeoutInMinutes)
                 });
 
             return jobStorage;

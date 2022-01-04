@@ -2,7 +2,7 @@
 using ErtsApplication.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ErtsWebApp.Controllers.Lol {
+namespace ErtsWebApp.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class GameController : ControllerBase {

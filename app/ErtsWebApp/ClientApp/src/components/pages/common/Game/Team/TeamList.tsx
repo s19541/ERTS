@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Image, CardGroup, Form, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, CardGroup } from "react-bootstrap";
 import {
     TeamClient,
     TeamImageDto,

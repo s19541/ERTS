@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsApplication.Controllers.Lol {
+namespace ErtsWebApp.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class TeamController : ControllerBase {

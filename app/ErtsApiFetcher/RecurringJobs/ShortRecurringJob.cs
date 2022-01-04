@@ -8,7 +8,8 @@ using ErtsModel;
 using System;
 
 namespace ErtsApiFetcher.RecurringJobs {
-    [RecurringJobInfo(typeof(ShortRecurringJob), nameof(ShortRecurringJob), ErtsCron.Minutely)]
+    [RecurringJobInfo(typeof(ShortRecurringJob),
+        nameof(ShortRecurringJob), ErtsCron.Minutely)]
     public class ShortRecurringJob : RecurringJobBase {
         private readonly DateTime from = DateTime.Now.AddMinutes(-2);
 

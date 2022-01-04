@@ -3,7 +3,7 @@ using ErtsApplication.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace ErtsWebApp.Controllers.Lol {
+namespace ErtsWebApp.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class TournamentController : ControllerBase {
