@@ -3,19 +3,23 @@ import { Col, Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import { useHistory } from "react-router";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import React, { useEffect } from 'react'
 
-const GameNav = (props: { activeKey: string, gameType: string, onHandleEvent: (fragment: string) => void }) => {
+interface GameNavProps {
+    activeKey: string,
+    gameType: string,
+    onHandleEvent: (fragment: string) => void
+}
 
-
-    let history = useHistory();
-    const { t } = useTranslation();
-
+const GameNav: React.FunctionComponent<GameNavProps> = (props) => {
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     }
 
-    const [formValue, setFormValue] = useState<string | undefined>(useQuery().get("fragment")?.toString() ?? "");
+    let history = useHistory();
+    const { t } = useTranslation();
 
+    const [formValue, setFormValue] = useState<string | undefined>(useQuery().get("fragment")?.toString() ?? "");
 
     let redirectToPage = (page: string) => {
         history.push({
@@ -29,6 +33,12 @@ const GameNav = (props: { activeKey: string, gameType: string, onHandleEvent: (f
         props.onHandleEvent(fragment);
     }
 
+    useEffect(() => {
+        return history.listen((location) => {
+            setFormValue(new URLSearchParams(location.search).get("fragment")?.toString() ?? "");
+        })
+    }, [history])
+
     return (
 
         <Navbar variant="dark" bg="dark">
@@ -36,7 +46,7 @@ const GameNav = (props: { activeKey: string, gameType: string, onHandleEvent: (f
                 <Navbar.Brand style={{ width: "100%" }}>
                     <Form>
                         <Col md="auto">
-                            <Form.Control type="text" defaultValue={formValue} placeholder={t("game-type.nav.placeholder")} onChange={(event) => onHandle(event.target.value)} />
+                            <Form.Control type="text" value={formValue} placeholder={t("game-type.nav.placeholder")} onChange={(event) => onHandle(event.target.value)} />
                         </Col>
                     </Form>
                 </Navbar.Brand>

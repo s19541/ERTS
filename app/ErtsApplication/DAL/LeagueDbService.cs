@@ -23,7 +23,7 @@ namespace ErtsApplication.DAL {
 
         public ActionResult<IEnumerable<LeagueImageDto>> GetLeagueImages(GameType gameType, string fragment) {
             List<LeagueImageDto> leagueImageDtos = new List<LeagueImageDto>();
-            var leagues = Context.Leagues.Where(contextLeague => contextLeague.GameType == gameType && fragment == null || contextLeague.Name.ToLower().Contains(fragment)).ToList();
+            var leagues = Context.Leagues.Where(contextLeague => contextLeague.GameType == gameType && (fragment == null || contextLeague.Name.ToLower().Contains(fragment))).ToList();
 
             foreach (var league in leagues) {
                 var leagueImageDto = new LeagueImageDto() {
