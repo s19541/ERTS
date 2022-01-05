@@ -2,13 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class TournamentConfiguration : IEntityTypeConfiguration<Tournament>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class TournamentConfiguration : IEntityTypeConfiguration<Tournament> {
         private const string _serieId = "SerieId";
-        public void Configure(EntityTypeBuilder<Tournament> builder)
-        {
+        public void Configure(EntityTypeBuilder<Tournament> builder) {
             builder.HasComment("Tournament");
             builder.HasKey(x => x.Id);
             builder.Property(b => b.Id).HasComment("Id").ValueGeneratedOnAdd();

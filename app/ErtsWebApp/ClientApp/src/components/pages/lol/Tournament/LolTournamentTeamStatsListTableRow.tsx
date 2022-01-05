@@ -2,9 +2,11 @@ import { LolTournamentTeamStatsDto } from "../../../../services/GeneratedClient"
 import { useHistory } from "react-router";
 import { Image } from "react-bootstrap"
 
-function LolTournamentTeamStatsListTableRow(props: {
+interface IProps {
     teamStats: LolTournamentTeamStatsDto;
-}) {
+}
+
+const LolTournamentTeamStatsListTableRow: React.FunctionComponent<IProps> = (props) => {
     let history = useHistory();
     const redirectToPage = (page: string) => {
         history.push(page);

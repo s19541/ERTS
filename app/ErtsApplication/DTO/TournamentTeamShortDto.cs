@@ -1,7 +1,5 @@
-﻿namespace ErtsApplication.DTO
-{
-    public class TournamentTeamShortDto
-    {
+﻿namespace ErtsApplication.DTO {
+    public class TournamentTeamShortDto {
         public int MatchesWon { get; set; }
         public int MatchesLost { get; set; }
         public int GamesWon { get; set; }

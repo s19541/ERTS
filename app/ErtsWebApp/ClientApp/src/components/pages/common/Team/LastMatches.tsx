@@ -1,12 +1,12 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { TeamPastMatchDto } from "../../../../services/GeneratedClient";
-
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
-function LastMatches(props: {
+interface IProps {
     lastMatches: TeamPastMatchDto[] | undefined;
-}) {
+}
+const LastMatches: React.FunctionComponent<IProps> = (props) => {
     let history = useHistory();
     const { t } = useTranslation();
     const redirectToPage = (page: string) => {

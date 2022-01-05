@@ -2,17 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class LolGamePlayerConfiguration : IEntityTypeConfiguration<LolGamePlayer>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class LolGamePlayerConfiguration : IEntityTypeConfiguration<LolGamePlayer> {
         private const string _playerId = "PlayerId";
         private const string _gameId = "GameId";
         private const string _championId = "ChampionId";
         private const string _spell1Id = "Spell1Id";
         private const string _spell2Id = "Spell2Id";
-        public void Configure(EntityTypeBuilder<LolGamePlayer> builder)
-        {
+        public void Configure(EntityTypeBuilder<LolGamePlayer> builder) {
             builder.HasComment("Player stats in game");
 
             builder.HasKey(x => x.Id);

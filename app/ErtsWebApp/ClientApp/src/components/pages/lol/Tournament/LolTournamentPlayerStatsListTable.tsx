@@ -1,12 +1,13 @@
-import React from "react";
 import { Table } from "react-bootstrap";
 import { LolTournamentPlayerStatsDto } from "../../../../services/GeneratedClient";
 import LolTournamentPlayerStatsListTableRow from "./LolTournamentPlayerStatsListTableRow";
 import { useTranslation } from "react-i18next";
 
-function LolTournamentPlayerStatsListTable(props: {
+interface IProps {
 	playerStatsList: LolTournamentPlayerStatsDto[] | null;
-}) {
+}
+
+const LolTournamentPlayerStatsListTable: React.FunctionComponent<IProps> = (props) => {
 	const playerStatsList = props.playerStatsList;
 	const { t } = useTranslation();
 

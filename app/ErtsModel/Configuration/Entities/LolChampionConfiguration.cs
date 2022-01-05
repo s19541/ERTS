@@ -2,12 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class LolChampionConfiguration : IEntityTypeConfiguration<LolChampion>
-    {
-        public void Configure(EntityTypeBuilder<LolChampion> builder)
-        {
+namespace ErtsModel.Configuration.Entities {
+    class LolChampionConfiguration : IEntityTypeConfiguration<LolChampion> {
+        public void Configure(EntityTypeBuilder<LolChampion> builder) {
             builder.HasComment("Lol Champion");
 
             builder.HasKey(x => x.Id);

@@ -3,15 +3,11 @@ using ErtsModel.Entities.Lol;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsModel.FakeSeeds.Factories
-{
-    static class FakeLolTournamentPlayerFactory
-    {
-        public static LolTournamentPlayer Create(Player player, Tournament tournament, List<LolChampion> champions)
-        {
+namespace ErtsModel.FakeSeeds.Factories {
+    static class FakeLolTournamentPlayerFactory {
+        public static LolTournamentPlayer Create(Player player, Tournament tournament, List<LolChampion> champions) {
             var random = new Random();
-            return new LolTournamentPlayer
-            {
+            return new LolTournamentPlayer {
                 Player = player,
                 Tournament = tournament,
                 AverageKills = Faker.RandomNumber.Next(0, 1000) / 10.0,

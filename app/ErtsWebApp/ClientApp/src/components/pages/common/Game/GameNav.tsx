@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import React, { useEffect } from 'react'
 
 interface GameNavProps {
-    activeKey: string,
-    gameType: string,
-    onHandleEvent: (fragment: string) => void
+    activeKey: string;
+    gameType: string;
+    onHandleEvent: (fragment: string) => void;
 }
 
 const GameNav: React.FunctionComponent<GameNavProps> = (props) => {

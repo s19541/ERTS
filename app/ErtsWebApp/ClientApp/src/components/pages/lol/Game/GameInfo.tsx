@@ -2,7 +2,12 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { LolGameFullStatsDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function MatchInfo(props: { game: LolGameFullStatsDto | null, gameType: string }) {
+interface IProps {
+    game: LolGameFullStatsDto | null;
+    gameType: string;
+}
+
+const MatchInfo: React.FunctionComponent<IProps> = (props) => {
     var game = props.game;
     var gameType = props.gameType;
 

@@ -4,19 +4,15 @@ using ErtsModel.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsModel.FakeSeeds.Factories
-{
-    static class FakeLolGamePlayerFactory
-    {
-        public static LolGamePlayer Create(Player player, Game game, LolRole role, List<LolChampion> champions, List<LolSpell> spells)
-        {
+namespace ErtsModel.FakeSeeds.Factories {
+    static class FakeLolGamePlayerFactory {
+        public static LolGamePlayer Create(Player player, Game game, LolRole role, List<LolChampion> champions, List<LolSpell> spells) {
             var startTime = DateTime.Now - TimeSpan.FromDays(Faker.RandomNumber.Next(1, 50));
             var endTime = startTime + TimeSpan.FromMinutes(Faker.RandomNumber.Next(15, 80));
             var random = new Random();
             var killsNumber = Faker.RandomNumber.Next(0, 30);
 
-            return new LolGamePlayer
-            {
+            return new LolGamePlayer {
                 Player = player,
                 Game = game,
                 Role = role,

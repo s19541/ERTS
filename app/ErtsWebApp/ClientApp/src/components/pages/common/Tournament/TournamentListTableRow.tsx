@@ -1,10 +1,12 @@
 import { TournamentShortDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function TournamentListTableRow(props: {
+interface IProps {
 	tournament: TournamentShortDto;
 	serieId: number;
-}) {
+}
+
+const TournamentListTableRow: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		history.push(page);

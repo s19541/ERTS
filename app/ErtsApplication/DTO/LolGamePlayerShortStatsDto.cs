@@ -1,10 +1,8 @@
 ﻿using ErtsModel.Enums;
 using System.Collections.Generic;
 
-namespace ErtsApplication.DTO
-{
-    public class LolGamePlayerShortStatsDto
-    {
+namespace ErtsApplication.DTO {
+    public class LolGamePlayerShortStatsDto {
         public long TeamId { get; set; }
         public string PlayerNick { get; set; }
         public LolRole Role { get; set; }

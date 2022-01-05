@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ErtsModel.Entities {
+﻿namespace ErtsModel.Entities {
     public class TournamentTeam : ModelBase {
         public virtual Team Team { get; set; }
         public virtual Tournament Tournament { get; set; }

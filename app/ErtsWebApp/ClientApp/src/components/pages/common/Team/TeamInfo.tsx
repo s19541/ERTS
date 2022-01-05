@@ -1,7 +1,10 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { TeamDto } from "../../../../services/GeneratedClient";
 
-function TeamInfo(props: { team: TeamDto | null }) {
+interface IProps {
+    team: TeamDto | null;
+}
+const TeamInfo: React.FunctionComponent<IProps> = (props) => {
     var team = props.team;
     return (
         <Container>

@@ -4,12 +4,9 @@ using ErtsModel.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class LeagueConfiguration : IEntityTypeConfiguration<League>
-    {
-        public void Configure(EntityTypeBuilder<League> builder)
-        {
+namespace ErtsModel.Configuration.Entities {
+    class LeagueConfiguration : IEntityTypeConfiguration<League> {
+        public void Configure(EntityTypeBuilder<League> builder) {
             builder.HasComment("League");
 
             builder.HasKey(x => x.Id);

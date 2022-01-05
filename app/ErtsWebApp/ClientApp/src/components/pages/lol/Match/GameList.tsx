@@ -5,9 +5,11 @@ import GameTeamStats from "./GameTeamStats";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
-function GameList(props: {
+interface IProps {
 	gameList: LolGameShortStatsDto[] | undefined;
-}) {
+}
+
+const GameList: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		history.push(page);

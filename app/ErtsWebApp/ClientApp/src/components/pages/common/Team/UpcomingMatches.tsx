@@ -3,9 +3,11 @@ import { TeamUpcomingMatchDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
-function LastMatches(props: {
+interface IProps {
     upcomingMatches: TeamUpcomingMatchDto[] | undefined;
-}) {
+}
+
+const LastMatches: React.FunctionComponent<IProps> = (props) => {
     let history = useHistory();
     const redirectToPage = (page: string) => {
         history.push(page);
@@ -34,7 +36,6 @@ function LastMatches(props: {
                             width={25}
                             height={25} />
                     </Col>
-
                 </Row>
             ))}
         </Container>

@@ -2,7 +2,12 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { MatchDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function MatchInfo(props: { match: MatchDto | null, gameType: string }) {
+interface IProps {
+	match: MatchDto | null;
+	gameType: string;
+}
+
+const MatchInfo: React.FunctionComponent<IProps> = (props) => {
 	var match = props.match;
 	var gameType = props.gameType;
 

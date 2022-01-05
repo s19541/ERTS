@@ -4,16 +4,12 @@ using ErtsModel.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsModel.FakeSeeds.Factories
-{
-    static class FakeLolGameTeamFactory
-    {
-        public static LolGameTeam Create(Team team, Game game, LolColor color, List<LolChampion> champions)
-        {
+namespace ErtsModel.FakeSeeds.Factories {
+    static class FakeLolGameTeamFactory {
+        public static LolGameTeam Create(Team team, Game game, LolColor color, List<LolChampion> champions) {
             var random = new Random();
 
-            return new LolGameTeam
-            {
+            return new LolGameTeam {
                 Team = team,
                 Game = game,
                 BaronKilled = Faker.RandomNumber.Next(0, 5),

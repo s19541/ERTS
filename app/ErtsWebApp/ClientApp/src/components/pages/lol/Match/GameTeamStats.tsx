@@ -2,7 +2,11 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { LolGameTeamShortStatsDto } from "../../../../services/GeneratedClient";
 import { useTranslation } from "react-i18next";
 
-function GameTeamStats(props: { teamStats: LolGameTeamShortStatsDto | undefined }) {
+interface IProps {
+	teamStats: LolGameTeamShortStatsDto | undefined;
+}
+
+const GameTeamStats: React.FunctionComponent<IProps> = (props) => {
 	const teamStats = props.teamStats;
 	const { t } = useTranslation();
 

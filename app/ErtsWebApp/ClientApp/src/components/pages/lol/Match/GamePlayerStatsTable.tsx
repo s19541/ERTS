@@ -3,9 +3,11 @@ import { LolGamePlayerShortStatsDto } from "../../../../services/GeneratedClient
 import GamePlayerStatsTableRow from "./GamePlayerStatstableRow";
 import { useTranslation } from "react-i18next";
 
-function GamePlayerStatsTable(props: {
+interface IProps {
 	playerStatsList: LolGamePlayerShortStatsDto[] | undefined;
-}) {
+}
+
+const GamePlayerStatsTable: React.FunctionComponent<IProps> = (props) => {
 	const playerStatsList = props.playerStatsList;
 	const { t } = useTranslation();
 

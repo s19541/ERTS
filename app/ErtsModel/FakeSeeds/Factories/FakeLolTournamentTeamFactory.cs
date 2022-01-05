@@ -3,16 +3,12 @@ using ErtsModel.Entities.Lol;
 using System;
 using System.Collections.Generic;
 
-namespace ErtsModel.FakeSeeds.Factories
-{
-    static class FakeLolTournamentTeamFactory
-    {
-        public static LolTournamentTeam Create(Team team, Tournament tournament, List<LolChampion> champions)
-        {
+namespace ErtsModel.FakeSeeds.Factories {
+    static class FakeLolTournamentTeamFactory {
+        public static LolTournamentTeam Create(Team team, Tournament tournament, List<LolChampion> champions) {
             var random = new Random();
 
-            return new LolTournamentTeam
-            {
+            return new LolTournamentTeam {
                 Team = team,
                 Tournament = tournament,
                 MatchesWon = 0,

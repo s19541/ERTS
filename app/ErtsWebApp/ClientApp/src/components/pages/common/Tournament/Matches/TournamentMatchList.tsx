@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "../../../../../css/myStyle.css";
-import { MatchClient, MatchDto, MatchShortDto } from "../../../../../services/GeneratedClient";
+import { MatchClient, MatchShortDto } from "../../../../../services/GeneratedClient";
 import {
 	IActionParameters,
 	SendActionWithResponse,

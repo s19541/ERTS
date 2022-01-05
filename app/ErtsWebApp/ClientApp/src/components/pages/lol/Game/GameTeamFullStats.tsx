@@ -3,7 +3,12 @@ import { LolGameTeamFullStatsDto } from "../../../../services/GeneratedClient";
 import GameTeamExcludingStats from "./GameTeamExcludingStats";
 import { useTranslation } from "react-i18next";
 
-function GameTeamFullStats(props: { blueTeamStats: LolGameTeamFullStatsDto | undefined, redTeamStats: LolGameTeamFullStatsDto | undefined }) {
+interface IProps {
+    blueTeamStats: LolGameTeamFullStatsDto | undefined;
+    redTeamStats: LolGameTeamFullStatsDto | undefined;
+}
+
+const GameTeamFullStats: React.FunctionComponent<IProps> = (props) => {
     const blueTeamStats = props.blueTeamStats;
     const redTeamStats = props.redTeamStats;
     const { t } = useTranslation();

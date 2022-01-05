@@ -2,7 +2,12 @@ import { Nav } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 
-function TournamentNav(props: { activeKey: string, gameType: string }) {
+interface IProps {
+	activeKey: string;
+	gameType: string;
+}
+
+const TournamentNav: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		history.push(page);

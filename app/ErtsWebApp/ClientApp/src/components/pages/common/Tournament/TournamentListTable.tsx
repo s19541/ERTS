@@ -3,10 +3,11 @@ import { TournamentShortDto } from "../../../../services/GeneratedClient";
 import TournamentListTableRow from "./TournamentListTableRow";
 import { useTranslation } from "react-i18next";
 
-function TournamentListTable(props: {
+interface IProps {
 	tournamentList: TournamentShortDto[] | null;
 	serieId: number;
-}) {
+}
+const TournamentListTable: React.FunctionComponent<IProps> = (props) => {
 	const tournaments = props.tournamentList;
 	const serieId = props.serieId;
 	const { t } = useTranslation();

@@ -2,15 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class PlayerConfiguration : IEntityTypeConfiguration<Player>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class PlayerConfiguration : IEntityTypeConfiguration<Player> {
         internal const string TeamId = "TeamId";
         //internal const string CsgoTeamId = "CsgoTeamId";
 
-        public void Configure(EntityTypeBuilder<Player> builder)
-        {
+        public void Configure(EntityTypeBuilder<Player> builder) {
             builder.HasComment("Players");
 
             builder.HasKey(x => x.Id);

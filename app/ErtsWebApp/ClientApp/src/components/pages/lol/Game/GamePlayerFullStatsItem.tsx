@@ -2,7 +2,11 @@ import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient";
 import { useTranslation } from "react-i18next";
 
-function GamePlayerFullStatsItem(props: { playerStats: LolGamePlayerFullStatsDto | undefined }) {
+interface IProps {
+    playerStats: LolGamePlayerFullStatsDto | undefined;
+}
+
+const GamePlayerFullStatsItem: React.FunctionComponent<IProps> = (props) => {
     const playerStats = props.playerStats;
     const { t } = useTranslation();
 

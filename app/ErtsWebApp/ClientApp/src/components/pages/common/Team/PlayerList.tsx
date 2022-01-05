@@ -2,9 +2,11 @@ import { Container, Row, Col, Table, Image } from "react-bootstrap";
 import { Player } from "../../../../services/GeneratedClient";
 import { useTranslation } from "react-i18next";
 
-function PlayerList(props: {
+interface IProps {
     players: Player[] | undefined;
-}) {
+}
+
+const PlayerList: React.FunctionComponent<IProps> = (props) => {
     var players = props.players;
     const { t } = useTranslation();
 

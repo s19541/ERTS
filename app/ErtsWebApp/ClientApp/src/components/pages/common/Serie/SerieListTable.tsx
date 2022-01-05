@@ -3,10 +3,12 @@ import { SerieShortDto } from "../../../../services/GeneratedClient";
 import SerieListTableRow from "./SerieListTableRow";
 import { useTranslation } from "react-i18next";
 
-function SerieListTable(props: {
+interface IProps {
 	serieList: SerieShortDto[] | null;
 	leagueId: number;
-}) {
+}
+
+const SerieListTable: React.FunctionComponent<IProps> = (props) => {
 	const series = props.serieList;
 	const leagueId = props.leagueId;
 	const { t } = useTranslation();

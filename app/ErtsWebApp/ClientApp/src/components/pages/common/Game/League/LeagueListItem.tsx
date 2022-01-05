@@ -2,7 +2,12 @@ import { Card, Image } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { LeagueImageDto } from "../../../../../services/GeneratedClient";
 
-function LeagueListItem(props: { gameType: string; leagueImageDto: LeagueImageDto }) {
+interface IProps {
+	gameType: string;
+	leagueImageDto: LeagueImageDto;
+}
+
+const LeagueListItem: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 
 	const redirectToPage = (page: string) => {

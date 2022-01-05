@@ -1,7 +1,12 @@
-import { MatchDto, MatchShortDto } from "../../../../../services/GeneratedClient";
+import { MatchShortDto } from "../../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function TournamentMatchListTableRow(props: { match: MatchShortDto, gameType: string }) {
+interface IProps {
+	match: MatchShortDto;
+	gameType: string;
+}
+
+const TournamentMatchListTableRow: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		if (gameType == "lol")

@@ -1,10 +1,12 @@
 import { SerieShortDto } from "../../../../services/GeneratedClient";
 import { useHistory } from "react-router";
 
-function SerieListTableRow(props: {
+interface IProps {
 	serie: SerieShortDto;
 	leagueId: number;
-}) {
+}
+
+const SerieListTableRow: React.FunctionComponent<IProps> = (props) => {
 	let history = useHistory();
 	const redirectToPage = (page: string) => {
 		history.push(page);

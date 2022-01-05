@@ -3,7 +3,12 @@ import { LolGamePlayerFullStatsDto } from "../../../../services/GeneratedClient"
 import GamePlayerFullStatsItem from "./GamePlayerFullStatsItem";
 import { useTranslation } from "react-i18next";
 
-function GamePlayerFullStats(props: { blueTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined, redTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined }) {
+interface IProps {
+    blueTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined;
+    redTeamPlayersStats: LolGamePlayerFullStatsDto[] | undefined;
+}
+
+const GamePlayerFullStats: React.FunctionComponent<IProps> = (props) => {
     const blueTeamPlayersStats = props.blueTeamPlayersStats;
     const redTeamPlayersStats = props.redTeamPlayersStats;
     const { t } = useTranslation();

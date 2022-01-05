@@ -1,9 +1,11 @@
 import { Col, Row, Image } from "react-bootstrap";
 import { LolGamePlayerShortStatsDto } from "../../../../services/GeneratedClient";
 
-function GamePlayerStatsTableRow(props: {
+interface IProps {
 	playerStats: LolGamePlayerShortStatsDto;
-}) {
+}
+
+const GamePlayerStatsTableRow: React.FunctionComponent<IProps> = (props) => {
 	const playerStats = props.playerStats;
 
 	return (

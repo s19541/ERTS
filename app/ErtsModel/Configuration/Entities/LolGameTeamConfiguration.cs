@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ErtsModel.Configuration.Entities
-{
-    class LolGameTeamConfiguration : IEntityTypeConfiguration<LolGameTeam>
-    {
+namespace ErtsModel.Configuration.Entities {
+    class LolGameTeamConfiguration : IEntityTypeConfiguration<LolGameTeam> {
         private const string _teamId = "TeamId";
         private const string _gameId = "GameId";
         private const string _ban1Id = "Ban1Id";
@@ -13,8 +11,7 @@ namespace ErtsModel.Configuration.Entities
         private const string _ban3Id = "Ban3Id";
         private const string _ban4Id = "Ban4Id";
         private const string _ban5Id = "Ban5Id";
-        public void Configure(EntityTypeBuilder<LolGameTeam> builder)
-        {
+        public void Configure(EntityTypeBuilder<LolGameTeam> builder) {
             builder.HasComment("Team stats in game");
 
             builder.HasKey(x => x.Id);

@@ -1,10 +1,7 @@
-﻿namespace ErtsModel.FakeSeeds
-{
-    public class ErtsFakeSeeder
-    {
+﻿namespace ErtsModel.FakeSeeds {
+    public class ErtsFakeSeeder {
 
-        public void SeedFakeData(ErtsContext context)
-        {
+        public void SeedFakeData(ErtsContext context) {
             var teams = new TeamFakeSeeder(context.Teams).SeedIfNotSeeded();
             var lolChampions = new LolChampionFakeSeeder(context.LolChampions).SeedIfNotSeeded();
             var lolItems = new LolItemFakeSeeder(context.LolItems).SeedIfNotSeeded();

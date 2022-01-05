@@ -1,8 +1,13 @@
-import { Card, CardGroup, Col, Container, Image, Row } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { TeamImageDto } from "../../../../../services/GeneratedClient";
 
-function TeamListItem(props: { gameType: string; teamImageDto: TeamImageDto }) {
+interface IProps {
+    gameType: string;
+    teamImageDto: TeamImageDto;
+}
+
+const TeamListItem: React.FunctionComponent<IProps> = (props) => {
     let history = useHistory();
 
     const redirectToPage = (page: string) => {
@@ -16,7 +21,6 @@ function TeamListItem(props: { gameType: string; teamImageDto: TeamImageDto }) {
 
         <Card className="align-items-center" bg={color} border='white' style={{ width: '10rem', color: "white", textAlign: "center" }}
             onClick={() => redirectToPage(`/${gameType}/team/${teamImageDto.id}`)}
-
         >
             <Image src={teamImageDto.imageUrl} rounded
                 width={150}

@@ -1,5 +1,12 @@
 import { Row, Col, Image } from "react-bootstrap";
-function GameTeamExcludingStats(props: { name: string, blueTeamBoolean: boolean | undefined, redTeamBoolean: boolean | undefined }) {
+
+interface IProps {
+    name: string;
+    blueTeamBoolean: boolean | undefined;
+    redTeamBoolean: boolean | undefined;
+}
+
+const GameTeamExcludingStats: React.FunctionComponent<IProps> = (props) => {
     var name = props.name;
     var blueTeamBoolean = props.blueTeamBoolean;
     var redTeamBoolean = props.redTeamBoolean;
