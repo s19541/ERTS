@@ -44,7 +44,7 @@ namespace ErtsApplication.DAL {
                 };
                 tournamentTeamShortDtos.Add(tournamentTeamShortDto);
             }
-            return tournamentTeamShortDtos.OrderByDescending(x => x.MatchesWon).ThenBy(x => x.GamesLost).ToList();
+            return tournamentTeamShortDtos.OrderBy(x => x.MatchesLost).ThenByDescending(x => x.MatchesWon).ToList();
         }
 
         public ActionResult<IEnumerable<LolTournamentPlayerStatsDto>> GetLolTournamentPlayerStats(int tournamentId) {
